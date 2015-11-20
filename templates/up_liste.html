@@ -1,0 +1,16 @@
+{% extends 'up_squelette.html' %}
+
+{% block title %}Liste des images{% endblock %}
+
+{% block main %}
+<h1>Results :</h1>
+{% if images %}
+	<ul class="fichiers">
+	{% for img in images %}
+		<!--<li><a href="{{ url_for('upped', nom=img) }}">{{ img }}</a></li>-->
+		<img src="{{ url_for('upped', nom=img) }}" alt="uploaded image" style="width:70%;">{{ img }}
+	{% endfor %}
+	<!--<input id="btdel" type="submit" value="Delete All Files" />-->
+	</ul>
+{% endif %}
+{% endblock %}

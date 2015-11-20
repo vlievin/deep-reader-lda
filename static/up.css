@@ -1,0 +1,102 @@
+.link { stroke: #ccc; }
+.nodetext { pointer-events: none; font: 10px sans-serif; }
+
+body { 
+	margin:0;  
+	padding:0;  
+	background: no-repeat center center fixed; 
+	background-color: white;
+	background-size : cover;}
+
+.widget{
+	width: 60%;  
+	margin: 20px;
+    background-color: white; 
+    box-shadow: 0px 0px 5px gray; 
+    border-radius: 3px;  
+    text-align:center;  
+    padding-top: 10px;  
+    padding-bottom: 10px;  
+    min-height: 400px;
+    min-width: 800px;
+    }
+
+#main { 
+	margin: auto;  
+	width: 800;  
+	margin-top: 100px; 
+    background-color: white; 
+    box-shadow: 0px 0px 10px gray; 
+    border-radius: 3px;  
+    text-align:center;  
+    padding-top: 10px;  
+    padding-bottom: 40px;  }
+h1 { 
+	font-family: Open Sans; 
+	font-size: 170%; }
+form { 
+	font-family: Port Lligat Slab;  
+	text-shadow: 1px 1px 2px white;  
+	text-align: left; }
+label { 
+	display: block; 
+	width: 120px; 
+	float:left;  
+	margin-left: 130px; 
+	position: relative; 
+	top: 3px;  }
+#btsub { 
+	position:relative;  
+	left: 39%; 
+	top: 23px; 
+	width: 140px;  
+	background-image: -moz-linear-gradient(#B31A16, #FF521E);  
+	background-image: -webkit-linear-gradient(#B31A16, #FF521E);  
+	color: white;  
+	border: none; 
+	border-radius: 3px;  
+	box-shadow: 1px 1px 7px black; 
+	font-size: 130%; 
+	font-family: Open Sans;  font-weight:bold; }
+
+#btdel { 
+	position:relative;  
+	left: 39%; 
+	top: 23px; 
+	width: 150px;  
+	background-color: white; 
+	color: gray;  
+	border: none; 
+	border-radius: 3px;  
+	box-shadow: 1px 1px 7px gray;  }
+
+
+#btsub:hover { 
+	background-image: -moz-linear-gradient(#FF521E, #B31A16);  
+	background-image: -webkit-linear-gradient(#FF521E, #B31A16);  
+	color: white;  
+	font-weight: bold;  
+	border: none; 
+	border-radius: 3px;  
+	box-shadow: 1px 1px 2px black; }
+.flashed {
+	position: relative;
+	right:20px;
+	list-style-type: none; }
+.flashed li {
+	font-family: Port Lligat Slab; 
+	text-align: center;
+	padding: 5px;
+	margin-bottom: 10px;
+	border-radius: 3px;
+	box-shadow: 1px 1px 9px black; }
+.succes li {
+	background-image: -moz-linear-gradient(#B7FF4F, #6CD043);
+	background-image: -webkit-linear-gradient(#B7FF4F, #6CD043); }
+.error li {
+	background-image: -moz-linear-gradient(#F43600, #D83C31);
+	background-image: -webkit-linear-gradient(#F43600, #D83C31); }
+.fichiers {
+	text-align: left;
+	list-style-type: circle;
+	font-family: Port Lligat Slab;

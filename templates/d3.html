@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> First steps with D3.js</title>
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merienda One">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Port Lligat Slab">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='up.css') }}">
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+ 
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <!-- load D3.j from the web -->
+    <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='d3.layout.cloud.js') }}"></script>
+    <!-- // <script type="text/javascript" src="{{ url_for('static', filename='require.js') }}"></script> -->
+    <style>
+      /* tell the SVG path to be a thin blue line without any area fill */
+      path {
+        stroke-width: 5;
+        stroke-opacity: 0.8;
+        fill: none;
+      }
+      
+      .x.axis line ,x.axis path{
+        fill: none;
+        stroke: lightgrey;
+        stroke-width: 2;
+        stroke-opacity: 0.5;
+      }
+
+      .y.axis line, .y.axis path {
+        fill: none;
+        stroke: lightgrey;
+        stroke-width: 2;
+        stroke-opacity: 0.5;
+      }
+
+}
+
+    </style>
+</head>
+<body>
+    <h1> Topics distribution </h1>
+    <div id="topics" class="widget"  ></div>
+
+    <h1> Complexity </h1>
+
+    <div id="complexity" class="widget" >
+
+    </div>
+
+    <h1> Significant Words </h1>
+
+    <div id="wordCloud" class="widget" style =    "min-height: 600px;  min-width: 1200px;" ></div>
+
+    <h1> Topics graph</h1>
+
+    <div id="topicsGraph" class="widget" style =    "min-height: 600px;  min-width: 1200px;" ></div>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='topicsDistrib.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='complexity.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='wordCloud.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='topicsGraph.js') }}"></script>
+</body>
+</html>
+
+<!--
+d3.json("/data", function(error, data) {
+
+});
+
+
+
+
+
+        canvas.selectAll("rect")
+        .data(loaded_data)
+        .enter()
+          .append("rect")
+          .attr("width", function(d) {return wScale(d.y)})
+          .attr("y", function(d,i){return i * 50})
+          .attr("height", 40)
+          .attr("fill", '#1abc9c');
+
+
+
+
+
+
+          d3.json("/data", function(error,loaded_data) {
+
+
+        var width = 600;
+        var height = 300;
+
+        var wScale = d3.scale.linear()
+        .domain([0, 100]).range( [0, width] );
+
+        var canvas = d3.select("body").append("svg")
+        .attr("width", height)
+        .attr("height", width);
+
+        var group = canvas.append("g")
+        .attr( "transform", "translate(0, 0)");
+
+
+        var line = d3.svg.line()
+        .x(function(d) {return d.x; })
+        .y(function(d) {return d.y;});
+
+        group.selectAll("path")
+        .data(loaded_data)
+        .enter()
+        .append("path")
+        .attr("d", line)
+        .attr("fill", "none")
+        .attr("stroke", 'black')
+        .attr('stroke-width', 10)
+
+
+
+
+
+
+      });
+
+
+      -->
