@@ -9,6 +9,12 @@ from PIL import Image
 from StringIO import StringIO
 import shutil
 import json
+from flask.ext.pymongo import PyMongo
+
+from pymongo import MongoClient
+
+client = MongoClient()
+db = client.izidb
 
 
 from scripts import izi
@@ -16,6 +22,17 @@ from scripts import izi
 
 app = Flask(__name__)
 app.secret_key = 'd66HR8dç"f_-àgjYYic*dh'
+
+
+mongo = PyMongo(app)
+
+print"#### DATABASE ####"
+print db.dataset
+print"#### COLLECTIONS ####"
+names = db.collection_names(include_system_collections=False)
+for n in names:
+    print " --   " + str(n)
+
 
 app.debug = True
 

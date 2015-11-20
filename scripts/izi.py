@@ -90,7 +90,7 @@ def loadText(path):
 
 # raw tokenize
 def raw_tokenize(text):
-	text = text.decode('utf8')
+	text = text
 	text = text.lower()
     # tokenize + punctuation
 	from nltk.tokenize import RegexpTokenizer
@@ -205,6 +205,11 @@ def similarity( a, b):
     if len(p):
         return p[0]
 
+def listToDOK(vec):
+	v = dok_matrix((1,100), dtype=float32)
+	for i in range(0, len(vec)):
+		v[0,i] = vec[i]
+	return v
 
 def closestFile( path ,semantic_vectors, printit = False ):
     vec = topicsFromTokens( tokenize(loadText(path)))
@@ -439,7 +444,7 @@ def defSignificantWordsGraph( path ):
 		nodes.append(topic_node)
 		edges.append( {'source': id0 , 'target': id_topic, 'value': topic_node['size']})
 
-		for w in sorted(words, key=lambda tup: tup[1], reverse = True)[:20]:
+		for w in sorted(words, key=lambda tup: tup[1], reverse = True)[:int(topic_node['size'])]:
 			id_word = gen.get()
 			word = dict()
 			word['id'] = id_word
