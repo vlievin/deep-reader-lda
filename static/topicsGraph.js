@@ -5,8 +5,6 @@ json = []
 
 var dat = d3.json("/topicsGraph", function(error, json) {
 
-  console.log(json)
-
   var vis = d3.select("#topicsGraph").append("svg")
     .attr("width", w_graph)
     .attr("height", h_graph);
@@ -82,7 +80,7 @@ var dat = d3.json("/topicsGraph", function(error, json) {
               d3.select(this).transition()
                 .ease('cubic-out')
                 .duration('200')
-                .attr('font-size', 20)
+                .attr('font-size', 12)
                 .attr('fill', '#333');
             });
 

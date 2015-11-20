@@ -9,18 +9,11 @@ d3.json("/topics", function(error, data_topics) {
 
   full_data = data_topics[0];
 
-  console.log(data_topics)
-
   data = full_data['values'];
   color = full_data['color'];
 
-  console.log(data)
-  console.log(color)
-
 
   var max_x = d3.max(data, function(d) { return d.x })
-
-  console.log( max_x)
 
   var canvas = d3.select("#topics").append("svg:svg")
       .attr("width", w + m[1] + m[3])
@@ -118,8 +111,6 @@ function resize() {
     // update width
     w = parseInt(d3.select('#topics').style('width'), 10);
     w = w - margin - margin;
-
-    console.log(w)
 
     // resize the chart
     sx.domain([0, max_x]).range([0, w]);

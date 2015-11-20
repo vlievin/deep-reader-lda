@@ -9,8 +9,6 @@ d3.json("/significantWords", function(error, full_data) {
 
   font_size_factor = 1
 
-  console.log(fill)
-
   var words = ["Hello", "world", "normally", "you", "want", "more", "words", "than", "this"]
       .map(function(d) {
         return {text: d, size: 10 + Math.random() * 90};
