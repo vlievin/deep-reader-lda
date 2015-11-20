@@ -67,6 +67,7 @@ min_score = 0.05
 # load lda
 lda = gensim.models.ldamodel.LdaModel.load(ROOT +  u'lda/wikipedia_lda', mmap='r')
 
+# freq_english = pickle.load( open(ROOT +  "english_frequencies.p", "rb" ) )
 import nltk
 from nltk.corpus import reuters
 freq_english = nltk.FreqDist(reuters.words())
@@ -102,7 +103,7 @@ def tokenize(text):
     # remove stopwords
     from nltk.corpus import stopwords
     stops = stopwords.words('english')
-    text = [ w for w in text if w.lower() not in stops]
+    text = [ w.replace (" ", "_") for w in text if w.lower() not in stops]
     # Exclude numbers
     text = [s for s in text if not re.search(r'\d',s)]
     #remove word with less than 3letters
@@ -281,16 +282,45 @@ def complexityAlongtheText( f, n_chunk = 20 ):
 def getComplexityData(path):
 	return complexityAlongtheText( path)
 
-def getMostSignificativeWords( path ):
-    text = loadText(path)
-    tokens = tokenize(text)
-    f = nltk.FreqDist(tokens)
-    word_set = set(tokens)
-    result = dict()
-    for w in word_set:
-        score = len(w)  / np.log(2 +  freq_english[w])
-        result[w] = score
-    return result
+def getMostSignificativeWords_pseudo_idf( path ):
+	idf = pickle.load( open(ROOT +  "english_idf.p", "rb" ) )
+	min_idf = min(idf.values())
+	text = loadText(path)
+	tokens = tokenize(text)
+	f = nltk.FreqDist(tokens)
+	max_f = float( tokens.count(f.max()))
+	word_set = set(tokens)
+	result = dict()
+	for w in word_set:
+		if w in idf.keys():
+			idf_word = idf[w]
+		else:
+			idf_word = min_idf * 0.5
+		score = float(len(w)) * float(f[w]) / max_f * float(idf_word)  
+		result[w] = score
+	return result
+
+def getMostSignificativeWords( path, limit = False, defaultLimit = 300 ):
+	text = loadText(path)
+	tokens = tokenize(text)
+	# f = nltk.FreqDist(tokens)
+	word_set = set(tokens)
+	result = dict()
+	for w in word_set:
+	# 	if w in freq_english.keys():
+	# 		f_w = freq_english[w]
+	# 	else:
+	# 		f_w = 0
+		score = len(w)  / np.log(2 + freq_english[w] )
+		result[w] = score
+		# print w,
+
+	if limit:
+		result_keys = sorted(result, key=lambda tup: tup[1], reverse = True)[:defaultLimit]
+		return { r: result[r] for r in result_keys}
+
+	else:
+		return result
 
 
 def getMostSignificantWordsData( path ):
@@ -345,6 +375,10 @@ def defSignificantWordsGraph( path ):
 	topic_names = pickle.load( open(ROOT +  "topics_names.p", "rb" ) )
 	x_topics = topicsFromTokens(tokenize(loadText(path)))
 	significant = getMostSignificativeWords(path)
+
+	print 
+	print
+	print type(significant)
 	significants_words_per_topic = dict()
 	max_significant = max(significant.values())
 
@@ -404,7 +438,7 @@ def defSignificantWordsGraph( path ):
 		nodes.append(topic_node)
 		edges.append( {'source': id0 , 'target': id_topic, 'value': topic_node['size']})
 
-		for w in sorted(words, key=lambda tup: tup[1], reverse = True)[:30]:
+		for w in sorted(words, key=lambda tup: tup[1], reverse = True)[:20]:
 			id_word = gen.get()
 			word = dict()
 			word['id'] = id_word

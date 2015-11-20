@@ -69,7 +69,22 @@ var dat = d3.json("/topicsGraph", function(error, json) {
           .attr("class", "nodetext")
           .attr("dx", 12)
           .attr("dy", ".35em")
-          .text(function(d) { return d.name });
+          .style("font-size","12pt")
+          .text(function(d) { return d.name })
+          .on('mouseover', function(d,i) {
+              d3.select(this).transition()
+                .ease('cubic-out')
+                .duration('200')
+                .attr('font-size', 32)
+                .attr('fill', '#F00');
+            })
+            .on('mouseout', function(d,i) {
+              d3.select(this).transition()
+                .ease('cubic-out')
+                .duration('200')
+                .attr('font-size', 20)
+                .attr('fill', '#333');
+            });
 
       force.on("tick", tick);
 
