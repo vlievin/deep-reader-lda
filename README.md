@@ -2,6 +2,11 @@
 
 Study project - analyse a text ( topic extraction, complexity, meaningful words)
 
+Main dependencies:
+- Gensim
+- Flask
+- 3d.js
+
 ## try it
 
 type in a command prompt:
