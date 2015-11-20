@@ -89,11 +89,12 @@ def loadText(path):
 
 # raw tokenize
 def raw_tokenize(text):
-    text = text.lower()
+	text = text.decode('utf8')
+	text = text.lower()
     # tokenize + punctuation
-    from nltk.tokenize import RegexpTokenizer
-    tokenizer = RegexpTokenizer(r'\w+') # remove punctuation
-    return tokenizer.tokenize(text)
+	from nltk.tokenize import RegexpTokenizer
+	tokenizer = RegexpTokenizer(r'\w+') # remove punctuation
+	return tokenizer.tokenize(text)
 
 
 # tokenize

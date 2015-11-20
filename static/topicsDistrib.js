@@ -1,4 +1,4 @@
-var margin = 50
+var margin = 10
 var m = [margin, margin, margin, margin]; // margins
 var ww = 600//document.getElementById("topics").clientWidth;
 var hh = 400//document.getElementById("topics").clientHeight;

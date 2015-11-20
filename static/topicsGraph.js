@@ -1,5 +1,5 @@
   var w_graph = 1200;
-  var h_graph = 600;
+  var h_graph = 800;
 
 json = []
 

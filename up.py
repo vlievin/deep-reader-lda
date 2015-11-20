@@ -117,5 +117,7 @@ def upped(nom):
         flash(u'Fichier {nom} inexistant.'.format(nom=nom), 'error')
         return redirect(url_for('liste_upped')) # sinon on redirige vers la liste des images, avec un message d'erreur
 
+
+
 if __name__ == '__main__':
     app.run(host = '0.0.0.0')

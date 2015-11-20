@@ -5,11 +5,11 @@ body {
 	margin:0;  
 	padding:0;  
 	background: no-repeat center center fixed; 
-	background-color: white;
+	background-color: black;
 	background-size : cover;}
 
-.widget{
-	width: 60%;  
+.widget{ 
+	width: 40%;  
 	margin: 20px;
     background-color: white; 
     box-shadow: 0px 0px 5px gray; 
@@ -34,8 +34,11 @@ body {
 h1 { 
 	font-family: Open Sans; 
 	font-size: 170%; }
+h2 { 
+	font-family: Gotham; 
+	font-size: 170%; }
 form { 
-	font-family: Port Lligat Slab;  
+	font-family: Gotham;  
 	text-shadow: 1px 1px 2px white;  
 	text-align: left; }
 label { 
@@ -45,46 +48,64 @@ label {
 	margin-left: 130px; 
 	position: relative; 
 	top: 3px;  }
+
+.submit{ 
+
+    background-color: #bdc3c7;
+    text-align:center;  
+    padding-top: 10px;  
+    padding-bottom: 10px;  
+    min-height: 50px;
+    min-width: 1240px;
+    }
+
+#btsub1 { 
+	position:relative;
+	width: 150px;  
+	color: white;
+	background-color: #3498DB;
+	border-right: none;
+	border-left: none;
+	border-top: none;
+	border-bottom: 4px solid #2980B9;
+	border-radius: 5px;
+	font-size: 100%; 
+	font-family: Gotham;  font-weight:bold; }
+
+
 #btsub { 
 	position:relative;  
 	left: 39%; 
 	top: 23px; 
 	width: 140px;  
-	background-image: -moz-linear-gradient(#B31A16, #FF521E);  
-	background-image: -webkit-linear-gradient(#B31A16, #FF521E);  
+	background-color: #3498DB;
+	border-right: none;
+	border-left: none;
+	border-top: none;
+	border-bottom: 4px solid #2980B9;
+	border-radius: 5px;
 	color: white;  
-	border: none; 
-	border-radius: 3px;  
-	box-shadow: 1px 1px 7px black; 
-	font-size: 130%; 
-	font-family: Open Sans;  font-weight:bold; }
-
-#btdel { 
-	position:relative;  
-	left: 39%; 
-	top: 23px; 
-	width: 150px;  
-	background-color: white; 
-	color: gray;  
-	border: none; 
-	border-radius: 3px;  
-	box-shadow: 1px 1px 7px gray;  }
+	border-radius: 5px;  
+	font-size: 110%; 
+	font-family: Gotham;  font-weight:bold; }
 
 
 #btsub:hover { 
-	background-image: -moz-linear-gradient(#FF521E, #B31A16);  
-	background-image: -webkit-linear-gradient(#FF521E, #B31A16);  
+	background-color: #3498DB;
 	color: white;  
 	font-weight: bold;  
-	border: none; 
-	border-radius: 3px;  
-	box-shadow: 1px 1px 2px black; }
+	border-right: none;
+	border-left: none;
+	border-top: none;
+	border-bottom: 4px solid #2980B9; 
+	border-radius: 5px;
+}
 .flashed {
 	position: relative;
 	right:20px;
 	list-style-type: none; }
 .flashed li {
-	font-family: Port Lligat Slab; 
+	font-family: Gotham; 
 	text-align: center;
 	padding: 5px;
 	margin-bottom: 10px;
@@ -99,4 +120,4 @@ label {
 .fichiers {
 	text-align: left;
 	list-style-type: circle;
-	font-family: Port Lligat Slab;
+	font-family: Gotham;
