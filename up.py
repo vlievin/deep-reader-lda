@@ -32,7 +32,7 @@ print"#### COLLECTIONS ####"
 names = db.collection_names(include_system_collections=False)
 for n in names:
     print " --   " + str(n)
-
+print "###############################   READY   ###############################"
 
 app.debug = True
 
@@ -67,6 +67,15 @@ def significantWords():
 def topicsGraph():
     # return json.dumps( result )
     return json.dumps(izi.defSignificantWordsGraph(TEXT_FOLDERS +  [t for t in os.listdir(TEXT_FOLDERS)][0] ))
+
+@app.route("/similarities", methods=['GET', 'POST'])
+def similarities():
+	semantic_vectors = dict()
+	cursor = db.documents.find()
+	for doc in cursor:
+		semantic_vectors[doc['title']] = doc['semantic_vec']
+	# return json.dumps( result )
+	return json.dumps(izi.closestFile(TEXT_FOLDERS +  [t for t in os.listdir(TEXT_FOLDERS)][0] , semantic_vectors))
 
 def processFile( path ):
     return izi.displayResults( path )

@@ -58,9 +58,6 @@ colours.append( "#34495e")
 colours.append( "#e67e22")
 
 
-
-
-
 # constants
 min_score = 0.05
 
@@ -72,7 +69,6 @@ import nltk
 from nltk.corpus import reuters
 freq_english = nltk.FreqDist(reuters.words())
 print "--------------------> english word frequencies loaded"
-print "###############################   READY   ###############################"
 
 
 # load text xliff or txt format
@@ -219,9 +215,7 @@ def closestFile( path ,semantic_vectors, printit = False ):
     similarities = dict()
     for s in semantic_vectors:
         vec = semantic_vectors[s]
-        v = dok_matrix((1,100), dtype=float32)
-    	for t in vec:
-        	v[0,t[0]] = t[1]
+        v = listToDOK(vec)
         similarities[s] = similarity(v,u)  
         
     if printit:
