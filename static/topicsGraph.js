@@ -68,21 +68,7 @@ var dat = d3.json("/topicsGraph", function(error, json) {
           .attr("dx", 12)
           .attr("dy", ".35em")
           .style("font-size","12pt")
-          .text(function(d) { return d.name })
-          .on('mouseover', function(d,i) {
-              d3.select(this).transition()
-                .ease('cubic-out')
-                .duration('200')
-                .attr('font-size', 32)
-                .attr('fill', '#F00');
-            })
-            .on('mouseout', function(d,i) {
-              d3.select(this).transition()
-                .ease('cubic-out')
-                .duration('200')
-                .attr('font-size', 12)
-                .attr('fill', '#333');
-            });
+          .text(function(d) { return d.name });
 
       force.on("tick", tick);
 
