@@ -35,6 +35,9 @@
         stroke-opacity: 0.5;
       }
 
+
+
+
 }
 
     </style>
@@ -51,38 +54,40 @@
     </div>
 
     <div>
-    <div style="float:up">
-    <div id="topics" class="widget" style="float:left;min-height: 400px;  min-width: 600px;">
-      <h1> Topics distribution </h1>
-    </div>
+      <div style="float:up">
+        <div id="topics" class="widget" style="float:left;min-height: 400px;  min-width: 600px;">
+            <h1> Topics distribution </h1>
+        </div>
 
-    <div id="complexity" class="widget" style="float:right;min-height: 400px;  min-width: 600px;">
-      <h1> Complexity </h1>
-    </div>
-    </div>
+        <div id="complexity" class="widget" style="float:right;min-height: 400px;  min-width: 600px;">
+          <h1> Complexity </h1>
+        </div>
+      </div>
 
-    <div style="float:down">
+      <div style="float:down">
 
-    <div id="wordCloud" class="widget" style =    "min-height: 600px;  min-width: 1240px;" >
-      <h1> Significant Words </h1>
-    </div>
+        <div id="wordCloud" class="widget" style =    "min-height: 600px;  min-width: 1240px;" >
+          <h1> Meaningful Words </h1>
+        </div>
 
-    <div id="topicsGraph" class="widget" style =    "min-height: 600px;  min-width: 1240px;" >
-      <h1> Topics graph</h1>
-    </div>
+        <div id="topicsGraph" class="widget" style =    "min-height: 600px;  min-width: 1240px;" >
+          <h1> Topics graph</h1>
+        </div>
 
-     <div id="closestTexts" class="widget" style =    "min-height: 600px;  min-width: 1240px;" >
-      <h1> Closest texts</h1>
-    </div>
+        <div id="closestTexts" class="widget" style =    "min-height: 600px;  min-width: 1240px;" >
+          <h1> Closest texts</h1>
+          <div class="tooltip">Tipsy!</div>
+        </div>
 
 
-    </div>
+      </div>
     </div>
 
     <script type="text/javascript" src="{{ url_for('static', filename='topicsDistrib.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='complexity.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='wordCloud.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='topicsGraph.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='closestTexts.js') }}"></script>
 </body>
 </html>
 

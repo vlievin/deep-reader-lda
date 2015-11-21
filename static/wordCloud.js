@@ -5,14 +5,7 @@ d3.json("/significantWords", function(error, full_data) {
 
   var layout = d3.layout.cloud();
 
-  var fill = d3.scale.category20();
-
   font_size_factor = 1
-
-  var words = ["Hello", "world", "normally", "you", "want", "more", "words", "than", "this"]
-      .map(function(d) {
-        return {text: d, size: 10 + Math.random() * 90};
-      });
 
   layout.size([1200, 600])
       .words(frequency_list)

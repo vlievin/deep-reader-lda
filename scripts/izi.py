@@ -207,22 +207,19 @@ def listToDOK(vec):
 		v[0,i] = vec[i]
 	return v
 
-def closestFile( path ,semantic_vectors, printit = False ):
+def closestFile( path ,semantic_vectors ):
     vec = topicsFromTokens( tokenize(loadText(path)))
     u = dok_matrix((1,100), dtype=float32)
     for t in vec:
         u[0,t[0]] = t[1]
-    similarities = dict()
+    similarities = []
     for s in semantic_vectors:
         vec = semantic_vectors[s]
         v = listToDOK(vec)
-        similarities[s] = similarity(v,u)  
-        
-    if printit:
-        k = 1
-        for i in sorted(similarities.items(), key=lambda x: x[1])[::-1][:15]:
-            print str(k) + "  |  "  + str(i)
-            k += 1
+        score = dict()
+        score['name'] = s
+        score['similarity'] = similarity(v,u)  
+        similarities.append(score)
         
     return similarities
 
