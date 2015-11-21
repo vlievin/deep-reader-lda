@@ -89,7 +89,7 @@ def similarities():
 
 @app.route("/network", methods=['GET', 'POST'])
 def network():
-	SIMILARITY_CUTOFF = 0.5
+	SIMILARITY_CUTOFF = 0.9
 
 	lasDoc = getLastAdded()
 	semantic_vectors = dict()

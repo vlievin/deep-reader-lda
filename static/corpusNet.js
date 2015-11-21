@@ -63,12 +63,12 @@ var dat = d3.json("/network", function(error, json) {
           .style("fill-opacity", .5)
           .attr("stroke", function(d) { return d.color })
 
-      node.append("svg:text")
+      /*node.append("svg:text")
           .attr("class", "nodetext")
           .attr("dx", 8)
           .attr("dy", ".35em")
           .style("font-size","12pt")
-          .text(function(d) { return d.name });
+          .text(function(d) { return d.name });*/
 
       force.on("tick", tick);
 
