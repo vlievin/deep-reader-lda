@@ -87,6 +87,16 @@ def similarities():
 	# return json.dumps( result )
 	return json.dumps(izi.getSimilaritiesScores(lasDoc['semantic_vec'], semantic_vectors))
 
+@app.route('/getText/<title>')
+def getText(title):
+	txt =  db.documents.find_one({'title' : title})
+	print txt
+	if txt:
+		return txt['full_text']
+	else:
+		return "failed to get text"
+
+
 @app.route("/network", methods=['GET', 'POST'])
 def network():
 	SIMILARITY_CUTOFF = 0.75
