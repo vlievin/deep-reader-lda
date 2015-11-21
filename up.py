@@ -59,19 +59,17 @@ def getLastAdded():
 
 @app.route("/complexity", methods=['GET', 'POST'])
 def complexity():
-    # return json.dumps( result )
-    return json.dumps(izi.getComplexityData(TEXT_FOLDERS +  [t for t in os.listdir(TEXT_FOLDERS)][0] ))
+    lasDoc = getLastAdded()
+    return json.dumps(izi.getComplexityData(lasDoc['full_text']))
 
 @app.route("/topics", methods=['GET', 'POST'])
 def topics():
-    print " - - - "
     lasDoc = getLastAdded()
-    # return json.dumps( result )
     return json.dumps(izi.getTopicDistributionData( lasDoc['full_text']))
 
 @app.route("/significantWords", methods=['GET', 'POST'])
 def significantWords():
-    # return json.dumps( result )
+    lasDoc = getLastAdded()
     return json.dumps(izi.getMostSignificantWordsData(TEXT_FOLDERS +  [t for t in os.listdir(TEXT_FOLDERS)][0] ))
 
 @app.route("/topicsGraph", methods=['GET', 'POST'])

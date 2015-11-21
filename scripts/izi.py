@@ -226,8 +226,7 @@ def closestFile( path ,semantic_vectors ):
         
     return similarities
 
-def complexityAlongtheText( f, n_chunk = 20 ):
-	text = loadText(f)
+def complexityAlongtheText( text, n_chunk = 20 ):
 	words = text.split()
 	chunk_length = len(words) / n_chunk
 	if chunk_length < 200:
