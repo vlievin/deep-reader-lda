@@ -39,6 +39,7 @@ app.debug = True
 DOSSIER_UPS = 'ups/'
 TEXT_FOLDERS = 'texts/'
 DATA_FOLDERS = 'data/'
+n_topics = 100
 
 import matplotlib
 matplotlib.use('Agg')
@@ -46,6 +47,8 @@ from matplotlib import pyplot as plt
 import numpy
 
 data_complexity = []
+current_id = None
+root = u"../izi_data/"
 
 
 @app.route("/complexity", methods=['GET', 'POST'])
@@ -55,6 +58,10 @@ def complexity():
 
 @app.route("/topics", methods=['GET', 'POST'])
 def topics():
+    print " - - - "
+    for d in db.documents.find(fields = {"_id"}).sort("_id", -1).limit(1):
+    	print d
+    print
     # return json.dumps( result )
     return json.dumps(izi.getTopicDistributionData(TEXT_FOLDERS +  [t for t in os.listdir(TEXT_FOLDERS)][0] ))
 
@@ -107,6 +114,7 @@ def upload():
                 for i in txts:
                     os.remove(TEXT_FOLDERS + i)
                 f.save(TEXT_FOLDERS + nom)
+                insertDoc(TEXT_FOLDERS + nom)
                 # processFile( TEXT_FOLDERS + nom )
                 flash(u'File sent. Here is the <a href="{lien}"> link </a>.'.format(lien=url_for('d3')), 'succes')
             else:
@@ -143,6 +151,20 @@ def upped(nom):
         flash(u'Fichier {nom} inexistant.'.format(nom=nom), 'error')
         return redirect(url_for('liste_upped')) # sinon on redirige vers la liste des images, avec un message d'erreur
 
+def insertDoc(path):
+    document = dict()
+    document['title'] = path[len(TEXT_FOLDERS):]
+    full_text = izi.loadText(path)
+    document['full_text'] = full_text
+    topics =  izi.topicsFromTokens(izi.tokenize(full_text))
+    semantic_vec = [0.] * n_topics
+    for i in topics:
+        semantic_vec[i[0]] = i[1]
+    document['semantic_vec'] = semantic_vec
+    current_id = db.documents.save(document)
+    print " ---- current id ---- "
+    print current_id
+    print
 
 
 if __name__ == '__main__':

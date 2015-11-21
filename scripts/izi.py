@@ -83,6 +83,9 @@ def loadText(path):
         return open(path, 'r').read()
 
 
+# def getChunks(text):
+# 	0
+
 
 # raw tokenize
 def raw_tokenize(text):
@@ -235,7 +238,7 @@ def complexityAlongtheText( f, n_chunk = 20 ):
 	x = []
 	y = []
 	cur = 0
-	average = textstat.flesch_reading_ease(text)
+	# average = textstat.flesch_reading_ease(text)
 
 	while ( cur < len(words) ):
 	    sub = words[cur:cur+chunk_length]
@@ -246,19 +249,20 @@ def complexityAlongtheText( f, n_chunk = 20 ):
 	    	y.append( 100 - textstat.flesch_reading_ease(sub_text)  )
 	    	x.append( cur)
 	    cur += chunk_length
-	    
+	   
+	average = float(sum(y))/float(len(y))
 	print "average reading ease: %s "%average
 
 	if average < 20:
-	    col = colours_ordered[5]
+	    col = colours_ordered[0]
 	elif average < 40:
-	    col = colours_ordered[4]
-	elif average < 60:
-	    col = colours_ordered[3]
-	elif average < 80:
-	    col = colours_ordered[2]
-	else:
 	    col = colours_ordered[1]
+	elif average < 60:
+	    col = colours_ordered[2]
+	elif average < 80:
+	    col = colours_ordered[3]
+	else:
+	    col = colours_ordered[4]
 
 	full_data = dict()
 	data = []

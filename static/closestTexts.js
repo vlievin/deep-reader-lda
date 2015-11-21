@@ -19,14 +19,14 @@ var dat = d3.json("/similarities", function(error, data) {
 	var h_bar = (h_graph - 2 * margin ) / data.length - 1
 
 	var tooltip = d3.select("body")
-	/*.append("div")
+	.append("div")
 	.attr('class', 'tip')
 	.style("position", "absolute")
 	.style("z-index", "10")
 	.style("visibility", "hidden")
 	.style("fill", "rgba(0, 0, 0, 0.5)")
 	.style("box-shadow", " 0px 0px 5px gray")
-	.text("a simple tooltip");*/
+	/*.text("a simple tooltip");*/
 
 	/*canvas
 	.on("mouseover", function(){return tooltip.style("visibility", "visible");})
