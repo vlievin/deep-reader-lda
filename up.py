@@ -65,26 +65,27 @@ def complexity():
 @app.route("/topics", methods=['GET', 'POST'])
 def topics():
     lasDoc = getLastAdded()
-    return json.dumps(izi.getTopicDistributionData( lasDoc['full_text']))
+    return json.dumps(izi.getTopicDistributionData( lasDoc['full_text'], lasDoc['semantic_vec']))
 
 @app.route("/significantWords", methods=['GET', 'POST'])
 def significantWords():
     lasDoc = getLastAdded()
-    return json.dumps(izi.getMostSignificantWordsData(lasDoc['full_text'] , lasDoc['semantic_vec']))
+    return json.dumps(izi.getMostSignificantWordsData(lasDoc['tokens'] , lasDoc['semantic_vec']))
 
 @app.route("/topicsGraph", methods=['GET', 'POST'])
 def topicsGraph():
     lasDoc = getLastAdded()
-    return json.dumps(izi.defSignificantWordsGraph(lasDoc['full_text'] , lasDoc['semantic_vec'] ))
+    return json.dumps(izi.SignificantWordsGraph(lasDoc['tokens'] , lasDoc['semantic_vec'] ))
 
 @app.route("/similarities", methods=['GET', 'POST'])
 def similarities():
+	lasDoc = getLastAdded()
 	semantic_vectors = dict()
 	cursor = db.documents.find()
 	for doc in cursor:
 		semantic_vectors[doc['title']] = doc['semantic_vec']
 	# return json.dumps( result )
-	return json.dumps(izi.closestFile(TEXT_FOLDERS +  [t for t in os.listdir(TEXT_FOLDERS)][0] , semantic_vectors))
+	return json.dumps(izi.getSimilaritiesScores(lasDoc['semantic_vec'], semantic_vectors))
 
 def processFile( path ):
     return izi.displayResults( path )
@@ -157,7 +158,9 @@ def insertDoc(path):
     document = dict()
     document['title'] = path[len(TEXT_FOLDERS):]
     full_text = izi.loadText(path)
+    tokens = izi.tokenize( full_text)
     document['full_text'] = full_text
+    document['tokens'] = tokens
     topics =  izi.topicsFromTokens(izi.tokenize(full_text))
     semantic_vec = [0.] * n_topics
     for i in topics:

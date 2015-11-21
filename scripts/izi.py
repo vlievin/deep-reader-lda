@@ -210,11 +210,11 @@ def listToDOK(vec):
 		v[0,i] = vec[i]
 	return v
 
-def closestFile( path ,semantic_vectors ):
-    vec = topicsFromTokens( tokenize(loadText(path)))
+def getSimilaritiesScores( vec ,semantic_vectors ):
     u = dok_matrix((1,100), dtype=float32)
-    for t in vec:
-        u[0,t[0]] = t[1]
+    i = 0
+    for i in range(0,100):
+        u[0,i ]= vec[i]
     similarities = []
     for s in semantic_vectors:
         vec = semantic_vectors[s]
@@ -300,8 +300,7 @@ def getMostSignificativeWords_pseudo_idf( path ):
 		result[w] = score
 	return result
 
-def getMostSignificativeWords( text, limit = False, defaultLimit = 300 ):
-	tokens = tokenize(text)
+def getMostSignificativeWords( tokens, limit = False, defaultLimit = 300 ):
 	# f = nltk.FreqDist(tokens)
 	word_set = set(tokens)
 	result = dict()
@@ -322,12 +321,12 @@ def getMostSignificativeWords( text, limit = False, defaultLimit = 300 ):
 		return result
 
 
-def getMostSignificantWordsData( text, topics ):
+def getMostSignificantWordsData( tokens, topics ):
 	topic_names = pickle.load( open(ROOT +  "topics_names.p", "rb" ) )
 	x_topics = []
 	for i in range(0, len(topics)):
 		x_topics.append( ( i, topics[i] ))
-	significant = getMostSignificativeWords(text)
+	significant = getMostSignificativeWords(tokens)
 	significants_words_per_topic = dict()
 
 	k = 1
@@ -371,13 +370,13 @@ def getMostSignificantWordsData( text, topics ):
 	return data
 
 
-def defSignificantWordsGraph( text, topics ):
+def SignificantWordsGraph( tokens, topics ):
 	gen = idGenerator()
 	topic_names = pickle.load( open(ROOT +  "topics_names.p", "rb" ) )
 	x_topics = []
 	for i in range(0, len(topics)):
 		x_topics.append( ( i, topics[i] ))
-	significant = getMostSignificativeWords(text)
+	significant = getMostSignificativeWords(tokens)
 	significants_words_per_topic = dict()
 	max_significant = max(significant.values())
 
@@ -437,7 +436,7 @@ def defSignificantWordsGraph( text, topics ):
 		nodes.append(topic_node)
 		edges.append( {'source': id0 , 'target': id_topic, 'value': topic_node['size']})
 
-		for w in sorted(words, key=lambda tup: tup[1], reverse = True)[:int(topic_node['size'])]:
+		for w in sorted(words, key=lambda tup: tup[1], reverse = True)[:int(topic_node['size'])] * 2:
 			id_word = gen.get()
 			word = dict()
 			word['id'] = id_word
@@ -455,8 +454,10 @@ def defSignificantWordsGraph( text, topics ):
 
 
 
-def getTopicsDistributionWithinTheText(text, n_chunk = 30 ):
-	global_scores = topicsFromTokens(tokenize(text))
+def getTopicsDistributionWithinTheText(text, semantic_vec, n_chunk = 30 ):
+	global_scores = []
+	for i in range(0, len(semantic_vec)):
+		global_scores.append( ( i, semantic_vec[i] ))
 	words = text.split()
 	chunk_length = len(words) / n_chunk
 	if chunk_length < 200:
