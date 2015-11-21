@@ -89,7 +89,7 @@ def similarities():
 
 @app.route("/network", methods=['GET', 'POST'])
 def network():
-	SIMILARITY_CUTOFF = 0.9
+	SIMILARITY_CUTOFF = 0.75
 
 	lasDoc = getLastAdded()
 	semantic_vectors = dict()
@@ -108,7 +108,7 @@ def network():
 		id2db[str(tmp_id)] = i
 		node["id"] = i
 		if str(tmp_id) == str(current_id):
-			node['color'] = "red"
+			node['color'] = "#c0392b"
 			node['size'] = 8
 		else:
 			node['color'] = "#555555"

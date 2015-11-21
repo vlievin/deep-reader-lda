@@ -13,7 +13,10 @@ var dat = d3.json("/network", function(error, json) {
     .attr("class", "tooltip")               
     .style("opacity", 0);
 
+  var opacityscale = d3.scale.linear().domain([0.75, 1]).range([0.08, .3]);
 
+  var layer1 = vis.append('g');
+  var layer2 = vis.append('g');
 
   var force = self.force = d3.layout.force()
           .nodes(json["nodes"])
@@ -24,11 +27,12 @@ var dat = d3.json("/network", function(error, json) {
           .size([w_graph, h_graph])
           .start();
 
-      var link = vis.selectAll("line.link")
+      var link = layer1.selectAll("line.link")
           .data(json.links)
           .enter().append("svg:line")
           .attr("class", "link")
-          .style("stroke", "rgba(10,10,10,0.1)")
+          .style("stroke", function(d) { return "rgba(10,10,10, "+ opacityscale(d.value) + ")"})
+          .style("stroke-width", function(d) { return 5 * opacityscale(d.value) })
           .attr("x1", function(d) { return d.source.x; })
           .attr("y1", function(d) { return d.source.y; })
           .attr("x2", function(d) { return d.target.x; })
@@ -58,7 +62,7 @@ var dat = d3.json("/network", function(error, json) {
       }
 
 
-      var node = vis.selectAll("g.node")
+      var node = layer2.selectAll("g.node")
           .data(json.nodes)
         .enter().append("svg:g")
           .attr("class", "node")
@@ -67,13 +71,13 @@ var dat = d3.json("/network", function(error, json) {
       node.append("svg:circle")
           .attr("r" , function(d) { return d.size })
           .attr("fill" , function(d) { return d.color })
-          .style("fill-opacity", .5)
+          .style("fill-opacity", 1)
           .attr("stroke", function(d) { return d.color })
           .on("mouseover", function(d) {   
 
             d3.select(this).style("fill", "#1abc9c");
             div.transition()        
-                .duration(200)      
+                .duration(300)      
                 .style("opacity", .9);      
             div .html(d.name)  
                 .style("left", (d3.event.pageX) + "px")     
@@ -82,7 +86,7 @@ var dat = d3.json("/network", function(error, json) {
           .on("mouseout", function(d) {       
               d3.select(this).style("fill", function(d) { return d.color });
               div.transition()        
-                  .duration(500)      
+                  .duration(33)      
                   .style("opacity", 0);   
           });
 
