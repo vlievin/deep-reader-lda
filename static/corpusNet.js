@@ -69,7 +69,9 @@ var dat = d3.json("/network", function(error, json) {
           .attr("fill" , function(d) { return d.color })
           .style("fill-opacity", .5)
           .attr("stroke", function(d) { return d.color })
-          .on("mouseover", function(d) {      
+          .on("mouseover", function(d) {   
+
+            d3.select(this).style("fill", "#1abc9c");
             div.transition()        
                 .duration(200)      
                 .style("opacity", .9);      
@@ -78,6 +80,7 @@ var dat = d3.json("/network", function(error, json) {
                 .style("top", (d3.event.pageY - 50) + "px");    
             })                  
           .on("mouseout", function(d) {       
+              d3.select(this).style("fill", function(d) { return d.color });
               div.transition()        
                   .duration(500)      
                   .style("opacity", 0);   
