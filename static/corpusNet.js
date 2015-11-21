@@ -1,11 +1,11 @@
-  var w_graph = 1200;
-  var h_graph = 800;
+  var w_graph = 1600;
+  var h_graph = 1400;
 
 json = []
 
 var dat = d3.json("/network", function(error, json) {
 
-  var vis = d3.select("#corpusNet").append("svg")
+  var vis = d3.select("body").append("svg")
     .attr("width", w_graph)
     .attr("height", h_graph);
 

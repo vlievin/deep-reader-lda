@@ -1,8 +1,15 @@
+
+
 {% extends 'up_squelette.html' %}
 
 {% block title %}Upload d'images{% endblock %}
 
 {% block main %}
+<ul id="navigation">
+<li><a href="/" title="upload">upload</a></li>
+<li><a href="/d3" title="text analysis">text analysis</a></li>
+<li><a href="/corpusnet" title="network">network</a></li>
+</ul>
 <h1>Choisissez une image à Uploader :</h1>
 <form action="" method="post" enctype="multipart/form-data">
     <label for="fic">Fichier</label><input id="fic" type="file" name="fic" />

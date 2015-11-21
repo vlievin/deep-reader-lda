@@ -190,6 +190,9 @@ def liste_upped():
 def d3():
     return render_template('d3.html')
 
+@app.route('/corpusnet/')
+def corpusnet():
+    return render_template('corpusnet.html')
 
 @app.route('/up/view/<nom>')
 def upped(nom):

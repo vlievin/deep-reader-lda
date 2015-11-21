@@ -1,11 +1,41 @@
 .link { stroke: #ccc; }
 .nodetext { pointer-events: none; font: 10px sans-serif; }
 
+#navigation {
+  margin: 0 ;
+  padding: 0 ;
+  list-style: none ;
+  text-align: center ;
+}
+
+#navigation li {
+  display: inline ;
+  margin-right: 1px ;
+  color: #fff ;
+  background: #c00 ;
+}
+
+#navigation li a:hover, #navigation li a:focus, #navigation li a:active {
+  background: #900 ;
+  text-decoration: underline ;
+}
+
+#navigation li a {
+  padding: 4px 20px ;
+  background: #c00 ;
+  color: #fff ;
+  border: 1px solid #600 ;
+  font: 1em "Trebuchet MS",Arial,sans-serif ;
+  line-height: 1em ;
+  text-align: center ;
+  text-decoration: none ;
+}
+
 body { 
 	margin:0;  
 	padding:0;  
 	background: no-repeat center center fixed; 
-	background-color: black;
+	background-color: white;
 	background-size : cover;}
 
 .widget{ 
