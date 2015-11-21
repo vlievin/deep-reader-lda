@@ -51,6 +51,12 @@ current_id = None
 root = u"../izi_data/"
 
 
+def getLastAdded():
+	current_id = None
+	for d in db.documents.find(fields = {"_id"}).sort("_id", -1).limit(1):
+		current_id = d
+	return db.documents.find_one( { "_id" : current_id["_id"] })
+
 @app.route("/complexity", methods=['GET', 'POST'])
 def complexity():
     # return json.dumps( result )
@@ -59,9 +65,7 @@ def complexity():
 @app.route("/topics", methods=['GET', 'POST'])
 def topics():
     print " - - - "
-    for d in db.documents.find(fields = {"_id"}).sort("_id", -1).limit(1):
-    	print d
-    print
+    lasDoc = getLastAdded()
     # return json.dumps( result )
     return json.dumps(izi.getTopicDistributionData(TEXT_FOLDERS +  [t for t in os.listdir(TEXT_FOLDERS)][0] ))
 
