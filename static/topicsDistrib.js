@@ -33,7 +33,7 @@ d3.json("/topics", function(error, data_topics) {
         .y(function(d) {return sy(d.y) ; })
         .interpolate("basis");
 
-  var legendRectSize = 18;
+  var legendRectSize = 15;
   var legendSpacing = 4;
 
   var label_offset = w / data_topics.length;
@@ -87,7 +87,7 @@ d3.json("/topics", function(error, data_topics) {
   }
 
     // create yAxis
-    var xAxis = d3.svg.axis().scale(sx).ticks(10).orient("bottom");
+    var xAxis = d3.svg.axis().scale(sx).ticks(5).orient("bottom");
     // Add the x-axis.
     group.append("svg:g")
           .attr("class", "x axis")

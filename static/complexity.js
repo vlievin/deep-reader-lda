@@ -63,7 +63,7 @@ d3.json("/complexity", function(error, full_data) {
       });
 
     // create yAxis
-    var xAxis = d3.svg.axis().scale(x).ticks(10).orient("bottom");
+    var xAxis = d3.svg.axis().scale(x).ticks(5).orient("bottom");
     // Add the x-axis.
     group.append("svg:g")
           .attr("class", "x axis")
