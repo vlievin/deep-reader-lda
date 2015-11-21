@@ -87,6 +87,38 @@ def similarities():
 	# return json.dumps( result )
 	return json.dumps(izi.getSimilaritiesScores(lasDoc['semantic_vec'], semantic_vectors))
 
+@app.route("/network", methods=['GET', 'POST'])
+def network():
+	lasDoc = getLastAdded()
+	semantic_vectors = dict()
+	cursor = db.documents.find()
+	nodes = []
+	for doc in cursor:
+		node = dict()
+		tmp_id = doc["_id"]
+		if tmp_id == lasDoc["_id"]:
+			node['color'] = "#0000ff"
+		else:
+			node['color'] = "#cccccc"
+		node['id'] = str(tmp_id)
+		node['name'] = doc['title']
+		node['color'] = "#cccccc"
+		node['size'] = 10
+		nodes.append(node)
+	
+	cursor = db.similarities.find()
+	edges = []
+	for e in cursor:
+		edges.append(e)
+
+
+	graph = dict()
+	graph['nodes'] = nodes
+	graph['links'] = edges
+
+
+	return json.dumps(graph)
+
 def processFile( path ):
     return izi.displayResults( path )
 
@@ -141,7 +173,6 @@ def liste_upped():
 
 @app.route('/d3/')
 def d3():
-    d = [d for d in os.listdir(DATA_FOLDERS) ]
     return render_template('d3.html')
 
 
@@ -170,7 +201,14 @@ def insertDoc(path):
     print " ---- current id ---- "
     print current_id
     print
-
+    # create links
+    cursor = db.documents.find()
+    for doc in cursor:
+    	y = doc['semantic_vec']
+    	y_id = doc["_id"]
+    	if y_id != current_id:
+	    	s = izi.getSimilarity( semantic_vec, y)
+	    	db.similarities.insert({'source': str(current_id) , 'target': str(y_id), 'value': s})
 
 if __name__ == '__main__':
     app.run(host = '0.0.0.0')

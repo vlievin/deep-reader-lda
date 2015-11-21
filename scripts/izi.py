@@ -226,6 +226,11 @@ def getSimilaritiesScores( vec ,semantic_vectors ):
         
     return similarities
 
+
+def getSimilarity( a ,b ):
+    return similarity(listToDOK(a),listToDOK(b))  
+
+
 def complexityAlongtheText( text, n_chunk = 20 ):
 	words = text.split()
 	chunk_length = len(words) / n_chunk
