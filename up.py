@@ -70,7 +70,7 @@ def topics():
 @app.route("/significantWords", methods=['GET', 'POST'])
 def significantWords():
     lasDoc = getLastAdded()
-    return json.dumps(izi.getMostSignificantWordsData(TEXT_FOLDERS +  [t for t in os.listdir(TEXT_FOLDERS)][0] ))
+    return json.dumps(izi.getMostSignificantWordsData(lasDoc['full_text'] , lasDoc['semantic_vec']))
 
 @app.route("/topicsGraph", methods=['GET', 'POST'])
 def topicsGraph():

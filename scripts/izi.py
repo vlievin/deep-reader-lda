@@ -300,8 +300,7 @@ def getMostSignificativeWords_pseudo_idf( path ):
 		result[w] = score
 	return result
 
-def getMostSignificativeWords( path, limit = False, defaultLimit = 300 ):
-	text = loadText(path)
+def getMostSignificativeWords( text, limit = False, defaultLimit = 300 ):
 	tokens = tokenize(text)
 	# f = nltk.FreqDist(tokens)
 	word_set = set(tokens)
@@ -323,10 +322,12 @@ def getMostSignificativeWords( path, limit = False, defaultLimit = 300 ):
 		return result
 
 
-def getMostSignificantWordsData( path ):
+def getMostSignificantWordsData( text, topics ):
 	topic_names = pickle.load( open(ROOT +  "topics_names.p", "rb" ) )
-	x_topics = topicsFromTokens(tokenize(loadText(path)))
-	significant = getMostSignificativeWords(path)
+	x_topics = []
+	for i in range(0, len(topics)):
+		x_topics.append( ( i, topics[i] ))
+	significant = getMostSignificativeWords(text)
 	significants_words_per_topic = dict()
 
 	k = 1
