@@ -89,33 +89,48 @@ def similarities():
 
 @app.route("/network", methods=['GET', 'POST'])
 def network():
+	SIMILARITY_CUTOFF = 0.5
+
 	lasDoc = getLastAdded()
 	semantic_vectors = dict()
-	cursor = db.documents.find()
+	list_ids = db.documents.find().distinct("_id")
+	current_id = lasDoc["_id"]
+
+	id2db = dict()
+	gen = izi.idGenerator()
+
 	nodes = []
-	for doc in cursor:
+	for ii in list_ids:
+		doc = db.documents.find_one( {'_id' : ii} )
 		node = dict()
 		tmp_id = doc["_id"]
-		if tmp_id == lasDoc["_id"]:
-			node['color'] = "#0000ff"
+		i = gen.get()
+		id2db[str(tmp_id)] = i
+		node["id"] = i
+		if str(tmp_id) == str(current_id):
+			node['color'] = "red"
+			node['size'] = 8
+			print "### HERE ####"
 		else:
 			node['color'] = "#cccccc"
-		node['id'] = str(tmp_id)
+			node['size'] = 5
+		node['id_db'] = str(tmp_id)
 		node['name'] = doc['title']
-		node['color'] = "#cccccc"
-		node['size'] = 10
 		nodes.append(node)
 	
 	cursor = db.similarities.find()
 	edges = []
 	for e in cursor:
-		edges.append(e)
+		if e['value'] > SIMILARITY_CUTOFF:
+			a = e['source']
+			b = e['target']
+			edge = {'source': id2db[str(a)] , 'target': id2db[str(b)], 'value': e['value']}
+			edges.append(edge)
 
 
 	graph = dict()
 	graph['nodes'] = nodes
 	graph['links'] = edges
-
 
 	return json.dumps(graph)
 
@@ -208,7 +223,7 @@ def insertDoc(path):
     	y_id = doc["_id"]
     	if y_id != current_id:
 	    	s = izi.getSimilarity( semantic_vec, y)
-	    	db.similarities.insert({'source': str(current_id) , 'target': str(y_id), 'value': s})
+	    	db.similarities.insert({'source': current_id , 'target': y_id, 'value': s})
 
 if __name__ == '__main__':
     app.run(host = '0.0.0.0')
