@@ -12,19 +12,19 @@
   display: inline ;
   margin-right: 1px ;
   color: #fff ;
-  background: #c00 ;
+  background: #2c3e50 ;
 }
 
 #navigation li a:hover, #navigation li a:focus, #navigation li a:active {
-  background: #900 ;
+  background: #2c3e50 ;
   text-decoration: underline ;
 }
 
 #navigation li a {
   padding: 4px 20px ;
-  background: #c00 ;
+  background: #34495e ;
   color: #fff ;
-  border: 1px solid #600 ;
+  border: none;
   font: 1em "Trebuchet MS",Arial,sans-serif ;
   line-height: 1em ;
   text-align: center ;
