@@ -74,8 +74,8 @@ def significantWords():
 
 @app.route("/topicsGraph", methods=['GET', 'POST'])
 def topicsGraph():
-    # return json.dumps( result )
-    return json.dumps(izi.defSignificantWordsGraph(TEXT_FOLDERS +  [t for t in os.listdir(TEXT_FOLDERS)][0] ))
+    lasDoc = getLastAdded()
+    return json.dumps(izi.defSignificantWordsGraph(lasDoc['full_text'] , lasDoc['semantic_vec'] ))
 
 @app.route("/similarities", methods=['GET', 'POST'])
 def similarities():

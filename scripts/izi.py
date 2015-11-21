@@ -371,15 +371,13 @@ def getMostSignificantWordsData( text, topics ):
 	return data
 
 
-def defSignificantWordsGraph( path ):
+def defSignificantWordsGraph( text, topics ):
 	gen = idGenerator()
 	topic_names = pickle.load( open(ROOT +  "topics_names.p", "rb" ) )
-	x_topics = topicsFromTokens(tokenize(loadText(path)))
-	significant = getMostSignificativeWords(path)
-
-	print 
-	print
-	print type(significant)
+	x_topics = []
+	for i in range(0, len(topics)):
+		x_topics.append( ( i, topics[i] ))
+	significant = getMostSignificativeWords(text)
 	significants_words_per_topic = dict()
 	max_significant = max(significant.values())
 
