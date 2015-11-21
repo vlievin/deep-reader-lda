@@ -13,6 +13,10 @@ var dat = d3.json("/network", function(error, json) {
     .attr("class", "tooltip")               
     .style("opacity", 0);
 
+  var div2 = d3.select("text").append("div2")   
+    .attr("class", "tooltip")               
+    .style("opacity", 0);
+
   var opacityscale = d3.scale.linear().domain([0.75, 1]).range([0.08, .3]);
 
   var layer1 = vis.append('g');
@@ -43,6 +47,7 @@ var dat = d3.json("/network", function(error, json) {
           .on("drag", dragmove)
           .on("dragend", dragend);
 
+
       function dragstart(d, i) {
           force.stop() // stops the force auto positioning before you start dragging
       }
@@ -60,6 +65,7 @@ var dat = d3.json("/network", function(error, json) {
           tick();
           force.resume();
       }
+
 
 
       var node = layer2.selectAll("g.node")
@@ -82,19 +88,22 @@ var dat = d3.json("/network", function(error, json) {
                 console.log(dd)
             })*/
 
+
             d3.select(this).style("fill", "#1abc9c");
             div.transition()        
                 .duration(300)      
                 .style("opacity", .9);      
+
             div .html(d.name)  
                 .style("left", (d3.event.pageX) + "px")     
-                .style("top", (d3.event.pageY - 50) + "px");    
+                .style("top", (d3.event.pageY - 50) + "px");
+
             })                  
           .on("mouseout", function(d) {       
               d3.select(this).style("fill", function(d) { return d.color });
               div.transition()        
                   .duration(33)      
-                  .style("opacity", 0);   
+                  .style("opacity", 0);
           });
 
       /*node.append("svg:text")
