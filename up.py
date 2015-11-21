@@ -67,7 +67,7 @@ def topics():
     print " - - - "
     lasDoc = getLastAdded()
     # return json.dumps( result )
-    return json.dumps(izi.getTopicDistributionData(TEXT_FOLDERS +  [t for t in os.listdir(TEXT_FOLDERS)][0] ))
+    return json.dumps(izi.getTopicDistributionData( lasDoc['full_text']))
 
 @app.route("/significantWords", methods=['GET', 'POST'])
 def significantWords():

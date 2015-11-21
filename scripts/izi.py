@@ -457,9 +457,8 @@ def defSignificantWordsGraph( path ):
 
 
 
-def getTopicsDistributionWithinTheText(path, n_chunk = 30 ):
-	global_scores = topicsFromTokens(tokenize(loadText(path)))
-	text = loadText(path)
+def getTopicsDistributionWithinTheText(text, n_chunk = 30 ):
+	global_scores = topicsFromTokens(tokenize(text))
 	words = text.split()
 	chunk_length = len(words) / n_chunk
 	if chunk_length < 200:
@@ -496,12 +495,12 @@ def getTopicsDistributionWithinTheText(path, n_chunk = 30 ):
 	return scores, global_scores, chunk_length
 
 
-def getTopicDistributionData( path, n_chunk = 20):
+def getTopicDistributionData( txt, n_chunk = 20):
 
 	colours_copy = colours[:]
 	# random.shuffle(colours_copy)
 	topic_names = pickle.load( open(ROOT +  "topics_names.p", "rb" ) )
-	distribAlongText, global_scores, chunk_length = getTopicsDistributionWithinTheText(path, n_chunk)
+	distribAlongText, global_scores, chunk_length = getTopicsDistributionWithinTheText(txt, n_chunk)
 
 	global_scores =  sorted(global_scores, key=lambda tup: tup[1], reverse = True)
 	scores = []
