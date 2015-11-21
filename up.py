@@ -110,9 +110,8 @@ def network():
 		if str(tmp_id) == str(current_id):
 			node['color'] = "red"
 			node['size'] = 8
-			print "### HERE ####"
 		else:
-			node['color'] = "#cccccc"
+			node['color'] = "#555555"
 			node['size'] = 5
 		node['id_db'] = str(tmp_id)
 		node['name'] = doc['title']
@@ -207,6 +206,7 @@ def insertDoc(path):
     document = dict()
     document['title'] = path[len(TEXT_FOLDERS):]
     full_text = izi.loadText(path)
+    full_text = unicode(full_text, errors='ignore')
     tokens = izi.tokenize( full_text)
     document['full_text'] = full_text
     document['tokens'] = tokens
@@ -220,8 +220,9 @@ def insertDoc(path):
     print current_id
     print
     # create links
-    cursor = db.documents.find()
-    for doc in cursor:
+    doc_ids = db.documents.find().distinct("_id")
+    for ii in doc_ids:
+    	doc = db.documents.find_one( {"_id" : ii})
     	y = doc['semantic_vec']
     	y_id = doc["_id"]
     	if y_id != current_id:

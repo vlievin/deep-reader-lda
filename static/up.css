@@ -135,18 +135,17 @@ label {
 	right:20px;
 	list-style-type: none; }
 .flashed li {
-	font-family: Gotham; 
+	font-family: Open Sans; 
+	color: white;
 	text-align: center;
 	padding: 5px;
 	margin-bottom: 10px;
 	border-radius: 3px;
-	box-shadow: 1px 1px 9px black; }
+	box-shadow: 1px 1px 9px gray; }
 .succes li {
-	background-image: -moz-linear-gradient(#B7FF4F, #6CD043);
-	background-image: -webkit-linear-gradient(#B7FF4F, #6CD043); }
+	background-color: #1abc9c;}
 .error li {
-	background-image: -moz-linear-gradient(#F43600, #D83C31);
-	background-image: -webkit-linear-gradient(#F43600, #D83C31); }
+	background-color: #e74c3c; }
 .fichiers {
 	text-align: left;
 	list-style-type: circle;

@@ -404,8 +404,6 @@ def SignificantWordsGraph( tokens, topics ):
 	significants_words_per_topic['others']['values'] = dict()
 	significants_words_per_topic['others']['color'] = "#cccccc"
 
-
-
 	for w in significant:
 	    t = getTopicFromWord(w)
 	    if t != None:
@@ -427,6 +425,8 @@ def SignificantWordsGraph( tokens, topics ):
 	main['size'] = 30
 	nodes.append(main)
 
+	added_words = set()
+
 	for topic_name in significants_words_per_topic:
 		topic = significants_words_per_topic[topic_name]
 		color = topic['color']
@@ -442,14 +442,16 @@ def SignificantWordsGraph( tokens, topics ):
 		edges.append( {'source': id0 , 'target': id_topic, 'value': topic_node['size']})
 
 		for w in sorted(words, key=lambda tup: tup[1], reverse = True)[:int(topic_node['size'])] * 2:
-			id_word = gen.get()
-			word = dict()
-			word['id'] = id_word
-			word['name'] = w
-			word['color'] = color
-			word['size'] = words[w]
-			nodes.append(word)
-			edges.append( {'source': id_topic , 'target': id_word, 'value': word['size']})
+			if w not in added_words:
+				id_word = gen.get()
+				word = dict()
+				word['id'] = id_word
+				word['name'] = w
+				word['color'] = color
+				word['size'] = words[w]
+				nodes.append(word)
+				edges.append( {'source': id_topic , 'target': id_word, 'value': word['size']})
+				added_words.add(w)
 
 	graph = dict()
 	graph['nodes'] = nodes

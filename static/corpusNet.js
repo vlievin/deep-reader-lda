@@ -9,6 +9,12 @@ var dat = d3.json("/network", function(error, json) {
     .attr("width", w_graph)
     .attr("height", h_graph);
 
+  var div = d3.select("body").append("div")   
+    .attr("class", "tooltip")               
+    .style("opacity", 0);
+
+
+
   var force = self.force = d3.layout.force()
           .nodes(json["nodes"])
           .links(json["links"] )
@@ -22,6 +28,7 @@ var dat = d3.json("/network", function(error, json) {
           .data(json.links)
           .enter().append("svg:line")
           .attr("class", "link")
+          .style("stroke", "rgba(10,10,10,0.1)")
           .attr("x1", function(d) { return d.source.x; })
           .attr("y1", function(d) { return d.source.y; })
           .attr("x2", function(d) { return d.target.x; })
@@ -62,6 +69,19 @@ var dat = d3.json("/network", function(error, json) {
           .attr("fill" , function(d) { return d.color })
           .style("fill-opacity", .5)
           .attr("stroke", function(d) { return d.color })
+          .on("mouseover", function(d) {      
+            div.transition()        
+                .duration(200)      
+                .style("opacity", .9);      
+            div .html(d.name)  
+                .style("left", (d3.event.pageX) + "px")     
+                .style("top", (d3.event.pageY - 50) + "px");    
+            })                  
+          .on("mouseout", function(d) {       
+              div.transition()        
+                  .duration(500)      
+                  .style("opacity", 0);   
+          });
 
       /*node.append("svg:text")
           .attr("class", "nodetext")
