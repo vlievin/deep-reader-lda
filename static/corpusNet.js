@@ -75,7 +75,13 @@ var dat = d3.json("/network", function(error, json) {
           .attr("stroke", function(d) { return d.color })
           .on("mouseover", function(d) {   
 
-            console.log(d.name)
+            /*var dat = []
+            //retrieve text from db
+            d3.json( "/getText/"+d.name , function(error, dd) {
+                dat = dd;
+                console.log(dd)
+            })*/
+
             d3.select(this).style("fill", "#1abc9c");
             div.transition()        
                 .duration(300)      

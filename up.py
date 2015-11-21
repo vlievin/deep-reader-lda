@@ -92,7 +92,7 @@ def getText(title):
 	txt =  db.documents.find_one({'title' : title})
 	print txt
 	if txt:
-		return txt['full_text']
+		return json.dumps(txt['full_text'])
 	else:
 		return "failed to get text"
 
