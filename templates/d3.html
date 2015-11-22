@@ -65,6 +65,7 @@
 
 
     <div>
+      <h1> {{title}} </h1>
       <div style="position:up">
         <div id="topics" class="widget" style="float:left;min-height: 400px;  min-width: 47%;display: inline-block">
             <h1> Topics distribution </h1>
@@ -94,9 +95,9 @@
     </div>
 
     <script type="text/javascript" src="{{ url_for('static', filename='topicsDistrib.js') }}"></script>
-
-    <script type="text/javascript" src="{{ url_for('static', filename='wordCloud.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='complexity.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='wordCloud.js') }}"></script>
+    
     <script type="text/javascript" src="{{ url_for('static', filename='topicsGraph.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='closestTexts.js') }}"></script>
     

@@ -119,7 +119,7 @@ def network():
 		id2db[str(tmp_id)] = i
 		node["id"] = i
 		if str(tmp_id) == str(current_id):
-			node['color'] = "#c0392b"
+			node['color'] = "#e67e22"
 			node['size'] = 8
 		else:
 			node['color'] = "#555555"
@@ -198,7 +198,8 @@ def liste_upped():
 
 @app.route('/d3/')
 def d3():
-    return render_template('d3.html')
+	lasDoc = getLastAdded()
+	return render_template('d3.html', title = lasDoc['title'] )
 
 @app.route('/corpusnet/')
 def corpusnet():
