@@ -81,9 +81,12 @@ var dat = d3.json("/network", function(error, json) {
       node.append("svg:circle")
           .attr("r" , function(d) { return d.size })
           .attr("fill" , function(d) { return d.color })
+          .style("stroke", "white")
           .style("fill-opacity", 1)
           .attr("stroke", function(d) { return d.color })
-          .on("mouseover", function(d) {   
+          .on("mouseover", function(d) {  
+
+            mouseOverFunction(d) ;
 
             //retrieve text from db
             d3.json( "/getText/"+d.name , function(error, dd) {
@@ -113,7 +116,10 @@ var dat = d3.json("/network", function(error, json) {
                 .style("top", (d3.event.pageY - 50) + "px");
 
             })                  
-          .on("mouseout", function(d) {       
+          .on("mouseout", function(d) {    
+
+            mouseOutFunction(d);
+
               d3.select(this).style("fill", function(d) { return d.color });
               div.transition()        
                   .duration(333)      
@@ -126,6 +132,8 @@ var dat = d3.json("/network", function(error, json) {
                   .duration(33)      
                   .style("opacity", 0);
           });
+
+
 
       /*node.append("svg:text")
           .attr("class", "nodetext")
@@ -144,6 +152,68 @@ var dat = d3.json("/network", function(error, json) {
 
         node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
       };
+
+
+
+      // tests 
+
+
+
+    // function (highlith neighbors)
+    var linkedByIndex = {};
+      json["links"] .forEach(function(d) {
+        linkedByIndex[d.source.index + "," + d.target.index] = true;
+      });
+
+    function isConnected(a, b) {
+      return isConnectedAsTarget(a, b) || isConnectedAsSource(a, b) || a.index == b.index;
+    }
+
+    function isConnectedAsSource(a, b) {
+      return linkedByIndex[a.index + "," + b.index];
+    }
+
+    function isConnectedAsTarget(a, b) {
+      return linkedByIndex[b.index + "," + a.index];
+    }
+
+    function isEqual(a, b) {
+      return a.index == b.index;
+    }
+
+
+    var mouseOverFunction = function(d) {
+
+    //var circle = d3.select(this);
+
+      node
+        .transition(500)
+          .style("opacity", function(o) {
+            return isConnected(o, d) ? 1.0 : 0.2 ;
+          });
+
+      link
+        .transition(500)
+          .style("stroke-opacity", function(o) {
+            return o.source === d || o.target === d ? 1 : 0.2;
+          })
+    }
+
+    var mouseOutFunction = function(d) {
+      var circle = d3.select(this);
+
+      node
+        .transition(500)
+          .style("opacity", function(o) {
+            return isConnected(o, d) ? 1.0 : 1.0 ;
+          });
+
+      link
+        .transition(500)
+          .style("stroke-opacity", function(o) {
+            return o.source === d || o.target === d ? 1 : 1.0;
+          })
+    }
 
   
 
