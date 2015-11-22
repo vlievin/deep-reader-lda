@@ -13,6 +13,11 @@ var dat = d3.json("/network", function(error, json) {
     .attr("class", "tooltip")               
     .style("opacity", 0);
 
+
+  var div2 = d3.select("#hoveredText").append("div")   
+    .attr("class", "tooltip")               
+    .style("opacity", 0);
+
   var opacityscale = d3.scale.linear().domain([0.75, 1]).range([0.08, .3]);
 
   var layer1 = vis.append('g');
@@ -21,7 +26,7 @@ var dat = d3.json("/network", function(error, json) {
   var force = self.force = d3.layout.force()
           .nodes(json["nodes"])
           .links(json["links"] )
-          .gravity(.05)
+          .gravity(.03)
           .distance(100)
           .charge(-100)
           .size([w_graph, h_graph])
