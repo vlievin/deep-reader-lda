@@ -46,6 +46,8 @@ var dat = d3.json("/network", function(error, json) {
           .attr("x2", function(d) { return d.target.x; })
           .attr("y2", function(d) { return d.target.y; });
 
+
+      var drag_on = false;
       var node_drag = d3.behavior.drag()
           .on("dragstart", dragstart)
           .on("drag", dragmove)
@@ -53,6 +55,7 @@ var dat = d3.json("/network", function(error, json) {
 
 
       function dragstart(d, i) {
+          drag_on = true;
           force.stop() // stops the force auto positioning before you start dragging
       }
 
@@ -65,12 +68,11 @@ var dat = d3.json("/network", function(error, json) {
       }
 
       function dragend(d, i) {
+          drag_on = false;
           d.fixed = false; //change to true to fix when moved
           tick();
           force.resume();
       }
-
-
 
       var node = layer2.selectAll("g.node")
           .data(json.nodes)
@@ -87,6 +89,21 @@ var dat = d3.json("/network", function(error, json) {
           .on("mouseover", function(d) {  
 
             mouseOverFunction(d) ;
+
+            d3.select(this)
+            //.style("fill", "#1abc9c")
+            .transition()        
+                .duration(300) 
+                .attr("r" , function(d) { return d.size * 2  });
+
+            div.transition()        
+                .duration(300)      
+                .style("opacity", 1);      
+
+            div.html(d.name)  
+                .style("left", (d3.event.pageX) + "px")     
+                .style("top", (d3.event.pageY - 50) + "px");
+
 
             //retrieve text from db
             d3.json( "/getText/"+d.name , function(error, dd) {
@@ -106,31 +123,30 @@ var dat = d3.json("/network", function(error, json) {
               .duration(300)      
               .style("opacity", .9);
 
-            d3.select(this).style("fill", "#1abc9c");
-            div.transition()        
-                .duration(300)      
-                .style("opacity", 1);      
-
-            div.html(d.name)  
-                .style("left", (d3.event.pageX) + "px")     
-                .style("top", (d3.event.pageY - 50) + "px");
-
             })                  
           .on("mouseout", function(d) {    
 
-            mouseOutFunction(d);
+            if (!drag_on)
+            {
+              mouseOutFunction(d);
 
-              d3.select(this).style("fill", function(d) { return d.color });
-              div.transition()        
-                  .duration(333)      
-                  .style("opacity", 0);
+                d3.select(this)
+                //.style("fill", function(d) { return d.color })
+                .transition()        
+                  .duration(300) 
+                  .attr("r" , function(d) { return d.size });
 
-              /*div2.transition()        
-                  .duration(333)      
-                  .style("opacity", 0);*/
-              dat.transition()        
-                  .duration(33)      
-                  .style("opacity", 0);
+                div.transition()        
+                    .duration(333)      
+                    .style("opacity", 0);
+
+                /*div2.transition()        
+                    .duration(333)      
+                    .style("opacity", 0);*/
+                dat.transition()        
+                    .duration(33)      
+                    .style("opacity", 0);
+              }
           });
 
 
