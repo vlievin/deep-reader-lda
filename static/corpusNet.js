@@ -21,7 +21,7 @@ var dat = d3.json("/network", function(error, json) {
     .attr("class", "text_show")               
     .style("opacity", 0);
 
-  var opacityscale = d3.scale.linear().domain([0.75, 1]).range([0.08, .3]);
+  var opacityscale = d3.scale.linear().domain([0.75, 1]).range([0.03, .3]);
 
   var layer1 = vis.append('g');
   var layer2 = vis.append('g');
@@ -29,8 +29,8 @@ var dat = d3.json("/network", function(error, json) {
   var force = self.force = d3.layout.force()
           .nodes(json["nodes"])
           .links(json["links"] )
-          .gravity(.03)
-          .distance(100)
+          .gravity(.05)
+          .distance(80)
           .charge(-100)
           .size([w_graph, h_graph])
           .start();
@@ -39,12 +39,17 @@ var dat = d3.json("/network", function(error, json) {
           .data(json.links)
           .enter().append("svg:line")
           .attr("class", "link")
-          .style("stroke", function(d) { return "rgba(10,10,10, "+ opacityscale(d.value) + ")"})
+          .style("stroke", "#555555")
+          .style("stroke-opacity",0.5 )
           .style("stroke-width", function(d) { return 5 * opacityscale(d.value) })
           .attr("x1", function(d) { return d.source.x; })
           .attr("y1", function(d) { return d.source.y; })
           .attr("x2", function(d) { return d.target.x; })
           .attr("y2", function(d) { return d.target.y; });
+
+      force.linkStrength(function(link) {
+       return 0.2 + 0.8 * ( 1 - link.value );
+    });
 
 
       var drag_on = false;
@@ -213,6 +218,9 @@ var dat = d3.json("/network", function(error, json) {
           .style("stroke-opacity", function(o) {
             return o.source === d || o.target === d ? 1 : 0.2;
           })
+          /*.style("stroke-width", function(o) {
+            return o.source === d || o.target === d  ? 1.5 : 1;
+          })*/
     }
 
     var mouseOutFunction = function(d) {
@@ -224,11 +232,23 @@ var dat = d3.json("/network", function(error, json) {
             return isConnected(o, d) ? 1.0 : 1.0 ;
           });
 
+      
       link
         .transition(500)
           .style("stroke-opacity", function(o) {
-            return o.source === d || o.target === d ? 1 : 1.0;
+            return o.source === d || o.target === d ? 1 : 1;
           })
+
+
+    /*layer1.selectAll()
+        .data(json.links)
+        .enter().append("svg:line")
+        .attr("class", "link")
+        .style("stroke", function(d) { return "rgba(10,10,10, "+ opacityscale(d.value) + ")"})
+        .style("stroke-width", function(d) { return 5 * opacityscale(d.value) });
+          /*.style("stroke-width", function(o) {
+            return o.source === d || o.target === d  ? 1 : 1;
+          })*/
     }
 
   

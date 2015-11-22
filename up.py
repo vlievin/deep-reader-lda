@@ -120,7 +120,7 @@ def network():
 		node["id"] = i
 		if str(tmp_id) == str(current_id):
 			node['color'] = "#e67e22"
-			node['size'] = 8
+			node['size'] = 5
 		else:
 			node['color'] = "#555555"
 			node['size'] = 5
