@@ -31,9 +31,25 @@
 	  box-shadow: 0px 0px 3px rgba(50,50,50,0.2);      
 	}
 
+	::-webkit-scrollbar {
+    width: 12px;
+	}
+	::-webkit-scrollbar-track {
+	    background-color: #eaeaea;
+	    border-left: 1px solid #ccc;
+	}
+	::-webkit-scrollbar-thumb {
+	    background-color: #ccc;
+	}
+	::-webkit-scrollbar-thumb:hover {
+	    background-color: #aaa;
+	}
+
     </style>
 </head>
 <body>
+
+  <div id="text" style = "left: 0px; top: 0px; width: 300px; height: 100%; overflow-y: auto;resize: horizontal; "></div>
 
   <ul id="navigation">
   <li><a href="/" title="upload">upload</a></li>
@@ -44,9 +60,6 @@
   <div class="tooltip">Tipsy!</div>
   </div>-->
 
-  <div2 id="text" style = " width: 300px; height: 100%; overflow-y: scroll;">
-
-</div2>
 
 
     <!--<script type="text/javascript" src="{{ url_for('static', filename='topicsDistrib.js') }}"></script>

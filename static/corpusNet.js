@@ -3,15 +3,6 @@
 
 json = []
 
-$(document).ready(function () {
-  $('#text').resizable({
-    handles: 'n,w,s,e',
-    minWidth: 200,
-    maxWidth: 400
-  });
-});
-
-
 var dat = d3.json("/network", function(error, json) {
 
   var vis = d3.select("body").append("svg")
@@ -96,7 +87,6 @@ var dat = d3.json("/network", function(error, json) {
 
             //retrieve text from db
             d3.json( "/getText/"+d.name , function(error, dd) {
-                console.log(dd.text);
 
                 div2.transition()        
                 .duration(300)      
