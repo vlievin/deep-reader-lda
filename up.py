@@ -90,9 +90,10 @@ def similarities():
 @app.route('/getText/<title>')
 def getText(title):
 	txt =  db.documents.find_one({'title' : title})
-	print txt
 	if txt:
-		return json.dumps(txt['full_text'])
+		data = dict()
+		data['text'] = txt['full_text']
+		return json.dumps(data)
 	else:
 		return "failed to get text"
 

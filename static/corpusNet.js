@@ -3,6 +3,15 @@
 
 json = []
 
+$(document).ready(function () {
+  $('#text').resizable({
+    handles: 'n,w,s,e',
+    minWidth: 200,
+    maxWidth: 400
+  });
+});
+
+
 var dat = d3.json("/network", function(error, json) {
 
   var vis = d3.select("body").append("svg")
@@ -14,8 +23,8 @@ var dat = d3.json("/network", function(error, json) {
     .style("opacity", 0);
 
 
-  var div2 = d3.select("#hoveredText").append("div")   
-    .attr("class", "tooltip")               
+  var div2 = d3.select("#text").append("div")   
+    //.attr("class", "tooltip")               
     .style("opacity", 0);
 
   var opacityscale = d3.scale.linear().domain([0.75, 1]).range([0.08, .3]);
@@ -48,6 +57,7 @@ var dat = d3.json("/network", function(error, json) {
           .on("drag", dragmove)
           .on("dragend", dragend);
 
+
       function dragstart(d, i) {
           force.stop() // stops the force auto positioning before you start dragging
       }
@@ -67,6 +77,7 @@ var dat = d3.json("/network", function(error, json) {
       }
 
 
+
       var node = layer2.selectAll("g.node")
           .data(json.nodes)
         .enter().append("svg:g")
@@ -80,26 +91,36 @@ var dat = d3.json("/network", function(error, json) {
           .attr("stroke", function(d) { return d.color })
           .on("mouseover", function(d) {   
 
-            /*var dat = []
             //retrieve text from db
             d3.json( "/getText/"+d.name , function(error, dd) {
-                dat = dd;
-                console.log(dd)
-            })*/
+                console.log(dd.text);
+
+                div2.transition()        
+                .duration(300)      
+                .style("opacity", 1);
+                div2 .html(dd.text) ;
+            })
+
 
             d3.select(this).style("fill", "#1abc9c");
             div.transition()        
                 .duration(300)      
-                .style("opacity", .9);      
+                .style("opacity", 1);      
+
             div .html(d.name)  
                 .style("left", (d3.event.pageX) + "px")     
-                .style("top", (d3.event.pageY - 50) + "px");    
+                .style("top", (d3.event.pageY - 50) + "px");
+
             })                  
           .on("mouseout", function(d) {       
               d3.select(this).style("fill", function(d) { return d.color });
               div.transition()        
-                  .duration(33)      
-                  .style("opacity", 0);   
+                  .duration(333)      
+                  .style("opacity", 0);
+
+              /*div2.transition()        
+                  .duration(333)      
+                  .style("opacity", 0);*/
           });
 
       /*node.append("svg:text")
