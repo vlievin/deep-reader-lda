@@ -12,12 +12,11 @@
   display: inline ;
   margin-right: 1px ;
   color: #fff ;
-  background: #2c3e50 ;
+  background: #34495e ;
 }
 
 #navigation li a:hover, #navigation li a:focus, #navigation li a:active {
-  background: #2c3e50 ;
-  text-decoration: underline ;
+  background: #2980b9 ;
 }
 
 #navigation li a {
