@@ -25,6 +25,9 @@ var dat = d3.json("/network", function(error, json) {
 
   var div2 = d3.select("#text").append("div")   
     //.attr("class", "tooltip")               
+  var dat = d3.select("div2")
+    .append("div")   
+    .attr("class", "text_show")               
     .style("opacity", 0);
 
   var opacityscale = d3.scale.linear().domain([0.75, 1]).range([0.08, .3]);
@@ -101,13 +104,21 @@ var dat = d3.json("/network", function(error, json) {
                 div2 .html(dd.text) ;
             })
 
+            dat.append('foreignObject')
+              .html(d3.json("/getText/"+d.name , function(error, dd) {
+                return dd
+            }))
+              .select('div2')
+              .transition()        
+              .duration(300)      
+              .style("opacity", .9);
 
             d3.select(this).style("fill", "#1abc9c");
             div.transition()        
                 .duration(300)      
                 .style("opacity", 1);      
 
-            div .html(d.name)  
+            div.html(d.name)  
                 .style("left", (d3.event.pageX) + "px")     
                 .style("top", (d3.event.pageY - 50) + "px");
 
@@ -121,6 +132,9 @@ var dat = d3.json("/network", function(error, json) {
               /*div2.transition()        
                   .duration(333)      
                   .style("opacity", 0);*/
+              dat.transition()        
+                  .duration(33)      
+                  .style("opacity", 0);
           });
 
       /*node.append("svg:text")

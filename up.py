@@ -52,10 +52,10 @@ root = u"../izi_data/"
 
 
 def getLastAdded():
-	current_id = None
-	for d in db.documents.find(fields = {"_id"}).sort("_id", -1).limit(1):
-		current_id = d
-	return db.documents.find_one( { "_id" : current_id["_id"] })
+    current_id = None
+    for d in db.documents.find(fields = {"_id"}).sort("_id", -1).limit(1):
+        current_id = d
+    return db.documents.find_one( { "_id" : current_id["_id"] })
 
 @app.route("/complexity", methods=['GET', 'POST'])
 def complexity():
