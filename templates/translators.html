@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<head>
+
+    <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+
+</head>
+
+<body>
+
+<div id='canvas'></div>
+
+<script>
+
+var dat = d3.json("/translator", function(error, json) {
+
+
+
+var data1 = d3.json("/translator/"+'jx5nCFidcK2cbhtl' , function(error, dd) {
+                return dd;
+})
+;
+
+var data = [9000, 50, 80];
+var r = 300;
+
+var color = d3.scale.ordinal()
+    .range(['red', 'blue', 'orange']);
+
+var canvas = d3.select('#canvas').append('svg')
+    .attr('width', 1500)
+    .attr('height', 1500);
+
+var group = canvas.append('g')
+    .attr('transform', 'translate(300, 300)');
+
+var arc = d3.svg.arc()
+    .innerRadius(200)
+    .outerRadius(r);
+
+var pie = d3.layout.pie()
+    .value(function (d) {
+    return d;
+});
+
+var arcs = group.selectAll('.arc')
+    .data(pie(data))
+    .enter()
+    .append('g')
+    .attr('class', 'arc');
+
+arcs.append('path')
+    .attr('d', arc)
+    .attr('fill', function (d) {
+    return color(d.data);
+});
+
+arcs.append('text')
+    .attr('transform', function (d) {
+    return 'translate(' + arc.centroid(d) + ')';
+})
+    .attr('text-anchor', 'middle')
+    .attr('font-size', '1.5em')
+    .text(function (d) {
+    return data1;
+});
+});
+
+
+
+
+</script>
+
+</body>
+</html>

@@ -87,6 +87,23 @@ def similarities():
 	# return json.dumps( result )
 	return json.dumps(izi.getSimilaritiesScores(lasDoc['semantic_vec'], semantic_vectors))
 
+@app.route('/translator/<name>')
+def getTranslator(name):
+    nameT =  db.translators.find_one({'name' : name})
+    if nameT:
+        data = dict()
+        data['topics'] = nameT['topics']
+        return json.dumps(data)
+    else:
+        return "failed to get topicsT"
+
+
+@app.route('/translator/')
+def translator():
+    return render_template('translators.html')
+
+
+
 @app.route('/getText/<title>')
 def getText(title):
 	txt =  db.documents.find_one({'title' : title})
