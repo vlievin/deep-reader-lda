@@ -59,7 +59,7 @@ colours.append( "#e67e22")
 
 
 # constants
-min_score = 0.05
+min_score = 0.1
 
 # load lda
 lda = gensim.models.ldamodel.LdaModel.load(ROOT +  u'lda/wikipedia_lda', mmap='r')
@@ -458,6 +458,36 @@ def SignificantWordsGraph( tokens, topics ):
 	graph['links'] = edges
 
 	return graph
+
+
+def getTopTopics( vec ):
+	topic_names = pickle.load( open(ROOT +  "topics_names.p", "rb" ) )
+	pairs = []
+	result = []
+	for i in range(0, len(vec)):
+	    pairs.append( (i , vec[i] ) )
+	k = 1
+	s = 0.0
+	for i in sorted(pairs, key=lambda tup: tup[1], reverse = True):
+	    if i[1] > min_score:
+	    	tmp = dict()
+	    	tmp[ 'value' ] = i[1] 
+	    	s += i[1]
+	    	tmp['name'] = topic_names[i[0]]
+	    	tmp['color'] = colours[k]
+	    	result.append( tmp )
+	    	k += 1
+	    	if k >= len(colours):
+	    		k = 0
+
+	others = dict()
+	others[ 'value' ] = 1.0 - s
+	others['name'] = 'others'
+	others['color'] = 'lightgray'
+	result.append(others)
+
+	return result
+
 
 
 

@@ -14,6 +14,27 @@ var dat = d3.json("/network", function(error, json) {
     .style("opacity", 0);
 
 
+  var w_topics = 150;
+  var h_topics = 250;
+  var topics_canvas = d3.select("#text").append("svg")
+   .attr("width", h_topics)
+    .attr("height", h_topics)
+    .append("g")
+
+    g_topics = topics_canvas
+            .attr("transform", "translate(" + w_topics / 2 + "," + w_topics / 2 + ")");
+
+    g_labels = g_topics.append("g")
+
+  var arc = d3.svg.arc()
+    .outerRadius( 60 )
+    .innerRadius(30);
+
+  var pie = d3.layout.pie()
+      // .sort(null)
+      .value(function(d) { return d.value; });
+
+
   var div2 = d3.select("#text").append("div")   
     //.attr("class", "tooltip")               
   var dat = d3.select("div2")
@@ -21,7 +42,7 @@ var dat = d3.json("/network", function(error, json) {
     .attr("class", "text_show")               
     .style("opacity", 0);
 
-  var opacityscale = d3.scale.linear().domain([0.75, 1]).range([0.03, .3]);
+  var opacityscale = d3.scale.linear().domain([0.75, 1]).range([0.02, .25]);
 
   var layer1 = vis.append('g');
   var layer2 = vis.append('g');
@@ -30,8 +51,9 @@ var dat = d3.json("/network", function(error, json) {
           .nodes(json["nodes"])
           .links(json["links"] )
           .gravity(.05)
-          .distance(80)
-          .charge(-100)
+          .friction(0.1)
+          .distance(150)
+          .charge(-500)
           .size([w_graph, h_graph])
           .start();
 
@@ -111,22 +133,85 @@ var dat = d3.json("/network", function(error, json) {
 
 
             //retrieve text from db
-            d3.json( "/getText/"+d.name , function(error, dd) {
+            d3.json("/getTopics/"+d.name , function(e, dd_topics) {
 
-                div2.transition()        
-                .duration(300)      
-                .style("opacity", 1);
-                div2 .html(dd.text) ;
-            })
+            //chart
+            var path = g_topics.selectAll('path')
+            .data(pie(dd_topics['topics']));
 
-            dat.append('foreignObject')
-              .html(d3.json("/getText/"+d.name , function(error, dd) {
+            path.attr("class", "update")
+
+            path.enter().append('path')
+              .attr("class", "enter")
+              .attr('d', arc)
+              .attr('fill', function(d,i){ return d.data['color'];} ); 
+
+            //update
+            path
+              .attr('d', arc)
+              .attr('fill', function(d,i){ return d.data['color'];} );
+
+            path.exit().remove() 
+
+
+            // legend
+            g_labels.selectAll("*").remove();
+            for (var i = 0; i < dd_topics['topics'].length; i++)
+            {
+                g_labels.append('text')
+                .attr( 'transform' , "translate( -70, "  + ( w_topics/2 +10+ i * 15 )+ ")" )
+                .text( dd_topics['topics'][i]['name'])
+                .style( "font-family" , "Open Sans")
+                .style( "fill",  dd_topics['topics'][i]['color'])
+
+            }
+            // var legend = topics_canvas.selectAll('text')
+            // .data([dd_topics['topics'] ]);
+
+            // legend.attr("class", "update")
+
+            // legend.enter().append('text')
+            //   .attr("class", "enter")
+            //   .attr("transform", function(d,i) { return "translate( -30, " + 20 * i +")"  } )
+            //   // .text( "function(d){ return d['name']}")
+            //   .text( "YOLO")
+
+              
+
+             /* topics_canvas.transition()        
+                  .duration(300)      
+                  .style("opacity", 1);*/
+              });
+
+
+              d3.json( "/getText/"+d.name , function(error, dd) {
+
+                  div2.transition()        
+                  .duration(300)      
+                  .style("opacity", 1);
+                  div2 .html(dd.text) ;
+              })
+
+            /*dat.append('foreignObject')
+              .html( 'kdjvsjdqffqf'
+
+                d3.json("/getTopics/"+d.name , function(error, dd) {
+                  console.log(dd);
+                return dd;
+              })
+                +
+                " <br> <br>"
+                +
+                d3.json("/getText/"+d.name , function(error, dd) {
                 return dd
-            }))
+              })
+
+                )
               .select('div2')
               .transition()        
               .duration(300)      
-              .style("opacity", .9);
+              .style("opacity", .9);*/
+
 
             })                  
           .on("mouseout", function(d) {    
@@ -173,6 +258,7 @@ var dat = d3.json("/network", function(error, json) {
 
         node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
       };
+
 
 
 

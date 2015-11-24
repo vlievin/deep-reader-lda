@@ -53,9 +53,10 @@ root = u"../izi_data/"
 
 def getLastAdded():
     current_id = None
-    for d in db.documents.find(fields = {"_id"}).sort("_id", -1).limit(1):
+    for d in db.documents.find().sort("_id", -1).limit(1) :
         current_id = d
     return db.documents.find_one( { "_id" : current_id["_id"] })
+    # return db.documents.find_one()
 
 @app.route("/complexity", methods=['GET', 'POST'])
 def complexity():
@@ -106,14 +107,25 @@ def translator():
 
 @app.route('/getText/<title>')
 def getText(title):
-	txt =  db.documents.find_one({'title' : title})
-	if txt:
-		data = dict()
-		data['text'] = txt['full_text']
-		return json.dumps(data)
-	else:
-		return "failed to get text"
+    txt =  db.documents.find_one({'title' : title})
+    if txt:
+    	data = dict()
+    	data['text'] = txt['full_text']
+    	return json.dumps(data)
+    else:
+    	return "failed to get text"
 
+@app.route('/getTopics/<title>')
+def getTopics(title):
+    txt =  db.documents.find_one({'title' : title})
+    if txt:
+        data = dict()
+        vec = txt['semantic_vec']
+        topics = izi.getTopTopics(vec)
+        data['topics'] = topics
+        return json.dumps(data)
+    else:
+        return "failed to get text"
 
 @app.route("/network", methods=['GET', 'POST'])
 def network():
