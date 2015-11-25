@@ -261,7 +261,7 @@ def complexityAlongtheText( text, n_chunk = 10 ):
 	    cur += chunk_length
 	   
 	average = float(sum(y))/float(len(y))
-	print "average reading ease: %s "%average
+	# print "average reading ease: %s "%average
 
 	if average < 20:
 	    col = colours_ordered[0]
@@ -447,14 +447,14 @@ def SignificantWordsGraph( tokens, topics ):
 		nodes.append(topic_node)
 		edges.append( {'source': id0 , 'target': id_topic, 'value': topic_node['size']})
 
-		for ww in sorted(words, key=lambda _x_: _x_[1], reverse = True):
-			if ww not in added_words:
+		for w in sorted(words, key=lambda __tup: __tup[1], reverse = True)[: int( 15 + 2 * topic_node['size']) * 2]:
+			if w not in added_words:
 				id_word = gen.get()
 				word = dict()
 				word['id'] = id_word
-				word['name'] = ww
+				word['name'] = w
 				word['color'] = color
-				word['size'] = words[ww]
+				word['size'] = words[w]
 				nodes.append(word)
 				edges.append( {'source': id_topic , 'target': id_word, 'value': word['size']})
 				added_words.add(w)

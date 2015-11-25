@@ -127,16 +127,22 @@ def topics(title):
     return json.dumps(doc['full_topics'])
     # return json.dumps(izi.getTopicDistributionData( lasDoc['full_text'], lasDoc['semantic_vec']))
 
-@app.route("/significantWords", methods=['GET', 'POST'])
-def significantWords():
-    lasDoc = getLastAdded()
-    return json.dumps( lasDoc['significantWords'])
+@app.route("/significantWords/<title>", methods=['GET', 'POST'])
+def significantWords(title):
+    if title == '':
+        doc = getLastAdded()
+    else:
+        doc = db.documents.find_one( { "title" : title })
+    return json.dumps( doc['significantWords'])
     # return json.dumps(izi.getMostSignificantWordsData(lasDoc['tokens'] , lasDoc['semantic_vec']))
 
-@app.route("/topicsGraph", methods=['GET', 'POST'])
-def topicsGraph():
-    lasDoc = getLastAdded()
-    return json.dumps(lasDoc['topicsGraph'])
+@app.route("/topicsGraph/<title>", methods=['GET', 'POST'])
+def topicsGraph(title):
+    if title == '':
+        doc = getLastAdded()
+    else:
+        doc = db.documents.find_one( { "title" : title })
+    return json.dumps(doc['topicsGraph'])
     # return json.dumps(izi.SignificantWordsGraph(lasDoc['tokens'] , lasDoc['semantic_vec'] ))
 
 # @app.route("/similarities", methods=['GET', 'POST'])
