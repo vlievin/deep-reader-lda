@@ -42,7 +42,7 @@ var dat = d3.json("/network", function(error, json) {
     .attr("class", "text_show")               
     .style("opacity", 0);
 
-  var opacityscale = d3.scale.linear().domain([0.85, 1]).range([0.02, .25]);
+  var opacityscale = d3.scale.linear().domain([0.85, 1]).range([0.01, .25]);
 
   var layer1 = vis.append('g');
   var layer2 = vis.append('g');

@@ -32,39 +32,39 @@ colours.append( "#e67e22")
 
 
 class idGenerator:
-    def __init__(self):
-        self.id = 0
-    def get(self):
-        self.id += 1
-        return self.id - 1
+	def __init__(self):
+		self.id = 0
+	def get(self):
+		self.id += 1
+		return self.id - 1
 
 def getTopTopics( vec ):
-    topic_names = pickle.load( open( 'scripts/' +  "topics_names.p", "rb" ) )
-    pairs = []
-    result = []
-    for i in range(0, len(vec)):
-        pairs.append( (i , vec[i] ) )
-    k = 1
-    s = 0.0
-    for i in sorted(pairs, key=lambda tup: tup[1], reverse = True):
-        if i[1] > min_score and k < len(colours):
-            tmp = dict()
-            tmp[ 'value' ] = i[1] 
-            s += i[1]
-            tmp['name'] = topic_names[i[0]]
-            tmp['color'] = colours[k]
-            result.append( tmp )
-            k += 1
-            # if k >= len(colours):
-            #   k = 0
+	topic_names = pickle.load( open( 'scripts/' +  "topics_names.p", "rb" ) )
+	pairs = []
+	result = []
+	for i in range(0, len(vec)):
+		pairs.append( (i , vec[i] ) )
+	k = 1
+	s = 0.0
+	for i in sorted(pairs, key=lambda tup: tup[1], reverse = True):
+		if i[1] > min_score and k < len(colours):
+			tmp = dict()
+			tmp[ 'value' ] = i[1] 
+			s += i[1]
+			tmp['name'] = topic_names[i[0]]
+			tmp['color'] = colours[k]
+			result.append( tmp )
+			k += 1
+			# if k >= len(colours):
+			#   k = 0
 
-    others = dict()
-    others[ 'value' ] = 1.0 - s
-    others['name'] = 'others'
-    others['color'] = 'lightgray'
-    result.append(others)
+	others = dict()
+	others[ 'value' ] = 1.0 - s
+	others['name'] = 'others'
+	others['color'] = 'lightgray'
+	result.append(others)
 
-    return result
+	return result
 
 
 
@@ -82,7 +82,7 @@ print db.dataset
 print"#### COLLECTIONS ####"
 names = db.collection_names(include_system_collections=False)
 for n in names:
-    print " --   " + str(n)
+	print " --   " + str(n)
 print "###############################   READY   ###############################"
 
 app.debug = True
@@ -103,47 +103,47 @@ root = u"../izi_data/"
 
 
 def getLastAdded():
-    current_id = None
-    for d in db.documents.find().sort("_id", -1).limit(1) :
-        current_id = d
-    return db.documents.find_one( { "_id" : current_id["_id"] })
-    # return db.documents.find_one()
+	current_id = None
+	for d in db.documents.find().sort("_id", -1).limit(1) :
+		current_id = d
+	return db.documents.find_one( { "_id" : current_id["_id"] })
+	# return db.documents.find_one()
 
 @app.route("/complexity/<title>", methods=['GET', 'POST'])
 def complexity(title):
-    if title == '':
-        doc = getLastAdded()
-    else:
-        doc = db.documents.find_one( { "title" : title })
-    return json.dumps(doc['complexity'])
-    # return json.dumps(izi.getComplexityData(lasDoc['full_text']))
+	if title == '':
+		doc = getLastAdded()
+	else:
+		doc = db.documents.find_one( { "title" : title })
+	return json.dumps(doc['complexity'])
+	# return json.dumps(izi.getComplexityData(lasDoc['full_text']))
 
 @app.route("/topics/<title>", methods=['GET', 'POST'])
 def topics(title):
-    if title == '':
-        doc = getLastAdded()
-    else:
-        doc = db.documents.find_one( { "title" : title })
-    return json.dumps(doc['full_topics'])
-    # return json.dumps(izi.getTopicDistributionData( lasDoc['full_text'], lasDoc['semantic_vec']))
+	if title == '':
+		doc = getLastAdded()
+	else:
+		doc = db.documents.find_one( { "title" : title })
+	return json.dumps(doc['full_topics'])
+	# return json.dumps(izi.getTopicDistributionData( lasDoc['full_text'], lasDoc['semantic_vec']))
 
 @app.route("/significantWords/<title>", methods=['GET', 'POST'])
 def significantWords(title):
-    if title == '':
-        doc = getLastAdded()
-    else:
-        doc = db.documents.find_one( { "title" : title })
-    return json.dumps( doc['significantWords'])
-    # return json.dumps(izi.getMostSignificantWordsData(lasDoc['tokens'] , lasDoc['semantic_vec']))
+	if title == '':
+		doc = getLastAdded()
+	else:
+		doc = db.documents.find_one( { "title" : title })
+	return json.dumps( doc['significantWords'])
+	# return json.dumps(izi.getMostSignificantWordsData(lasDoc['tokens'] , lasDoc['semantic_vec']))
 
 @app.route("/topicsGraph/<title>", methods=['GET', 'POST'])
 def topicsGraph(title):
-    if title == '':
-        doc = getLastAdded()
-    else:
-        doc = db.documents.find_one( { "title" : title })
-    return json.dumps(doc['topicsGraph'])
-    # return json.dumps(izi.SignificantWordsGraph(lasDoc['tokens'] , lasDoc['semantic_vec'] ))
+	if title == '':
+		doc = getLastAdded()
+	else:
+		doc = db.documents.find_one( { "title" : title })
+	return json.dumps(doc['topicsGraph'])
+	# return json.dumps(izi.SignificantWordsGraph(lasDoc['tokens'] , lasDoc['semantic_vec'] ))
 
 # @app.route("/similarities", methods=['GET', 'POST'])
 # def similarities():
@@ -157,51 +157,51 @@ def topicsGraph(title):
 
 @app.route('/translator/<name>')
 def getTranslator(name):
-    nameT =  db.translators.find_one({'name' : name})
-    if nameT:
-        data = dict()
-        data['topics'] = nameT['topics']
-        return json.dumps(data)
-    else:
-        return "failed to get topicsT"
+	nameT =  db.translators.find_one({'name' : name})
+	if nameT:
+		data = dict()
+		data['topics'] = nameT['topics']
+		return json.dumps(data)
+	else:
+		return "failed to get topicsT"
 
 
 @app.route('/translator/')
 def translator():
-    return render_template('translators.html')
+	return render_template('translators.html')
 
 
 
 @app.route('/getText/<title>')
 def getText(title):
-    txt =  db.documents.find_one({'title' : title})
-    if txt:
-    	data = dict()
-    	data['text'] = txt['type'] + '  <br> <br>' + '<a href="/analysis/'+ title + '" class="btn btn-red">analysis </a>' + '<br><br>'  + txt['full_text']
-    	return json.dumps(data)
-    else:
-    	return "failed to get text"
+	txt =  db.documents.find_one({'title' : title})
+	if txt:
+		data = dict()
+		data['text'] = txt['type'] + '  <br> <br>' + '<a href="/analysis/'+ title + '" class="btn btn-red">analyse it! </a>' + '<br><br>'  + txt['full_text']
+		return json.dumps(data)
+	else:
+		return "failed to get text"
 
 @app.route('/getTopics/<title>')
 def getTopics(title):
-    txt =  db.documents.find_one({'title' : title})
-    if txt:
-        data = dict()
-        vec = txt['semantic_vec']
-        topics = getTopTopics(vec)
-        data['topics'] = topics
-        return json.dumps(data)
-    else:
-        return "failed to get text"
+	txt =  db.documents.find_one({'title' : title})
+	if txt:
+		data = dict()
+		vec = txt['semantic_vec']
+		topics = getTopTopics(vec)
+		data['topics'] = topics
+		return json.dumps(data)
+	else:
+		return "failed to get text"
 
 @app.route('/analysis/<title>')
 def analysis(title):
-    txt =  db.documents.find_one({'title' : title})
-    if txt:
-        data = dict()
-        return render_template('analysis.html', file_title = title )
-    else:
-        return "failed to get text"
+	txt =  db.documents.find_one({'title' : title})
+	if txt:
+		data = dict()
+		return render_template('analysis.html', file_title = title )
+	else:
+		return "failed to get text"
 
 
 
@@ -248,16 +248,16 @@ def network():
 	return json.dumps(graph)
 
 def processFile( path ):
-    return izi.displayResults( path )
+	return izi.displayResults( path )
 
 
 def extension_ok(nomfic):
-    """ Renvoie True si le fichier possède une extension d'image valide. """
-    return '.' in nomfic and nomfic.rsplit('.', 1)[1] in ('txt', 'mxliff')
+	""" Renvoie True si le fichier possède une extension d'image valide. """
+	return '.' in nomfic and nomfic.rsplit('.', 1)[1] in ('txt', 'mxliff')
 
 def is_image(nomfic):
-    """ Renvoie True si le fichier possède une extension d'image valide. """
-    return '.' in nomfic and nomfic.rsplit('.', 1)[1] in ('jpg', 'png')
+	""" Renvoie True si le fichier possède une extension d'image valide. """
+	return '.' in nomfic and nomfic.rsplit('.', 1)[1] in ('jpg', 'png')
 
 
 # @app.route('/', methods=['GET', 'POST'])
@@ -290,13 +290,13 @@ def is_image(nomfic):
 
 @app.route('/up/view/', methods=['GET', 'POST'])
 def liste_upped():
-    images = [img for img in os.listdir(DOSSIER_UPS) if is_image(img)] # la liste des images dans le dossier
-    if request.method == 'POST':
-        if request.form['submit']:
-            print "maybe here ?"
-        if request.form['submit'] == 'Delete All Files':
-            print "YOLO it works"
-    return render_template('up_liste.html', images=images)
+	images = [img for img in os.listdir(DOSSIER_UPS) if is_image(img)] # la liste des images dans le dossier
+	if request.method == 'POST':
+		if request.form['submit']:
+			print "maybe here ?"
+		if request.form['submit'] == 'Delete All Files':
+			print "YOLO it works"
+	return render_template('up_liste.html', images=images)
 
 
 @app.route('/d3/')
@@ -308,44 +308,44 @@ def d3():
 @app.route('/')
 @app.route('/corpusnet/')
 def corpusnet():
-    return render_template('corpusnet.html')
+	return render_template('corpusnet.html')
 
 
 @app.route('/up/view/<nom>')
 def upped(nom):
-    nom = secure_filename(nom)
-    if os.path.isfile(DOSSIER_UPS + nom): # si le fichier existe
-        return send_file(DOSSIER_UPS + nom, as_attachment=True) # on l'envoie
-    else:
-        flash(u'Fichier {nom} inexistant.'.format(nom=nom), 'error')
-        return redirect(url_for('liste_upped')) # sinon on redirige vers la liste des images, avec un message d'erreur
+	nom = secure_filename(nom)
+	if os.path.isfile(DOSSIER_UPS + nom): # si le fichier existe
+		return send_file(DOSSIER_UPS + nom, as_attachment=True) # on l'envoie
+	else:
+		flash(u'Fichier {nom} inexistant.'.format(nom=nom), 'error')
+		return redirect(url_for('liste_upped')) # sinon on redirige vers la liste des images, avec un message d'erreur
 
 def insertDoc(path):
-    document = dict()
-    document['title'] = path[len(TEXT_FOLDERS):]
-    full_text = izi.loadText(path)
-    full_text = unicode(full_text, errors='ignore')
-    tokens = izi.tokenize( full_text)
-    document['full_text'] = full_text
-    document['tokens'] = tokens
-    topics =  izi.topicsFromTokens(izi.tokenize(full_text))
-    semantic_vec = [0.] * n_topics
-    for i in topics:
-        semantic_vec[i[0]] = i[1]
-    document['semantic_vec'] = semantic_vec
-    current_id = db.documents.save(document)
-    print " ---- current id ---- "
-    print current_id
-    print
-    # create links
-    doc_ids = db.documents.find().distinct("_id")
-    for ii in doc_ids:
-    	doc = db.documents.find_one( {"_id" : ii})
-    	y = doc['semantic_vec']
-    	y_id = doc["_id"]
-    	if y_id != current_id:
-	    	s = izi.getSimilarity( semantic_vec, y)
-	    	db.similarities.insert({'source': current_id , 'target': y_id, 'value': s})
+	document = dict()
+	document['title'] = path[len(TEXT_FOLDERS):]
+	full_text = izi.loadText(path)
+	full_text = unicode(full_text, errors='ignore')
+	tokens = izi.tokenize( full_text)
+	document['full_text'] = full_text
+	document['tokens'] = tokens
+	topics =  izi.topicsFromTokens(izi.tokenize(full_text))
+	semantic_vec = [0.] * n_topics
+	for i in topics:
+		semantic_vec[i[0]] = i[1]
+	document['semantic_vec'] = semantic_vec
+	current_id = db.documents.save(document)
+	print " ---- current id ---- "
+	print current_id
+	print
+	# create links
+	doc_ids = db.documents.find().distinct("_id")
+	for ii in doc_ids:
+		doc = db.documents.find_one( {"_id" : ii})
+		y = doc['semantic_vec']
+		y_id = doc["_id"]
+		if y_id != current_id:
+			s = izi.getSimilarity( semantic_vec, y)
+			db.similarities.insert({'source': current_id , 'target': y_id, 'value': s})
 
 if __name__ == '__main__':
-    app.run(host = '0.0.0.0')
+	app.run(host = '0.0.0.0')
