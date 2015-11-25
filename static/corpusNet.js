@@ -50,7 +50,7 @@ var dat = d3.json("/network", function(error, json) {
   var force = self.force = d3.layout.force()
           .nodes(json["nodes"])
           .links(json["links"] )
-          .gravity(.02)
+          .gravity(.035)
           .friction(0.1)
           .distance(80)
           .charge(-300)
