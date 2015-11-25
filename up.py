@@ -109,16 +109,22 @@ def getLastAdded():
     return db.documents.find_one( { "_id" : current_id["_id"] })
     # return db.documents.find_one()
 
-@app.route("/complexity", methods=['GET', 'POST'])
-def complexity():
-    lasDoc = getLastAdded()
-    return json.dumps(lasDoc['complexity'])
+@app.route("/complexity/<title>", methods=['GET', 'POST'])
+def complexity(title):
+    if title == '':
+        doc = getLastAdded()
+    else:
+        doc = db.documents.find_one( { "title" : title })
+    return json.dumps(doc['complexity'])
     # return json.dumps(izi.getComplexityData(lasDoc['full_text']))
 
-@app.route("/topics", methods=['GET', 'POST'])
-def topics():
-    lasDoc = getLastAdded()
-    return json.dumps(lasDoc['full_topics'])
+@app.route("/topics/<title>", methods=['GET', 'POST'])
+def topics(title):
+    if title == '':
+        doc = getLastAdded()
+    else:
+        doc = db.documents.find_one( { "title" : title })
+    return json.dumps(doc['full_topics'])
     # return json.dumps(izi.getTopicDistributionData( lasDoc['full_text'], lasDoc['semantic_vec']))
 
 @app.route("/significantWords", methods=['GET', 'POST'])

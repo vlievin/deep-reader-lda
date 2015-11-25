@@ -8,7 +8,7 @@ var h = hh - m[0] - m[2]; // height
 console.log(FILE_TITLE)
 
 
-d3.json("/topics", function(error, data_topics) {
+d3.json("/topics/" + FILE_TITLE, function(error, data_topics) {
 
   full_data = data_topics[0];
 

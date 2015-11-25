@@ -447,7 +447,7 @@ def SignificantWordsGraph( tokens, topics ):
 		nodes.append(topic_node)
 		edges.append( {'source': id0 , 'target': id_topic, 'value': topic_node['size']})
 
-		for ww in sorted(words, key=lambda x: x[1], reverse = True):
+		for ww in sorted(words, key=lambda _x_: _x_[1], reverse = True):
 			if ww not in added_words:
 				id_word = gen.get()
 				word = dict()
