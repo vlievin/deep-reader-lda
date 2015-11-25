@@ -234,7 +234,7 @@ def getSimilarity( a ,b ):
     return similarity(listToDOK(a),listToDOK(b))  
 
 
-def complexityAlongtheText( text, n_chunk = 20 ):
+def complexityAlongtheText( text, n_chunk = 10 ):
 	words = text.split()
 	chunk_length = len(words) / n_chunk
 	if chunk_length < 200:
@@ -251,10 +251,13 @@ def complexityAlongtheText( text, n_chunk = 20 ):
 	    sub = words[cur:cur+chunk_length]
 	    sub.append('.')
 	    sub_text = ' '.join(sub)
-	    diff = 100 - textstat.flesch_reading_ease(sub_text)
-	    if diff < 100:
-	    	y.append( 100 - textstat.flesch_reading_ease(sub_text)  )
-	    	x.append( cur)
+	    try:
+		    diff = 100 - textstat.flesch_reading_ease(sub_text)
+		    if diff < 100:
+		    	y.append( 100 - textstat.flesch_reading_ease(sub_text)  )
+		    	x.append( cur)
+	    except:
+    		print "cannot compute complexity in 'complexityAlongtheText' "
 	    cur += chunk_length
 	   
 	average = float(sum(y))/float(len(y))

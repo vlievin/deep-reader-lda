@@ -61,32 +61,36 @@ def getLastAdded():
 @app.route("/complexity", methods=['GET', 'POST'])
 def complexity():
     lasDoc = getLastAdded()
-    return json.dumps(izi.getComplexityData(lasDoc['full_text']))
+    return json.dumps(lasDoc['complexity'])
+    # return json.dumps(izi.getComplexityData(lasDoc['full_text']))
 
 @app.route("/topics", methods=['GET', 'POST'])
 def topics():
     lasDoc = getLastAdded()
-    return json.dumps(izi.getTopicDistributionData( lasDoc['full_text'], lasDoc['semantic_vec']))
+    return json.dumps(lasDoc['full_topics'])
+    # return json.dumps(izi.getTopicDistributionData( lasDoc['full_text'], lasDoc['semantic_vec']))
 
 @app.route("/significantWords", methods=['GET', 'POST'])
 def significantWords():
     lasDoc = getLastAdded()
-    return json.dumps(izi.getMostSignificantWordsData(lasDoc['tokens'] , lasDoc['semantic_vec']))
+    return json.dumps( lasDoc['significantWords'])
+    # return json.dumps(izi.getMostSignificantWordsData(lasDoc['tokens'] , lasDoc['semantic_vec']))
 
 @app.route("/topicsGraph", methods=['GET', 'POST'])
 def topicsGraph():
     lasDoc = getLastAdded()
-    return json.dumps(izi.SignificantWordsGraph(lasDoc['tokens'] , lasDoc['semantic_vec'] ))
+    return json.dumps(lasDoc['topicsGraph'])
+    # return json.dumps(izi.SignificantWordsGraph(lasDoc['tokens'] , lasDoc['semantic_vec'] ))
 
-@app.route("/similarities", methods=['GET', 'POST'])
-def similarities():
-	lasDoc = getLastAdded()
-	semantic_vectors = dict()
-	cursor = db.documents.find()
-	for doc in cursor:
-		semantic_vectors[doc['title']] = doc['semantic_vec']
-	# return json.dumps( result )
-	return json.dumps(izi.getSimilaritiesScores(lasDoc['semantic_vec'], semantic_vectors))
+# @app.route("/similarities", methods=['GET', 'POST'])
+# def similarities():
+# 	lasDoc = getLastAdded()
+# 	semantic_vectors = dict()
+# 	cursor = db.documents.find()
+# 	for doc in cursor:
+# 		semantic_vectors[doc['title']] = doc['semantic_vec']
+# 	# return json.dumps( result )
+# 	return json.dumps(izi.getSimilaritiesScores(lasDoc['semantic_vec'], semantic_vectors))
 
 @app.route('/translator/<name>')
 def getTranslator(name):
