@@ -165,7 +165,7 @@ def getText(title):
     txt =  db.documents.find_one({'title' : title})
     if txt:
     	data = dict()
-    	data['text'] = txt['type'] + '  | '  + txt['full_text']
+    	data['text'] = txt['type'] + '  <br> <br>' + '<a href="/analysis/'+ title + '">analysis</a>' + '<br><br>'  + txt['full_text']
     	return json.dumps(data)
     else:
     	return "failed to get text"
@@ -181,6 +181,16 @@ def getTopics(title):
         return json.dumps(data)
     else:
         return "failed to get text"
+
+@app.route('/analysis/<title>')
+def analysis(title):
+    txt =  db.documents.find_one({'title' : title})
+    if txt:
+        data = dict()
+        return render_template('analysis.html', file_title = title )
+    else:
+        return "failed to get text"
+
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route("/network", methods=['GET', 'POST'])
@@ -289,6 +299,7 @@ def d3():
 @app.route('/corpusnet/')
 def corpusnet():
     return render_template('corpusnet.html')
+
 
 @app.route('/up/view/<nom>')
 def upped(nom):
