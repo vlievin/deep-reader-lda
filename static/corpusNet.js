@@ -101,6 +101,9 @@ var dat = d3.json("/network", function(error, json) {
           force.resume();
       }
 
+
+      var current_node = null;
+
       var node = layer2.selectAll("g.node")
           .data(json.nodes)
         .enter().append("svg:g")
@@ -115,13 +118,26 @@ var dat = d3.json("/network", function(error, json) {
           .attr("stroke", function(d) { return d.color })
           .on("mouseover", function(d) {  
 
+            if (current_node)
+            {
+              current_node
+              .transition()        
+              .duration(300) 
+              .attr("r" , function(d) { return d.size;  })
+              .attr("fill", function(d) { return d.color; });
+
+            }
+            current_node = d3.select(this);
+
             mouseOverFunction(d) ;
 
             d3.select(this)
             //.style("fill", "#1abc9c")
             .transition()        
-                .duration(300) 
-                .attr("r" , function(d) { return d.size * 2  });
+                .duration(450) 
+                .ease('elastic')
+                .attr("r" , function(d) { return d.size * 2  })
+                .attr("fill", "#E48681");
 
             div.transition()        
                 .duration(300)      
@@ -212,12 +228,6 @@ var dat = d3.json("/network", function(error, json) {
             if (!drag_on)
             {
               mouseOutFunction(d);
-
-                d3.select(this)
-                //.style("fill", function(d) { return d.color })
-                .transition()        
-                  .duration(300) 
-                  .attr("r" , function(d) { return d.size });
 
                 div.transition()        
                     .duration(333)      

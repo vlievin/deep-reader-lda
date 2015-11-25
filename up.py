@@ -204,7 +204,7 @@ def analysis(title):
         return "failed to get text"
 
 
-@app.route('/', methods=['GET', 'POST'])
+
 @app.route("/network", methods=['GET', 'POST'])
 def network():
 	SIMILARITY_CUTOFF = 0.85
@@ -225,12 +225,8 @@ def network():
 		i = gen.get()
 		id2db[str(tmp_id)] = i
 		node["id"] = i
-		if str(tmp_id) == str(current_id):
-			node['color'] = "#e67e22"
-			node['size'] = 5
-		else:
-			node['color'] = "#555555"
-			node['size'] = 5
+		node['color'] = "#555555"
+		node['size'] = 5
 		node['id_db'] = str(tmp_id)
 		node['name'] = doc['title']
 		nodes.append(node)
@@ -308,6 +304,8 @@ def d3():
 	lasDoc = getLastAdded()
 	return render_template('d3.html', title = lasDoc['title'] )
 
+
+@app.route('/')
 @app.route('/corpusnet/')
 def corpusnet():
     return render_template('corpusnet.html')
