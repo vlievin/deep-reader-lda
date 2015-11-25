@@ -110,7 +110,7 @@ def getText(title):
     txt =  db.documents.find_one({'title' : title})
     if txt:
     	data = dict()
-    	data['text'] = txt['full_text']
+    	data['text'] = txt['type'] + '  | '  + txt['full_text']
     	return json.dumps(data)
     else:
     	return "failed to get text"
@@ -129,7 +129,7 @@ def getTopics(title):
 
 @app.route("/network", methods=['GET', 'POST'])
 def network():
-	SIMILARITY_CUTOFF = 0.75
+	SIMILARITY_CUTOFF = 0.85
 
 	lasDoc = getLastAdded()
 	semantic_vectors = dict()
