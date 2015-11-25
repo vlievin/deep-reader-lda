@@ -46,6 +46,7 @@ d3.json("/complexity/" + FILE_TITLE, function(error, full_data) {
     path
       .transition()
       .duration(500)
+      
       .attrTween( 'd', function() {
 
          var interpolator = d3.interpolateArray( startData, data );
