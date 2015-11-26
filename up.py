@@ -177,7 +177,7 @@ def getText(title):
 	txt =  db.documents.find_one({'title' : title})
 	if txt:
 		data = dict()
-		data['text'] = txt['type'] + '  <br> <br>' + '<a href="/analysis/'+ title + '" class="btn btn-red">analyse it! </a>' + '<br><br>'  + txt['full_text']
+		data['text'] = txt['title'] + '  <br> <br>' + '<a href="/analysis/'+ title + '" class="btn btn-red">analyse it! </a>' + '<br><br>'  + txt['full_text']
 		return json.dumps(data)
 	else:
 		return "failed to get text"
