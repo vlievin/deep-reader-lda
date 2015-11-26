@@ -5,17 +5,38 @@ from flask import Flask, request, flash, redirect, url_for, render_template, jso
 from flask import send_file
 from werkzeug import secure_filename
 import os
-from PIL import Image
-from StringIO import StringIO
-import shutil
 import json
-from flask.ext.pymongo import PyMongo
 
-from pymongo import MongoClient
-import pickle
+# Use a database already created on mongolab 
+server = 'ds059694.mongolab.com'
+port = 59694
+db_name = 'deepreader'
+username = 'deepreaderuser'
+password = '1ecolequimonte45'
 
-client = MongoClient()
-db = client.izidb
+from pymongo import MongoClient as Connection
+
+# from pymongo import Connection
+
+# what versions are we using
+import sys
+print 'Python version', sys.version
+
+import pymongo
+print 'Pymongo version', pymongo.version
+##
+
+# connect to server
+print '\nConnecting ...'
+conn = Connection(server, port)
+
+# Get the database
+print '\nGetting database ...'
+db = conn[db_name]
+
+# Have to authenticate to get access
+print '\nAuthenticating ...'
+db.authenticate(username, password)
 
 
 min_score = 0.04
@@ -74,9 +95,6 @@ def getTopTopics( vec ):
 app = Flask(__name__)
 app.secret_key = 'd66HR8dç"f_-àgjYYic*dh'
 
-
-mongo = PyMongo(app)
-
 print"#### DATABASE ####"
 print db.dataset
 print"#### COLLECTIONS ####"
@@ -87,19 +105,8 @@ print "###############################   READY   ###############################
 
 app.debug = True
 
-DOSSIER_UPS = 'ups/'
-TEXT_FOLDERS = 'texts/'
-DATA_FOLDERS = 'data/'
 n_topics = 100
 
-import matplotlib
-matplotlib.use('Agg')
-from matplotlib import pyplot as plt
-import numpy
-
-data_complexity = []
-current_id = None
-root = u"../izi_data/"
 
 
 def getLastAdded():
@@ -144,16 +151,6 @@ def topicsGraph(title):
 		doc = db.documents.find_one( { "title" : title })
 	return json.dumps(doc['topicsGraph'])
 	# return json.dumps(izi.SignificantWordsGraph(lasDoc['tokens'] , lasDoc['semantic_vec'] ))
-
-# @app.route("/similarities", methods=['GET', 'POST'])
-# def similarities():
-# 	lasDoc = getLastAdded()
-# 	semantic_vectors = dict()
-# 	cursor = db.documents.find()
-# 	for doc in cursor:
-# 		semantic_vectors[doc['title']] = doc['semantic_vec']
-# 	# return json.dumps( result )
-# 	return json.dumps(izi.getSimilaritiesScores(lasDoc['semantic_vec'], semantic_vectors))
 
 @app.route('/translator/<name>')
 def getTranslator(name):
@@ -254,64 +251,12 @@ def is_image(nomfic):
 #         #     flash(u'Mot de passe incorrect', 'error')
 #     return render_template('up_up.html')
 
-@app.route('/up/view/', methods=['GET', 'POST'])
-def liste_upped():
-	images = [img for img in os.listdir(DOSSIER_UPS) if is_image(img)] # la liste des images dans le dossier
-	if request.method == 'POST':
-		if request.form['submit']:
-			print "maybe here ?"
-		if request.form['submit'] == 'Delete All Files':
-			print "YOLO it works"
-	return render_template('up_liste.html', images=images)
-
-
-@app.route('/d3/')
-def d3():
-	lasDoc = getLastAdded()
-	return render_template('d3.html', title = lasDoc['title'] )
 
 
 @app.route('/')
 @app.route('/corpusnet/')
 def corpusnet():
 	return render_template('corpusnet.html')
-
-
-@app.route('/up/view/<nom>')
-def upped(nom):
-	nom = secure_filename(nom)
-	if os.path.isfile(DOSSIER_UPS + nom): # si le fichier existe
-		return send_file(DOSSIER_UPS + nom, as_attachment=True) # on l'envoie
-	else:
-		flash(u'Fichier {nom} inexistant.'.format(nom=nom), 'error')
-		return redirect(url_for('liste_upped')) # sinon on redirige vers la liste des images, avec un message d'erreur
-
-def insertDoc(path):
-	document = dict()
-	document['title'] = path[len(TEXT_FOLDERS):]
-	full_text = izi.loadText(path)
-	full_text = unicode(full_text, errors='ignore')
-	tokens = izi.tokenize( full_text)
-	document['full_text'] = full_text
-	document['tokens'] = tokens
-	topics =  izi.topicsFromTokens(izi.tokenize(full_text))
-	semantic_vec = [0.] * n_topics
-	for i in topics:
-		semantic_vec[i[0]] = i[1]
-	document['semantic_vec'] = semantic_vec
-	current_id = db.documents.save(document)
-	print " ---- current id ---- "
-	print current_id
-	print
-	# create links
-	doc_ids = db.documents.find().distinct("_id")
-	for ii in doc_ids:
-		doc = db.documents.find_one( {"_id" : ii})
-		y = doc['semantic_vec']
-		y_id = doc["_id"]
-		if y_id != current_id:
-			s = izi.getSimilarity( semantic_vec, y)
-			db.similarities.insert({'source': current_id , 'target': y_id, 'value': s})
 
 if __name__ == '__main__':
 	app.run(host = '0.0.0.0')
