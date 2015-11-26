@@ -208,7 +208,10 @@ def analysis(title):
 @app.route("/network", methods=['GET', 'POST'])
 def network():
 	graph = db.graph.find_one()
-	return json.dumps(graph)
+	data = dict()
+	data['nodes'] = graph['nodes']
+	data['links'] = graph['links']
+	return json.dumps(data)
 
 def processFile( path ):
 	return izi.displayResults( path )
