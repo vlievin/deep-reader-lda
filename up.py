@@ -207,44 +207,7 @@ def analysis(title):
 
 @app.route("/network", methods=['GET', 'POST'])
 def network():
-	SIMILARITY_CUTOFF = 0.85
-
-	lasDoc = getLastAdded()
-	semantic_vectors = dict()
-	list_ids = db.documents.find().distinct("_id")
-	current_id = lasDoc["_id"]
-
-	id2db = dict()
-	gen = idGenerator()
-
-	nodes = []
-	for ii in list_ids:
-		doc = db.documents.find_one( {'_id' : ii} )
-		node = dict()
-		tmp_id = doc["_id"]
-		i = gen.get()
-		id2db[str(tmp_id)] = i
-		node["id"] = i
-		node['color'] = "#555555"
-		node['size'] = 5
-		node['id_db'] = str(tmp_id)
-		node['name'] = doc['title']
-		nodes.append(node)
-	
-	cursor = db.similarities.find()
-	edges = []
-	for e in cursor:
-		if e['value'] > SIMILARITY_CUTOFF:
-			a = e['source']
-			b = e['target']
-			edge = {'source': id2db[str(a)] , 'target': id2db[str(b)], 'value': e['value']}
-			edges.append(edge)
-
-
-	graph = dict()
-	graph['nodes'] = nodes
-	graph['links'] = edges
-
+	graph = db.graph.find_one()
 	return json.dumps(graph)
 
 def processFile( path ):
