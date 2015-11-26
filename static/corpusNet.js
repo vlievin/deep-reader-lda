@@ -148,9 +148,9 @@ var dat = d3.json("/network", function(error, json) {
                 .style("top", (d3.event.pageY - 50) + "px");
 
 
-            //retrieve text from db
+            //retrieve topics from db
             d3.json("/getTopics/"+d.name , function(e, dd_topics) {
-
+		
             //chart
             var path = g_topics.selectAll('path')
             .data(pie(dd_topics['topics']));

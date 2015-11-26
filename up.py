@@ -6,6 +6,7 @@ from flask import send_file
 from werkzeug import secure_filename
 import os
 import json
+import pickle
 
 # Use a database already created on mongolab 
 server = 'ds059694.mongolab.com'
