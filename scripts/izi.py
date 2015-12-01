@@ -448,9 +448,9 @@ def SignificantWordsGraph( tokens, topics ):
 		topic_node['color'] = color
 		topic_node['size'] = 60 * topic['size']
 		nodes.append(topic_node)
-		edges.append( {'source': id0 , 'target': id_topic, 'value': topic_node['size']})
+		edges.append( {'source': id0 , 'target': id_topic, 'value':  100.0 - topic_node['size']})
 
-		for w in sorted(words, key=lambda __tup: __tup[1], reverse = True)[: int( 15 + 2 * topic_node['size']) * 2]:
+		for w in sorted(words, key=lambda __tup: __tup[1], reverse = True)[: int( 15 + 3 * topic_node['size']) ]:
 			if w not in added_words:
 				id_word = gen.get()
 				word = dict()
@@ -459,7 +459,7 @@ def SignificantWordsGraph( tokens, topics ):
 				word['color'] = color
 				word['size'] = words[w]
 				nodes.append(word)
-				edges.append( {'source': id_topic , 'target': id_word, 'value': word['size']})
+				edges.append( {'source': id_topic , 'target': id_word, 'value': 80})
 				added_words.add(w)
 
 	graph = dict()

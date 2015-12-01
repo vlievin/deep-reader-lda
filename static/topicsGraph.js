@@ -16,6 +16,14 @@ var dat = d3.json("/topicsGraph/" + FILE_TITLE, function(error, json) {
           .distance(100)
           .charge(-100)
           .size([w_graph, h_graph])
+        //   .linkDistance( function(link) {
+
+	      	// console.log(link.value);
+	       // return   ( 1* ( link.value )); })
+          .linkStrength( function(link) {
+
+	      	console.log(link.value);
+	       return   ( 0.05 *   (  0.2 + 0.8 * ( 100 - link.value ))); })
           .start();
 
       var link = vis.selectAll("line.link")
