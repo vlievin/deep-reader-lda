@@ -259,8 +259,11 @@ def complexityAlongtheText( text, n_chunk = 10 ):
 	    except:
     		print "cannot compute complexity in 'complexityAlongtheText' "
 	    cur += chunk_length
-	   
-	average = float(sum(y))/float(len(y))
+   
+	if len(y):
+		average = float(sum(y))/float(len(y))
+	else:
+		average = 0
 	# print "average reading ease: %s "%average
 
 	if average < 20:
