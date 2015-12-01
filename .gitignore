@@ -1,8 +1,8 @@
 *~
 *.pyc
-*.txt
 *.mxliff
 database.db
 config.py
 scripts/lda
 .ipynb_checkpoints/
+deepreader/

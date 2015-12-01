@@ -59,10 +59,11 @@ colours.append( "#e67e22")
 
 
 # constants
-min_score = 0.1
+min_score = 0.03
 
 # load lda
-lda = gensim.models.ldamodel.LdaModel.load(ROOT +  u'lda/wikipedia_lda', mmap='r')
+lda = gensim.models.ldamodel.LdaModel.load( ROOT +  u'lda/wikipedia_lda', mmap='r')
+N_TOPICS = 100
 
 # freq_english = pickle.load( open(ROOT +  "english_frequencies.p", "rb" ) )
 import nltk
@@ -79,8 +80,10 @@ def loadText(path):
         for string in soup.find_all("source"):
             s += ' ' + string.string
         return s
-    else:
+    elif path[-3:] == 'txt':
         return open(path, 'r').read()
+    else:
+    	print "EXTENSION ERROR: " + path
 
 
 # def getChunks(text):
@@ -205,15 +208,15 @@ def similarity( a, b):
         return p[0]
 
 def listToDOK(vec):
-	v = dok_matrix((1,100), dtype=float32)
+	v = dok_matrix((1,N_TOPICS), dtype=float32)
 	for i in range(0, len(vec)):
 		v[0,i] = vec[i]
 	return v
 
 def getSimilaritiesScores( vec ,semantic_vectors ):
-    u = dok_matrix((1,100), dtype=float32)
+    u = dok_matrix((1,N_TOPICS), dtype=float32)
     i = 0
-    for i in range(0,100):
+    for i in range(0,N_TOPICS):
         u[0,i ]= vec[i]
     similarities = []
     for s in semantic_vectors:
@@ -231,7 +234,7 @@ def getSimilarity( a ,b ):
     return similarity(listToDOK(a),listToDOK(b))  
 
 
-def complexityAlongtheText( text, n_chunk = 20 ):
+def complexityAlongtheText( text, n_chunk = 10 ):
 	words = text.split()
 	chunk_length = len(words) / n_chunk
 	if chunk_length < 200:
@@ -248,14 +251,20 @@ def complexityAlongtheText( text, n_chunk = 20 ):
 	    sub = words[cur:cur+chunk_length]
 	    sub.append('.')
 	    sub_text = ' '.join(sub)
-	    diff = 100 - textstat.flesch_reading_ease(sub_text)
-	    if diff < 100:
-	    	y.append( 100 - textstat.flesch_reading_ease(sub_text)  )
-	    	x.append( cur)
+	    try:
+		    diff = 100 - textstat.flesch_reading_ease(sub_text)
+		    if diff < 100:
+		    	y.append( 100 - textstat.flesch_reading_ease(sub_text)  )
+		    	x.append( cur)
+	    except:
+    		print "cannot compute complexity in 'complexityAlongtheText' "
 	    cur += chunk_length
-	   
-	average = float(sum(y))/float(len(y))
-	print "average reading ease: %s "%average
+   
+	if len(y):
+		average = float(sum(y))/float(len(y))
+	else:
+		average = 0
+	# print "average reading ease: %s "%average
 
 	if average < 20:
 	    col = colours_ordered[0]
@@ -441,7 +450,7 @@ def SignificantWordsGraph( tokens, topics ):
 		nodes.append(topic_node)
 		edges.append( {'source': id0 , 'target': id_topic, 'value': topic_node['size']})
 
-		for w in sorted(words, key=lambda tup: tup[1], reverse = True)[: int( 15 + 0.5 * topic_node['size'])] * 2:
+		for w in sorted(words, key=lambda __tup: __tup[1], reverse = True)[: int( 15 + 2 * topic_node['size']) * 2]:
 			if w not in added_words:
 				id_word = gen.get()
 				word = dict()
@@ -469,7 +478,7 @@ def getTopTopics( vec ):
 	k = 1
 	s = 0.0
 	for i in sorted(pairs, key=lambda tup: tup[1], reverse = True):
-	    if i[1] > min_score:
+	    if i[1] > min_score and k < len(colours):
 	    	tmp = dict()
 	    	tmp[ 'value' ] = i[1] 
 	    	s += i[1]
@@ -477,8 +486,8 @@ def getTopTopics( vec ):
 	    	tmp['color'] = colours[k]
 	    	result.append( tmp )
 	    	k += 1
-	    	if k >= len(colours):
-	    		k = 0
+	    	# if k >= len(colours):
+	    	# 	k = 0
 
 	others = dict()
 	others[ 'value' ] = 1.0 - s
@@ -652,7 +661,7 @@ class idGenerator:
 
 
 # convert raw semantic vector to sprse DOK vector
-def semantic_vec_to_dok( semantic_vec , n_topics = 100):
+def semantic_vec_to_dok( semantic_vec , n_topics = N_TOPICS):
     u = dok_matrix((1,n_topics), dtype=float32)
     for t in semantic_vec:
         u[0,t[0]] = t[1]

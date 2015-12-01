@@ -2,7 +2,7 @@ var m = [80, 50, 80, 50]; // margins
 var w = 600- m[1] - m[3]; // width
 var h = 400 - m[0] - m[2]; // height
 
-d3.json("/complexity", function(error, full_data) {
+d3.json("/complexity/" + FILE_TITLE, function(error, full_data) {
 
   data = full_data['values']
   color = full_data['color']
@@ -46,6 +46,7 @@ d3.json("/complexity", function(error, full_data) {
     path
       .transition()
       .duration(500)
+      
       .attrTween( 'd', function() {
 
          var interpolator = d3.interpolateArray( startData, data );

@@ -3,7 +3,7 @@
 
 json = []
 
-var dat = d3.json("/topicsGraph", function(error, json) {
+var dat = d3.json("/topicsGraph/" + FILE_TITLE, function(error, json) {
 
   var vis = d3.select("#topicsGraph").append("svg")
     .attr("width", w_graph)

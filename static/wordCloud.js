@@ -1,5 +1,5 @@
 var frequency_list = []
-d3.json("/significantWords", function(error, full_data) {
+d3.json("/significantWords/" + FILE_TITLE, function(error, full_data) {
 
   frequency_list = full_data
 

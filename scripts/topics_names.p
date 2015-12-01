@@ -6,7 +6,7 @@ sI1
 S'american football'
 p2
 sI2
-S'design - clothing'
+S'industry'
 p3
 sI3
 S'japan'
@@ -21,39 +21,41 @@ sI6
 S'cities - airports ?'
 p7
 sI7
-I7
+S'sea - navigation'
+p8
 sI8
 I8
 sI9
-I9
+S'USA'
+p9
 sI10
-S'books - writting - library'
-p8
+S'literature'
+p10
 sI11
 S'arab culture'
-p9
+p11
 sI12
 I12
 sI13
 I13
 sI14
 S'mathematics'
-p10
+p12
 sI15
 I15
 sI16
-S'buildings'
-p11
+S'urban- construction'
+p13
 sI17
 I17
 sI18
-S'specifications'
-p12
+S'south-east asia'
+p14
 sI19
 I19
 sI20
 S'german'
-p13
+p15
 sI21
 I21
 sI22
@@ -61,21 +63,21 @@ I22
 sI23
 I23
 sI24
-S'vehicle - machines'
-p14
+S'vehicle - race'
+p16
 sI25
-S'business - distribution'
-p15
+S'business - economy'
+p17
 sI26
 I26
 sI27
 S'IT - startups - business'
-p16
+p18
 sI28
 I28
 sI29
-S'music industry'
-p17
+S'music'
+p19
 sI30
 I30
 sI31
@@ -83,45 +85,49 @@ I31
 sI32
 I32
 sI33
-I33
+S'names'
+p20
 sI34
-S"doesn't look english.."
-p18
+S'language - not english'
+p21
 sI35
-I35
+S'french'
+p22
 sI36
 I36
 sI37
 I37
 sI38
-S'law - agreements'
-p19
+S'law - politics'
+p23
 sI39
 I39
 sI40
-S'health'
-p20
+S'health - medecine'
+p24
 sI41
-S'security - emergency'
-p21
+S'security - military'
+p25
 sI42
 I42
 sI43
 I43
 sI44
-S'IT - telecommunication'
-p22
+S'medias'
+p26
 sI45
 I45
 sI46
-I46
+S'china'
+p27
 sI47
 I47
 sI48
-S'art'
-p23
+S'art - galleries'
+p28
 sI49
-I49
+S'biology'
+p29
 sI50
 I50
 sI51
@@ -133,13 +139,13 @@ I53
 sI54
 I54
 sI55
-S'clothes - materials'
-p24
+S'clothes - lifestyle'
+p30
 sI56
 I56
 sI57
-S'distribution'
-p25
+S'transports'
+p31
 sI58
 I58
 sI59
@@ -147,36 +153,38 @@ I59
 sI60
 I60
 sI61
-I61
+S'religion'
+p32
 sI62
 I62
 sI63
 I63
 sI64
-S'colors - nature'
-p26
+S'nature - colors'
+p33
 sI65
 I65
 sI66
 I66
 sI67
-S'medieval'
-p27
+S'History - medieval'
+p34
 sI68
 I68
 sI69
 S'sport - competition'
-p28
+p35
 sI70
 I70
 sI71
-I71
+S'india'
+p36
 sI72
-S'Legal'
-p29
+S'IT - web'
+p37
 sI73
-S'mountains - nature'
-p30
+S'landscapes - nature'
+p38
 sI74
 I74
 sI75
@@ -184,37 +192,39 @@ I75
 sI76
 I76
 sI77
-S'TV - people - fashion'
-p31
+S'TV - cinema'
+p39
 sI78
-S'positive words - marketing'
-p32
+S'everyday vocabulary'
+p40
 sI79
 I79
 sI80
 I80
 sI81
-S'human ressources'
-p33
+S'philosophy - sociology'
+p41
 sI82
 I82
 sI83
 S'food'
-p34
+p42
 sI84
 I84
 sI85
-I85
+S'south america'
+p43
 sI86
-S'childish - games'
-p35
+S'fantasy - games'
+p44
 sI87
 I87
 sI88
-I88
+S'english culture'
+p45
 sI89
-S'nutrition'
-p36
+S'chemistry - nutrition'
+p46
 sI90
 I90
 sI91
@@ -225,14 +235,14 @@ sI93
 I93
 sI94
 S'classical music - composers'
-p37
+p47
 sI95
 I95
 sI96
 I96
 sI97
 S'science'
-p38
+p48
 sI98
 I98
 sI99

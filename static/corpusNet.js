@@ -15,7 +15,7 @@ var dat = d3.json("/network", function(error, json) {
 
 
   var w_topics = 150;
-  var h_topics = 250;
+  var h_topics = 300;
   var topics_canvas = d3.select("#text").append("svg")
    .attr("width", h_topics)
     .attr("height", h_topics)
@@ -28,7 +28,7 @@ var dat = d3.json("/network", function(error, json) {
 
   var arc = d3.svg.arc()
     .outerRadius( 60 )
-    .innerRadius(30);
+    .innerRadius(50);
 
   var pie = d3.layout.pie()
       // .sort(null)
@@ -42,7 +42,7 @@ var dat = d3.json("/network", function(error, json) {
     .attr("class", "text_show")               
     .style("opacity", 0);
 
-  var opacityscale = d3.scale.linear().domain([0.75, 1]).range([0.02, .25]);
+  var opacityscale = d3.scale.linear().domain([0.85, 1]).range([0.01, .25]);
 
   var layer1 = vis.append('g');
   var layer2 = vis.append('g');
@@ -50,10 +50,10 @@ var dat = d3.json("/network", function(error, json) {
   var force = self.force = d3.layout.force()
           .nodes(json["nodes"])
           .links(json["links"] )
-          .gravity(.05)
+          .gravity(.035)
           .friction(0.1)
-          .distance(150)
-          .charge(-500)
+          .distance(80)
+          .charge(-300)
           .size([w_graph, h_graph])
           .start();
 
@@ -63,7 +63,7 @@ var dat = d3.json("/network", function(error, json) {
           .attr("class", "link")
           .style("stroke", "#555555")
           .style("stroke-opacity",0.5 )
-          .style("stroke-width", function(d) { return 5 * opacityscale(d.value) })
+          .style("stroke-width", function(d) { return 10 * opacityscale(d.value) })
           .attr("x1", function(d) { return d.source.x; })
           .attr("y1", function(d) { return d.source.y; })
           .attr("x2", function(d) { return d.target.x; })
@@ -101,6 +101,9 @@ var dat = d3.json("/network", function(error, json) {
           force.resume();
       }
 
+
+      var current_node = null;
+
       var node = layer2.selectAll("g.node")
           .data(json.nodes)
         .enter().append("svg:g")
@@ -115,13 +118,26 @@ var dat = d3.json("/network", function(error, json) {
           .attr("stroke", function(d) { return d.color })
           .on("mouseover", function(d) {  
 
+            if (current_node)
+            {
+              current_node
+              .transition()        
+              .duration(300) 
+              .attr("r" , function(d) { return d.size;  })
+              .attr("fill", function(d) { return d.color; });
+
+            }
+            current_node = d3.select(this);
+
             mouseOverFunction(d) ;
 
             d3.select(this)
             //.style("fill", "#1abc9c")
             .transition()        
-                .duration(300) 
-                .attr("r" , function(d) { return d.size * 2  });
+                .duration(450) 
+                .ease('elastic')
+                .attr("r" , function(d) { return d.size * 2  })
+                .attr("fill", "#E48681");
 
             div.transition()        
                 .duration(300)      
@@ -132,9 +148,9 @@ var dat = d3.json("/network", function(error, json) {
                 .style("top", (d3.event.pageY - 50) + "px");
 
 
-            //retrieve text from db
+            //retrieve topics from db
             d3.json("/getTopics/"+d.name , function(e, dd_topics) {
-
+		
             //chart
             var path = g_topics.selectAll('path')
             .data(pie(dd_topics['topics']));
@@ -147,14 +163,25 @@ var dat = d3.json("/network", function(error, json) {
               .attr('fill', function(d,i){ return d.data['color'];} ); 
 
             //update
+            var id_tmp = 0
             path
+              .attr('fill', function(d,i){ return d.data['color'];} )
+              // .transition()
               .attr('d', arc)
-              .attr('fill', function(d,i){ return d.data['color'];} );
+              // .attrTween('d', arcTween )
+
+            function arcTween(a) {
+              var i = d3.interpolate(this._current, a);
+              this._current = i(0);
+              return function(t) {
+              return arc(i(t));
+              };
+            }
+
 
             path.exit().remove() 
 
-
-            // legend
+                // legend - (poorly coded )
             g_labels.selectAll("*").remove();
             for (var i = 0; i < dd_topics['topics'].length; i++)
             {
@@ -165,31 +192,13 @@ var dat = d3.json("/network", function(error, json) {
                 .style( "fill",  dd_topics['topics'][i]['color'])
 
             }
-            // var legend = topics_canvas.selectAll('text')
-            // .data([dd_topics['topics'] ]);
-
-            // legend.attr("class", "update")
-
-            // legend.enter().append('text')
-            //   .attr("class", "enter")
-            //   .attr("transform", function(d,i) { return "translate( -30, " + 20 * i +")"  } )
-            //   // .text( "function(d){ return d['name']}")
-            //   .text( "YOLO")
-
-              
-
-             /* topics_canvas.transition()        
-                  .duration(300)      
-                  .style("opacity", 1);*/
-              });
-
+          });
 
               d3.json( "/getText/"+d.name , function(error, dd) {
-
                   div2.transition()        
                   .duration(300)      
                   .style("opacity", 1);
-                  div2 .html(dd.text) ;
+                  div2 .html( dd.text) ;
               })
 
             /*dat.append('foreignObject')
@@ -219,12 +228,6 @@ var dat = d3.json("/network", function(error, json) {
             if (!drag_on)
             {
               mouseOutFunction(d);
-
-                d3.select(this)
-                //.style("fill", function(d) { return d.color })
-                .transition()        
-                  .duration(300) 
-                  .attr("r" , function(d) { return d.size });
 
                 div.transition()        
                     .duration(333)      
@@ -302,7 +305,7 @@ var dat = d3.json("/network", function(error, json) {
       link
         .transition(500)
           .style("stroke-opacity", function(o) {
-            return o.source === d || o.target === d ? 1 : 0.2;
+            return o.source === d || o.target === d ? 0.5 : 0.1;
           })
           /*.style("stroke-width", function(o) {
             return o.source === d || o.target === d  ? 1.5 : 1;
@@ -315,14 +318,14 @@ var dat = d3.json("/network", function(error, json) {
       node
         .transition(500)
           .style("opacity", function(o) {
-            return isConnected(o, d) ? 1.0 : 1.0 ;
+            return isConnected(o, d) ? 1 : 1 ;
           });
 
       
       link
         .transition(500)
           .style("stroke-opacity", function(o) {
-            return o.source === d || o.target === d ? 1 : 1;
+            return o.source === d || o.target === d ? 0.5 : 0.5;
           })
 
 

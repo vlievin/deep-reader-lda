@@ -5,7 +5,10 @@ var hh = 400//document.getElementById("topics").clientHeight;
 var w = ww - m[1] - m[3]; // width
 var h = hh - m[0] - m[2]; // height
 
-d3.json("/topics", function(error, data_topics) {
+console.log(FILE_TITLE)
+
+
+d3.json("/topics/" + FILE_TITLE, function(error, data_topics) {
 
   full_data = data_topics[0];
 
