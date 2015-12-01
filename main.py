@@ -193,6 +193,33 @@ def d3():
         return "failed to get text"
 
 
+@app.route('/closest_translator/')
+def closest():
+    txt =  getLastAdded()
+    if txt:
+        cursor = db.similarities.find()
+        documents = []
+        m = 0
+        translators = []
+        for e in cursor:
+            key_doc = None
+            if e['target'] == txt['_id']:
+                key_doc = e['source'] 
+            if e['source'] == txt['_id']:
+                key_doc = e['target'] 
+
+            if key_doc:
+                tmp_doc = db.documents.find_one( {'_id': key_doc } )
+                dat = dict()
+                dat['translator'] = tmp_doc['translator']
+                dat['similarity'] = e['value']
+                translators.append( dat )
+
+        return json.dumps( sorted( translators, key = lambda x: x['similarity'], reverse = True )[:10])
+    else:
+        return "failed to get text"
+
+
 @app.route("/network", methods=['GET', 'POST'])
 def network():
     SIMILARITY_CUTOFF = 0.85
@@ -292,44 +319,72 @@ def safe_str(value):
         value = unicode(value)
     return value
 
+from bs4 import BeautifulSoup
+def loadTranslator(path):   
+    if path[-4:] == 'liff':
+        soup = BeautifulSoup( open(path), 'lxml')
+        for string in soup.find_all("file"):
+            try:
+                return string['m:task-id']
+            except:
+                return -1
+
 def insertDoc(path):
     document = dict()
     document['title'] = path[len(TEXT_FOLDERS):]
+    document['translator'] = loadTranslator(path)
+    current_translator = db.translators.find_one({'name': document['translator']})
+        
+        
     try:
         full_text = izi.loadText(path)
-        full_text = unicode(full_text, errors='ignore')
-        # text and tokens
-        tokens = izi.tokenize( full_text)
-        document['full_text'] = full_text
-        document['tokens'] = tokens
-        # topics
-        topics =  izi.topicsFromTokens(izi.tokenize(full_text))
-        semantic_vec = [0.] * n_topics
-        for i in topics:
-            semantic_vec[i[0]] = i[1]
-        document['semantic_vec'] = semantic_vec
-        # complexity
-        document['complexity'] = izi.complexityAlongtheText(full_text)
-        # topic distribution
-        document['full_topics'] = izi.getTopicDistributionData( document['full_text'], document['semantic_vec'])
-        # significants words
-        document['significantWords'] = izi.getMostSignificantWordsData(document['tokens'] , document['semantic_vec'])
-        # significant words graph
-        document['topicsGraph'] = izi.SignificantWordsGraph(document['tokens'] , document['semantic_vec'] )
+    #     full_text = unicode(full_text, errors='ignore')
+        full_text = safe_str(full_text)
 
-        ##
-        # savec doc
-        current_id = db.documents.save(document)
+        if len(full_text) > 500:
+            if not current_translator:
+                translator = dict()
+                translator['name'] = document['translator']
+                translator['document'] = []
+                id_current_translator = db.translators.save(translator)
+                current_translator = db.translators.find_one({'name': document['translator']})
 
-        ###################
-        # create links
-        cursor = db.documents.find()
-        for doc in cursor:
-            y = doc['semantic_vec']
-            y_id = doc["_id"]
-            if y_id != current_id:
-                s = izi.getSimilarity( semantic_vec, y)
-                db.similarities.insert({'source': current_id , 'target': y_id, 'value': s})
+            # text and tokens
+            tokens = izi.tokenize( full_text)
+            document['full_text'] = full_text
+            document['tokens'] = tokens
+            # topics
+            topics =  izi.topicsFromTokens(izi.tokenize(full_text))
+            semantic_vec = [0.] * n_topics
+            for i in topics:
+                semantic_vec[i[0]] = i[1]
+            document['semantic_vec'] = semantic_vec
+            # complexity
+            document['complexity'] = izi.complexityAlongtheText(full_text)
+            # topic distribution
+            document['full_topics'] = izi.getTopicDistributionData( document['full_text'], document['semantic_vec'])
+            # significants words
+            document['significantWords'] = izi.getMostSignificantWordsData(document['tokens'] , document['semantic_vec'])
+            # significant words graph
+            document['topicsGraph'] = izi.SignificantWordsGraph(document['tokens'] , document['semantic_vec'] )
+
+            ##
+            # savec doc
+            current_id = db.documents.save(document)
+            current_translator['document'].append(current_id)
+            db.translators.update({'name': document['translator']}, {'name': document['translator'],\
+                                                                     'document': current_translator['document']})
+
+
+            ###################
+            # create links
+            cursor = db.documents.find()
+            for doc in cursor:
+                y = doc['semantic_vec']
+                y_id = doc["_id"]
+                if y_id != current_id:
+                    s = izi.getSimilarity( semantic_vec, y)
+                    db.similarities.insert({'source': current_id , 'target': y_id, 'value': s})
     except:
         print "############################################################"
         print "#### ERROR: " + document['title']

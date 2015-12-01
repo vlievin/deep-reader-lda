@@ -6,3 +6,5 @@ config.py
 scripts/lda
 .ipynb_checkpoints/
 deepreader/
+*.txt
+!requirements.txt
