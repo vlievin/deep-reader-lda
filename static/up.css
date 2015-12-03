@@ -49,7 +49,7 @@ body {
 	margin:0;  
 	padding:0;  
 	background: no-repeat center center fixed; 
-	background-color: white;
+	background-color: #eeeeee;
 	background-size : cover;}
 
 .widget{ 
@@ -79,38 +79,11 @@ h1 {
 	font-family: Open Sans; 
 	font-size: 170%; }
 h2 { 
-	font-family: Gotham; 
+	font-family: Open Sans; 
 	font-size: 170%; }
-form { 
-	font-family: Gotham;  
-	text-shadow: 1px 1px 2px white;  
-	text-align: left; }
-label { 
-	display: block; 
-	width: 120px; 
-	float:left;  
-	margin-left: 130px; 
-	position: relative; 
-	top: 3px;  }
-
-
-#fic { 
-	position:relative;  
-	top: 23px; 
-	left: 30%;
-	width: 140px;  
-	border-radius: 5px;
-	color: white;  
-	border-radius: 5px;  
-	font-size: 100%; 
-	font-family: Gotham;
-	font-weight:bold; }
 
 
 #btsub { 
-	position:relative;  
-	top: 23px; 
-	left: 50%;
 	width: 140px;  
 	background-color: #3498DB;
 	border-right: none;
@@ -121,7 +94,7 @@ label {
 	color: white;  
 	border-radius: 5px;  
 	font-size: 100%; 
-	font-family: Gotham;
+	font-family: Open Sans;
 	font-weight:bold; }
 
 
@@ -145,16 +118,15 @@ label {
 	text-align: center;
 	padding: 5px;
 	margin-bottom: 10px;
-	border-radius: 3px;
-	box-shadow: 1px 1px 9px gray; }
+	border-radius: 3px; }
 .succes li {
-	background-color: #1abc9c;}
+	background-color: #3498db;}
 .error li {
 	background-color: #e74c3c; }
 .fichiers {
 	text-align: left;
 	list-style-type: circle;
-	font-family: Gotham;
+	font-family: Open Sans;
 }
 
 .container {

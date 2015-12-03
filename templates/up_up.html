@@ -1,33 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DeepReader</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merienda One">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Port Lligat Slab">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='up.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='menu.css') }}">
+    <link href="//getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+    <script type='text/javascript' src='//code.jquery.com/jquery-1.8.3.min.js'></script>
+  <script type='text/javascript' src='//www.google.com/jsapi'></script>
+    <!-- load D3.j from the web -->
+    <script type="text/javascript" src="//d3js.org/d3.v3.min.js"></script>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='d3.layout.cloud.js') }}"></script>
+    <!-- // <script type="text/javascript" src="{{ url_for('static', filename='require.js') }}"></script> -->
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-57004914-2', 'auto');
+      ga('send', 'pageview');
+
+   </script>
 
 
-{% extends 'up_squelette.html' %}
+     <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
-{% block title %}Upload{% endblock %}
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
-{% block main %}
-<ul id="navigation">
-    
-    <li><a href="/upload" title="upload">upload</a></li>
-    <li><a href="/d3" title="last added document analysis">last added document analysis</a></li>
-    <li><a href="/corpusnet" title="network">network</a></li>
-  </ul>
-<h1>Choose a text :</h1>
-<form action="" method="post" enctype="multipart/form-data" style='position=center'>
-    <label for="fic"></label><input id="fic" type="file" name="fic" />
+  <!-- Latest compiled JavaScript -->
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-    <!--<label for="pw">Mot de passe</label><input id="pw" type="password" name="pw" />
-    <a href="#" class="action-button shadow animate blue">Hello</a>-->
-    <input id="btsub" type="submit" value="Upload" style='position=center'/>
-</form>
 
-<div class="container">
-  <div class="ball"></div>
-  <div class="ball"></div>
-  <div class="ball"></div>
-  <div class="ball"></div>
-  <div class="ball"></div>
-  <div class="ball"></div>
-  <div class="ball"></div>
-</div>
 
-{% endblock %}
+  <style>
+
+      div.tooltip {   
+      position: absolute;           
+      text-align: center;                            
+      padding: 5px;             
+      font: 12px Open Sans;        
+      background: white;   
+      border: 0px;      
+      border-radius: 2px;           
+      pointer-events: none;   
+      box-shadow: 0px 0px 3px rgba(50,50,50,0.2);      
+    }
+
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+    ::-webkit-scrollbar-track {
+        background-color: #eaeaea;
+        border-left: 1px solid #ccc;
+    }
+    ::-webkit-scrollbar-thumb {
+        background-color: #ccc;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #aaa;
+
+    }
+
+    .row {
+        padding: 20px;
+      }
+      .box-shadow--2dp {
+          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12)
+      }
+      .box-shadow--3dp {
+          box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .14), 0 3px 3px -2px rgba(0, 0, 0, .2), 0 1px 8px 0 rgba(0, 0, 0, .12)
+      }
+      .box-shadow--4dp {
+          box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12), 0 2px 4px -1px rgba(0, 0, 0, .2)
+      }
+      .box-shadow--6dp {
+          box-shadow: 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12), 0 3px 5px -1px rgba(0, 0, 0, .2)
+      }
+      .box-shadow--8dp {
+          box-shadow: 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12), 0 5px 5px -3px rgba(0, 0, 0, .2)
+      }
+      .box-shadow--16dp {
+          box-shadow: 0 16px 24px 2px rgba(0, 0, 0, .14), 0 6px 30px 5px rgba(0, 0, 0, .12), 0 8px 10px -5px rgba(0, 0, 0, .2)
+      }
+      .top-buffer { margin-top:20px; }
+
+    </style>
+</head>
+<body>
+
+
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <img class="img-responsive" alt="Logo" src="{{ url_for('static', filename='logo.png') }}">
+      </div>
+      <div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/">Upload</a></li>
+          <li><a href="/presentation">Presentation</a></li>
+          <li><a href="/d3">Last added document</a></li>
+          <li><a href="/corpusnet">Network</a></li> 
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <h1>Choose a text :</h1>
+
+
+  {# on affiche les messages d'erreur puis les messages de succes #}
+{% for categorie in ['error', 'succes'] %}
+    {% with msgs = get_flashed_messages(category_filter=[categorie]) %}
+        {% if msgs %}
+        <ul class="flashed {{ categorie }}" link="white">
+            {% for m in msgs %}
+                <li class = "box-shadow--16dp">{{ m|safe }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+{% endfor %}
+
+
+
+  <div class="container">
+    <div class= "row box-shadow--6dp">
+        <form class="form form-inline" role="form" action="" method="post" enctype="multipart/form-data">
+          <!-- <form action="" method="post" enctype="multipart/form-data" style="inline" role="form"> -->
+              </label><input  type="file" name="fic" />
+
+              <!--<label for="pw">Mot de passe</label><input id="pw" type="password" name="pw" />
+              <a href="#" class="action-button shadow animate blue">Hello</a>-->
+              <input  type="submit" value="Upload" id="btsub" > 
+          <!-- </form> -->
+        </form>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="ball"></div>
+    <div class="ball"></div>
+    <div class="ball"></div>
+    <div class="ball"></div>
+    <div class="ball"></div>
+    <div class="ball"></div>
+    <div class="ball"></div>
+  </div>
+
+</style>
+
+</body>

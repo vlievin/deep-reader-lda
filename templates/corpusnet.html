@@ -29,6 +29,16 @@
    </script>
 
 
+     <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+
 
     <style>
 
@@ -135,12 +145,21 @@ a.btn.btn-red {
 
   <div id="text" style = " background-color: #555555; left: 0px; top: 0px; min-width: 0px; width: 200px; height: 100%; overflow-y: auto;resize: horizontal; "></div>
 
-  <ul id="navigation">
-    
-    <li><a href="/upload" title="upload">upload</a></li>
-    <li><a href="/d3" title="last added document analysis">last added document analysis</a></li>
-    <li><a href="/corpusnet" title="network">network</a></li>
-  </ul>
+  <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <img class="img-responsive" alt="Logo" src="{{ url_for('static', filename='logo.png') }}">
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="/">Upload</a></li>
+        <li><a href="/presentation">Presentation</a></li>
+        <li><a href="/d3">Last added document</a></li>
+        <li class="active"><a href="/corpusnet">Network</a></li> 
+      </ul>
+    </div>
+  </div>
+</nav>
   
   <!--<div id="hoveredText" class="widget" style =    "max-height: 300;  min-width: 98%;display: inline-block" >
   <div class="tooltip">Tipsy!</div>

@@ -193,6 +193,11 @@ def d3():
         return "failed to get text"
 
 
+@app.route('/presentation/')
+def intro():
+    return render_template('presentation.html' )
+
+
 @app.route('/closest_translator/')
 def closest():
     txt =  getLastAdded()
