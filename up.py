@@ -117,6 +117,22 @@ def getLastAdded():
 	return db.documents.find_one( { "_id" : current_id["_id"] })
 	# return db.documents.find_one()
 
+
+@app.route('/d3/')
+def d3():
+    txt =  getLastAdded()
+    if txt:
+        data = dict()
+        return render_template('analysis.html', file_title = txt['title'] )
+    else:
+        return "failed to get text"
+
+
+@app.route('/presentation/')
+def intro():
+    return render_template('presentation.html' )
+
+
 @app.route("/complexity/<title>", methods=['GET', 'POST'])
 def complexity(title):
 	if title == '':
