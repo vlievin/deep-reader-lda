@@ -127,7 +127,7 @@ def d3():
     else:
         return "failed to get text"
 
-
+@app.route('/')
 @app.route('/presentation/')
 def intro():
     return render_template('presentation.html' )
@@ -270,7 +270,6 @@ def is_image(nomfic):
 
 
 
-@app.route('/')
 @app.route('/corpusnet/')
 def corpusnet():
 	return render_template('corpusnet.html')
