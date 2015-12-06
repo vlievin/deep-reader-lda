@@ -42,6 +42,8 @@ d3.json("/topics/" + FILE_TITLE, function(error, data_topics) {
   var label_offset = w / data_topics.length;
 
   //draw lines and legends
+
+  legend_y = (-2*m[0]/3) 
   for ( var i = 0; i < data_topics.length ; i++ )
   {
     col = data_topics[i]['color']
@@ -64,16 +66,24 @@ d3.json("/topics/" + FILE_TITLE, function(error, data_topics) {
         .attr("stroke-dashoffset", 0);
 
     
-    offset = 0
+    offset_x = 0
+    offset_y = 0
     for ( var j = 0; j < i ; j++ )
     {
-      tmp = 5
-      tmp += 5 + (data_topics[j]['label']).length * 7
-      offset += tmp
+      tmp = 10
+      tmp += (data_topics[j]['label']).length * 9
+      offset_x += tmp
+      if (offset_x > w - 20 )
+      {
+        console.log("############ HERE #########")
+         offset_x = 0
+         offset_y += 20
+
+      }
 
     }
-    cur_x = offset;
-    cur_y = (-2*m[0]/3) 
+    cur_x = offset_x;
+    cur_y = legend_y + offset_y; 
     //create labels
     group.append('rect')
       .attr('width', legendRectSize)

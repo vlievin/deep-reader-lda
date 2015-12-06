@@ -230,6 +230,21 @@ def getSimilaritiesScores( vec ,semantic_vectors ):
     return similarities
 
 
+def saveTopicsAsTxt(directory):
+	topic_names = pickle.load( open(ROOT +  "topics_names.p", "rb" ) )
+	for i in range(100):
+		name = str(topic_names[i])
+		name = name.replace(' ', '_')
+		name = name.replace('?', '')
+		print name
+		path = directory + name + '.txt'
+		file = open(path, "w")
+		topics_string = lda.print_topic(i, 1000)
+		# print topics_string
+		file.write(topics_string.encode('ascii','ignore'))
+		file.close()
+
+
 def getSimilarity( a ,b ):
     return similarity(listToDOK(a),listToDOK(b))  
 

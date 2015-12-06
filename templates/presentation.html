@@ -172,11 +172,16 @@ svg {
 body {
       position: relative; 
   }
-  #section1 {padding-top:10px;height:150px;color: #fff; background-color: #e74c3c;}
-  #section2 {padding-top:50px;height:300px;color: #fff; background-color: #1abc9c;}
-  #section3 {padding-top:50px;height:300px;color: #fff; background-color: #34495e;}
-  #section41 {padding-top:50px;height:300px;color: #fff; background-color: #3498db ;}
-  #section42 {padding-top:50px;height:v;color: #fff; background-color: #2ecc71;}
+  .sec1 { background-color: #e74c3c;}
+  .sec2 { background-color: #3498db;}
+  .sec3 { background-color: #9b59b6;}
+  .sec4 { background-color: #2ecc71 ;}
+  .sec5 {  background-color: #34495e;}
+
+  .bloc{padding:50px; color:white;}
+
+  a{color: gray;}
+
 
 
 
@@ -237,32 +242,158 @@ body {
   
 </svg>
 
-<div id="section1" class="container-fluid">
+<div  class="bloc sec1 container-fluid">
   <h1>Work in progress</h1>
   <p>This project is currently under development</p>
 </div>
-<div id="section2" class="container-fluid">
+<div  class="bloc sec2 container-fluid">
   <h1>What is it?</h1>
-  <p>This is project developped in the context of Msc Digital Media Engineering at DTU</p>
-  <p>The goal is to provide a deep understanding of a corpus of texts. For each text, you can observe the topic distribution, and see the most similar documents.</p>
+  <p>This is project developped in the context of the Msc Digital Media Engineering at DTU in partnership with EasyTranslate</p>
+  <p>The goal is to provide tools to understand a text without reading it and to explore a corpus and the relations between texts</p>
+  <p>We analyse texts on two levels</p>
+  <li>Relations with other texts</li>
+  <li>Topic distribution, complexity and most important words within a text</li>
 </div>
-<div id="section3" class="container-fluid">
+<div class="bloc sec4 container-fluid">
   <h1>How it works?</h1>
-  <p>Each node represents a text. Clic on it and drag it to move them. When you hover a node, connections to other text are highlighted. The left pannel which contains information about the text is also updated.
-  <p>In the left panel, you can clic on the red button to acces to a deeper analysis of the text.</p>
-  <a href="/corpusnet"><button type="button" class="btn btn-default">Try this amazing app</button></a>
+
+  <div class="container-fluid">
+      <div class="row top-buffer ">
+
+
+      <div id="topics" class="col-md-4 text-center">
+            <img class="box-shadow--8dp" src="{{ url_for('static', filename='preview.gif') }}" alt="how it works" style="width: 100%;"><br>
+        </div>
+
+
+        <div class="col-md-8" >
+          <h2>Corpus vizualisation</h2>
+          <p>The page <a href="/corpusnet">Network</a> shows a network composed of nodes. Nodes represent texts, and links represent the similarity between texts. The more a link is thick the more the texts are close. The graph gives a nice way to vizualise a corpus. </p>
+          <p>You can see different types of nodes:
+          <li>the lightest and largest represent directly a topic built with the LDA</li>
+          <li>the smallest and darker nodes represent texts</li>
+        </div>
+
+
+        
+
+        <div class="col-md-8" >
+          <h2>Single text analysis</h2>
+
+          <p>The page <a href="/d3">Text Analysis</a> shows the analysis of a single text. this page analysis a random text in the corpus. However, you access to the analysis of any text in the corpus from the network (button in the left panel).</p>
+          <p>This page shows the distribution of topics along the text, the complexity based on the <a href="https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests">Flesch reading ease</a>, and the most important words for each topic presented with a wordcloud and a graph. (the way we find the most important words is descriebed in the following sections)
+        </div>
+      </div>
+    </div>
+
+  
 </div>
-<!-- <div id="section41" class="container-fluid">
-  <h1>Section 4 Submenu 1</h1>
-  <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
-  <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+
+<div class="bloc sec1 container-fluid text-center" style="background-color: #555555">
+  <a href="/corpusnet"><button type="button" class="btn btn-warning box-shadow--8dp btn-lg">Try this amazing app!</button></a>
+
 </div>
-<div id="section42" class="container-fluid">
-  <h1>Section 4 Submenu 2</h1>
-  <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
-  <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+
+
+
+<div class="bloc sec3 container-fluid">
+  <h1>Where the data come from?</h1>
+  <p>Texts come from different sources.
+  <li> The <a href="http://www.anc.org/data/masc/">MASC corpus</a> which provides a great variety of texts. However, some texts and categories have been removed in order to obtain a better repartition of texts.</li>
+  <li>The <a href="hhttps://www.gutenberg.org/">Gutemberg project</a> which provides a huge quantity of texts from different topics. Texts have been chosen according to their topics.
+  <li>Some random texts like the iPhone user guide or the Apache Licenses.</li>
+</div>
+
+
+
+<div class="bloc sec5 container-fluid">
+  <h1>How topics are made?</h1>
+
+  <p>Topics have been made thanks to the <a href="https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation">LDA</a> (Latent Dirichlet Allocation). We used <a href="https://radimrehurek.com/gensim/n">Gensim</a>, an open source libray in python for natural language processing on the 5,025,150 articles from the English Wikipedia (one day of computation). The LDA is a model which enable from a corpus of texts to extract a given ammount of topics. Topics are groups of words with a probability given for each word.</p>
+
+  <p>Topics are made accoridng to a mathematical model and are based on statisitcs. Thus, a word taken alone within a topic often doesn't make sens: topics give a probability for each word to belong to a topics (and can be present in several topics) because words are used in different contexts.</p>
+
+  <p>In order to provide an overview of the texts without seeing the whole analysis, we gave a name for the most used topics. Keep in mind that these words are set manually. Therefore, some topic names can seem to be strange for some texts.</p>
+
 </div>  
- -->
+
+
+<div class="bloc sec5 container-fluid">
+  <h1>What are the relations bewteen texts?</h1>
+
+ <div class="container-fluid">
+      <div class="row top-buffer ">
+
+
+      <div id="topics" class="col-md-4 text-center">
+            <img  src="{{ url_for('static', filename='cosine.png') }}" alt="how it works" style="width: 100%;"><br>
+        </div>
+
+        <div class="col-md-8" >
+          <h2>Cosine similarity</h2>
+          <p>The distance between texts is based on the cosine similarity in the topic space. Each topic represents a dimension. The cosine similarity is basically the cosine of the angle between two vectors in the topic space. The diagram on the left shows how it works with three topics: the cosine similarity corresponds to the cosine of the angle Θ between the two vector. The same principle is applicable with 100 dimensions.</p>
+
+          <p>In order to obtain a graph that makes sense, we applies a threshold to the similarities: only the similarities higher than 80% are kept.</p>
+
+        </div>
+
+      
+      </div>
+    </div>
+
+
+
+
+</div>
+
+
+<div class="bloc sec5 container-fluid">
+  <h1>How are the texts analysed?</h1>
+
+  <h2>Topics distribution</h2>
+
+  <p>Thanks to the LDA, we extract the topics from small chuncks in the text. It gives a probability for each part to belong to a specific topic.</p>
+
+  <h2>Complexity</h2>
+
+  <p>We use the <a href="https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests">Flesch reading ease</a> forumla to give an estimation of the complexity along the text. This formula is based on the length of the words, the number of syllabus and the length of the words.<p>
+
+  <h2>Meaningful words</h2>
+
+  <p>Usual scoring-functions like the TF-IDF was not working very well and it was very time-consuming. We developped our own scoring-function to sort words with regard to their importance in the text. </p>
+
+  <p>This function is quite simple and is basically the length of the words divided by the frequency of the word in english. The frequency of the words is defined thanks to the Reuter corpus from NLTK. The choice of the length of the words as a characteristic parameter is motivated by the fact than, in English, the more a word is long, the more the word carry meaning. The <a href="https://www.youtube.com/watch?v=fCn8zs912OE">video</a>  from the youtuber VSauce explains it very well. </p>
+</div>  
+
+
+<div class="bloc sec1 container-fluid">
+  <h1>Limitations</h1>
+
+    <p>Topics are modelised on the whole english wikipedia and only 100 categories are represented. Thus, the possibilities are limited, we can differentiate a user guide and a movie script but we cannot differentiate a horror movie script and a romantic movie script because the language used for both documents is very close (dialogues). 
+
+
+</div>  
+
+
+<div class="bloc  container-fluid">
+  <h1>About us</h1>
+
+  <div class="container-fluid">
+      <h1> {{file_title}} </h1>
+      <div class="row top-buffer ">
+        <div  class="col-md-2 box-shadow--8dp" style="float:left;min-height: 400px;  min-width: 47%;display: inline-block">
+            Valentin Liévin
+        </div>
+
+        <div class="col-md-2 box-shadow--8dp" style="float:right;min-height: 400px;  min-width: 47%;display: inline-block">
+          Yannis Flet-Berliac
+        </div>
+      </div>
+    </div>
+
+
+</div>  
+
 
     
 </body>

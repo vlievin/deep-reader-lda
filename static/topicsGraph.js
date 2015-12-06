@@ -69,6 +69,16 @@ var dat = d3.json("/topicsGraph/" + FILE_TITLE, function(error, json) {
           .attr("fill" , function(d) { return d.color })
           .style("fill-opacity", .5)
           .attr("stroke", function(d) { return d.color })
+          .on("mouseover", function(d) {  
+
+          	 mouseOverFunction(d) ;
+
+          })
+          .on("mouseout", function(d) {    
+
+          	mouseOutFunction(d);
+
+          });
 
       node.append("svg:text")
           .attr("class", "nodetext")
@@ -76,6 +86,7 @@ var dat = d3.json("/topicsGraph/" + FILE_TITLE, function(error, json) {
           .attr("dy", ".35em")
           .style("font-size","12pt")
           .text(function(d) { return d.name });
+
 
       force.on("tick", tick);
 
@@ -87,6 +98,81 @@ var dat = d3.json("/topicsGraph/" + FILE_TITLE, function(error, json) {
 
         node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
       };
+
+
+
+      var linkedByIndex = {};
+      json["links"] .forEach(function(d) {
+        linkedByIndex[d.source.index + "," + d.target.index] = true;
+      });
+
+    function isConnected(a, b) {
+      return isConnectedAsTarget(a, b) || isConnectedAsSource(a, b) || a.index == b.index;
+    }
+
+    function isConnectedAsSource(a, b) {
+      return linkedByIndex[a.index + "," + b.index];
+    }
+
+    function isConnectedAsTarget(a, b) {
+      return linkedByIndex[b.index + "," + a.index];
+    }
+
+    function isEqual(a, b) {
+      return a.index == b.index;
+    }
+
+
+    var mouseOverFunction = function(d) {
+
+    //var circle = d3.select(this);
+
+      node
+        .transition(500)
+          .style("opacity", function(o) {
+            return isConnected(o, d) ? 1.0 : 0.2 ;
+          });
+
+      link
+        .transition(500)
+          .style("stroke-opacity", function(o) {
+            return o.source === d || o.target === d ? 0.5 : 0.1;
+          })
+          /*.style("stroke-width", function(o) {
+            return o.source === d || o.target === d  ? 1.5 : 1;
+          })*/
+    }
+
+    var mouseOutFunction = function(d) {
+      var circle = d3.select(this);
+
+      node
+        .transition(500)
+          .style("opacity", function(o) {
+            return isConnected(o, d) ? 1 : 1 ;
+          });
+
+      
+      link
+        .transition(500)
+          .style("stroke-opacity", function(o) {
+            return o.source === d || o.target === d ? 0.5 : 0.5;
+          })
+
+
+    /*layer1.selectAll()
+        .data(json.links)
+        .enter().append("svg:line")
+        .attr("class", "link")
+        .style("stroke", function(d) { return "rgba(10,10,10, "+ opacityscale(d.value) + ")"})
+        .style("stroke-width", function(d) { return 5 * opacityscale(d.value) });
+          /*.style("stroke-width", function(o) {
+            return o.source === d || o.target === d  ? 1 : 1;
+          })*/
+    }
+
+
+    
 
   
 

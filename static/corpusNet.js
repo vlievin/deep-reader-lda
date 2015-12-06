@@ -328,16 +328,6 @@ var dat = d3.json("/network", function(error, json) {
             return o.source === d || o.target === d ? 0.5 : 0.5;
           })
 
-
-    /*layer1.selectAll()
-        .data(json.links)
-        .enter().append("svg:line")
-        .attr("class", "link")
-        .style("stroke", function(d) { return "rgba(10,10,10, "+ opacityscale(d.value) + ")"})
-        .style("stroke-width", function(d) { return 5 * opacityscale(d.value) });
-          /*.style("stroke-width", function(o) {
-            return o.source === d || o.target === d  ? 1 : 1;
-          })*/
     }
 
   
