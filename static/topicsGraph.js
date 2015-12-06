@@ -13,7 +13,7 @@ var dat = d3.json("/topicsGraph/" + FILE_TITLE, function(error, json) {
           .nodes(json["nodes"])
           .links(json["links"] )
           .gravity(.05)
-          .distance(100)
+          .distance(80)
           .charge(-100)
           .size([w_graph, h_graph])
         //   .linkDistance( function(link) {
@@ -22,7 +22,6 @@ var dat = d3.json("/topicsGraph/" + FILE_TITLE, function(error, json) {
 	       // return   ( 1* ( link.value )); })
           .linkStrength( function(link) {
 
-	      	console.log(link.value);
 	       return   ( 0.05 *   (  0.2 + 0.8 * ( 100 - link.value ))); })
           .start();
 
