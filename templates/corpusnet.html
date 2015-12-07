@@ -40,6 +40,7 @@
 
 
 
+
     <style>
 
     div.tooltip {   
@@ -139,11 +140,88 @@ a.btn.btn-red {
   
   a.btn.btn-red:active {
 
-    </style>
+  }
+
+
+.cmn-toggle {
+  position: absolute;
+  margin-left: -9999px;
+  visibility: hidden;
+}
+.cmn-toggle + label {
+  display: block;
+  position: absolute;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+}
+
+input.cmn-toggle-yes-no + label {
+  padding: 2px;
+  width: 120px;
+  height: 60px;
+}
+input.cmn-toggle-yes-no + label:before,
+input.cmn-toggle-yes-no + label:after {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  color: #fff;
+  font-family: "Open Sans", serif;
+  font-size: 15px;
+  text-align: center;
+  line-height: 60px;
+}
+input.cmn-toggle-yes-no + label:before {
+
+  background-color: #dddddd;
+  content: attr(data-off);
+  transition: transform 0.5s;
+  backface-visibility: hidden;
+}
+input.cmn-toggle-yes-no + label:after {
+  background-color: #8ce196;
+  content: attr(data-on);
+  transition: transform 0.5s;
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+}
+input.cmn-toggle-yes-no:checked + label:before {
+  transform: rotateY(180deg);
+}
+input.cmn-toggle-yes-no:checked + label:after {
+  transform: rotateY(0);
+}
+
+
+
+
+
+
+
+</style>
 </head>
 <body>
 
-  <div id="text" style = " background-color: #555555; left: 0px; top: 0px; min-width: 0px; width: 200px; height: 100%; overflow-y: auto;resize: horizontal; "></div>
+  <script type="text/javascript" src="{{ url_for('static', filename='corpusNet.js') }}"></script>
+
+  <div id="text" style = " background-color: #555555; left: 0px; top: 0px; min-width: 200px; width: 200px; height: 100%; overflow-y: auto;resize: horizontal; ">
+
+  <!-- <button type="button">Click Me!</button> -->
+
+
+<div class "container">
+  <div class="switch">
+    <input id="cmn-toggle-7" class="cmn-toggle cmn-toggle-yes-no" type="checkbox">
+    <label for="cmn-toggle-7" data-on="Communities" data-off="Communities"></label>
+  </div>
+</div>
+
+
+  </div>
 
   <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -159,19 +237,9 @@ a.btn.btn-red {
     </div>
   </div>
 </nav>
-  
-  <!--<div id="hoveredText" class="widget" style =    "max-height: 300;  min-width: 98%;display: inline-block" >
-  <div class="tooltip">Tipsy!</div>
-  </div>-->
 
 
 
-    <!--<script type="text/javascript" src="{{ url_for('static', filename='topicsDistrib.js') }}"></script>
-
-    <script type="text/javascript" src="{{ url_for('static', filename='wordCloud.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='topicsGraph.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='closestTexts.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='complexity.js') }}"></script>-->
-    <script type="text/javascript" src="{{ url_for('static', filename='corpusNet.js') }}"></script>
+    
 </body>
 </html>

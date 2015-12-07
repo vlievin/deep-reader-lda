@@ -3,6 +3,19 @@
 
 json = []
 
+colours = []
+// colours.push( "#7f8c8d")
+colours.push( "#e74c3c")
+colours.push( "#3498db")
+colours.push( "#f1c40f")
+colours.push( "#9b59b6")
+colours.push( "#1abc9c")
+colours.push( "#34495e")
+colours.push( "#e67e22")
+colours.push("#ff66ff")
+
+console.log(colours)
+
 var dat = d3.json("/network", function(error, json) {
 
   var vis = d3.select("body").append("svg")
@@ -101,6 +114,7 @@ var dat = d3.json("/network", function(error, json) {
           force.resume();
       }
 
+      var graph_data;
 
       var current_node = null;
 
@@ -112,7 +126,7 @@ var dat = d3.json("/network", function(error, json) {
 
       node.append("svg:circle")
           .attr("r" , function(d) { return d.size })
-          .attr("fill" , function(d) { return d.color })
+          .attr("fill" , function(d) {return d.color; })
           .style("stroke", "white")
           .style("fill-opacity", 1)
           .attr("stroke", function(d) { return d.color })
@@ -137,7 +151,8 @@ var dat = d3.json("/network", function(error, json) {
                 .duration(450) 
                 .ease('elastic')
                 .attr("r" , function(d) { return d.size * 2  })
-                .attr("fill", "#E48681");
+                // .attr("fill", "#E48681");
+                .attr("fill", function(d) {  return d.color; } )
 
             div.transition()        
                 .duration(300)      
@@ -330,6 +345,49 @@ var dat = d3.json("/network", function(error, json) {
 
     }
 
-  
+
+function swipeToCommunity()
+{
+
+var node = layer2.selectAll(".node").select('circle').transition();
+
+node
+.duration(500)
+.attr("fill" , function(d) {  
+  if (d.community >= 0 ){
+    return colours[d.community];
+  } 
+  else{
+    return '#dddddd'; 
+  } 
+  }) ;
+}
+
+function swipeToRaw()
+{
+
+var node = layer2.selectAll(".node").select('circle').transition();
+
+node
+.attr("fill" , function(d) {  
+    return d.color;
+  }) ;
+}
+
+
+
+
+
+
+$('#cmn-toggle-7').on('change', function() {
+    if ($(this).is(':checked')) {
+         swipeToCommunity();  
+    } else {
+         swipeToRaw(); 
+    }
+});
+
+
+
 
 });
