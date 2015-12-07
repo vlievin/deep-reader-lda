@@ -262,7 +262,7 @@ body {
       <div class="row top-buffer ">
 
 
-      <div id="topics" class="col-md-4 text-center">
+      <div class="col-md-4">
             <img class="box-shadow--8dp" src="{{ url_for('static', filename='preview.gif') }}" alt="how it works" style="width: 100%;"><br>
         </div>
 
@@ -272,19 +272,19 @@ body {
           <p>The page <a href="/corpusnet">Network</a> shows a network composed of nodes. Nodes represent texts, and links represent the similarity between texts. The more a link is thick the more the texts are close. The graph provides a nice way to vizualise a corpus. </p>
           <p>You can see different types of nodes:
           <li>the lightest and largest represent directly a topic built with the LDA</li>
-          <li>the smallest and darker nodes represent texts</li>
+          <li>the smallest and darker nodes represent texts</li></p>
         </div>
-
-
-        
 
         <div class="col-md-8" >
           <h2>Single text analysis</h2>
 
           <p>The page <a href="/d3">Text Analysis</a> shows the analysis of a single text. this page analysis a random text in the corpus. However, you access to the analysis of any text in the corpus from the network (button in the left panel).</p>
-          <p>This page shows the distribution of topics along the text, the complexity based on the <a href="https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests">Flesch reading ease</a>, and the most important words for each topic presented with a wordcloud and a graph. (the way we find the most important words is descriebed in the following sections)
+          <p>This page shows the distribution of topics along the text, the complexity based on the <a href="https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests">Flesch reading ease</a>, and the most important words for each topic presented with a wordcloud and a graph. (the way we find the most important words is descriebed in the following sections)</p>
         </div>
       </div>
+
+  </div>
+  <div class="container-fluid">
 
 
       <div class="row top-buffer ">
@@ -297,10 +297,9 @@ body {
 
         <div class="col-md-8" >
           <h2>Communities</h2>
-          <p>The page <a href="/corpusnet">Network</a> shows a network composed of nodes. Nodes represent texts, and links represent the similarity between texts. The more a link is thick the more the texts are close. The graph provides a nice way to vizualise a corpus. </p>
-          <p>You can see different types of nodes:
-          <li>the lightest and largest represent directly a topic built with the LDA</li>
-          <li>the smallest and darker nodes represent texts</li>
+          <p>We use a python implementation of the Louvain-algroithm in order make a partition of communities. Communities are groups of nodes where documents are highly similar.</p>
+          <p>The modularity, which indicates the quality of the partition is around 0.62 which indicates the partition is quite good (modularity varies from -0.5 to 1, a modularity of 1 indicates the groups are well delimited)</p>
+          <p>We also colored seperated components with more than 2 documents. Thus, it gives a nice visualisation of the groups within the corpus. The analysis of the communities shows that groups defined thanks to the Louvain-algorithm make sense. For example, the purple community corresponds to the texts about philosophy.</p>
         </div>
 
 
@@ -308,6 +307,7 @@ body {
     </div>
 
   
+  </div>
 </div>
 
 <div class="bloc sec1 container-fluid text-center" style="background-color: #555555">
@@ -347,8 +347,8 @@ body {
       <div class="row top-buffer ">
 
 
-      <div id="topics" class="col-md-4 text-center">
-            <img  src="{{ url_for('static', filename='cosine.png') }}" alt="how it works" style="width: 100%;"><br>
+      <div id="topics" class="col-md-4 ">
+            <img  class= "box-shadow--8dp" src="{{ url_for('static', filename='cosine.jpg') }}" alt="how it works" style="width: 100%;"><br>
         </div>
 
         <div class="col-md-8" >
@@ -416,6 +416,14 @@ body {
 
   
 </div>  
+
+
+<div class="bloc sec5 container-fluid">
+  <h1>Corpus Analysis</h1>
+
+  <p> things about network and corpus analysis, technical stuff............WIP</p>
+</div>  
+
 
 
 

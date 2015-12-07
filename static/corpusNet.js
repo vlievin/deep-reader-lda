@@ -140,7 +140,7 @@ var dat = d3.json("/network", function(error, json) {
           .attr("stroke", function(d) { return d.color })
           .on("mouseover", function(d) {  
 
-            if (current_node  && !current_node)
+            if (current_node  && !rawDisplay)
             {
 
               console.log('size');
@@ -404,6 +404,7 @@ rawDisplay = true;
 var node = layer2.selectAll(".node").select('circle').transition();
 
 node
+.duration(500)
 .attr("fill" , function(d) {  
     return d.color;
   }) ;
