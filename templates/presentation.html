@@ -248,14 +248,15 @@ body {
 </div>
 <div  class="bloc sec2 container-fluid">
   <h1>What is it?</h1>
-  <p>This is project developped in the context of the Msc Digital Media Engineering at DTU in partnership with EasyTranslate</p>
+  <p>This is project developped in the context of the Msc Digital Media Engineering at DTU in partnership with <a href="http://www.easytranslate.com/">EasyTranslate</a></p>
   <p>The goal is to provide tools to understand a text without reading it and to explore a corpus and the relations between texts</p>
-  <p>We analyse texts on two levels</p>
-  <li>Relations with other texts</li>
-  <li>Topic distribution, complexity and most important words within a text</li>
+  <p>EasyTranslate is a translation company. The company is supported with specialized translators. Today, when a client uploads a text, a manager reads it quickly and routes it to the right translators. We propose tools to bypass the reading-through process by analysing the text with natural language processing tools. Moreover, we propose also an overview of the already translated documents: the corpus network. This corpus gives a representation of the texts and provides a notion of distance between texts. Thus, thanks to these semantic distances between texts, we can find the right translator automatically: the translator who has translated the closest text.</p>
+  <p>We provide an analysis of on two levels</p>
+    <li>Relations with other texts using the cosine similarity</li>
+    <li>Topic distribution, complexity and most important words within a text</li>
 </div>
 <div class="bloc sec4 container-fluid">
-  <h1>How it works?</h1>
+  <h1>How to use it?</h1>
 
   <div class="container-fluid">
       <div class="row top-buffer ">
@@ -268,7 +269,7 @@ body {
 
         <div class="col-md-8" >
           <h2>Corpus vizualisation</h2>
-          <p>The page <a href="/corpusnet">Network</a> shows a network composed of nodes. Nodes represent texts, and links represent the similarity between texts. The more a link is thick the more the texts are close. The graph gives a nice way to vizualise a corpus. </p>
+          <p>The page <a href="/corpusnet">Network</a> shows a network composed of nodes. Nodes represent texts, and links represent the similarity between texts. The more a link is thick the more the texts are close. The graph provides a nice way to vizualise a corpus. </p>
           <p>You can see different types of nodes:
           <li>the lightest and largest represent directly a topic built with the LDA</li>
           <li>the smallest and darker nodes represent texts</li>
@@ -290,7 +291,8 @@ body {
 </div>
 
 <div class="bloc sec1 container-fluid text-center" style="background-color: #555555">
-  <a href="/corpusnet"><button type="button" class="btn btn-warning box-shadow--8dp btn-lg">Try this amazing app!</button></a>
+<p>Play with the network, try to understand what the texts are about, explore the relationships between texts.</p>
+  <a href="/corpusnet"><button type="button" class="btn btn-warning box-shadow--8dp btn-lg">Try this amazing app</button></a>
 
 </div>
 
@@ -313,7 +315,7 @@ body {
 
   <p>Topics are made accoridng to a mathematical model and are based on statisitcs. Thus, a word taken alone within a topic often doesn't make sens: topics give a probability for each word to belong to a topics (and can be present in several topics) because words are used in different contexts.</p>
 
-  <p>In order to provide an overview of the texts without seeing the whole analysis, we gave a name for the most used topics. Keep in mind that these words are set manually. Therefore, some topic names can seem to be strange for some texts.</p>
+  <p>In order to provide an overview of the texts without seeing the whole analysis, we gave a name for the most used topics. Keep in mind that these words are set manually. Therefore, some topic names are just an overall description of the topics. For example the topic "web-IT" is related to the vocabluray related to the web technologies. However, a text about </p>
 
 </div>  
 
@@ -364,6 +366,38 @@ body {
 
   <p>This function is quite simple and is basically the length of the words divided by the frequency of the word in english. The frequency of the words is defined thanks to the Reuter corpus from NLTK. The choice of the length of the words as a characteristic parameter is motivated by the fact than, in English, the more a word is long, the more the word carry meaning. The <a href="https://www.youtube.com/watch?v=fCn8zs912OE">video</a>  from the youtuber VSauce explains it very well. </p>
 </div>  
+
+<div class="bloc sec4 container-fluid">
+  <h1>Which technologies are used?</h1>
+  <h2>Back-End</h2>
+  <p>The back-end groups all the work behind the scene. Due to technical limitations, all the analysis have been made computed one time and the results have been stored in a data base. Indeed, free hosts like heroku doesn't provide enough computation power to load and run the LDA based on the whole wikipedia.</p>
+  <p>However, we also built a prototype which analysises texts on-the-go: the user upload a text a get the results instantly.<p>
+  <p>All the analyses are made with python. Here is a list of all the libraries used in the project<p>
+  <li><a href="https://radimrehurek.com/gensim/n">Gensim</a>: a powerful language processing python library with an implementation of the LDA model</li>
+  <li><a href="http://www.nltk.org/">NLTK</a>: our favorite language processing platform for python. It contains over 50 corpora and lexical ressources and provides also tools for classification, tokenization, stemming, tagging, parsing, and semantic reasoning. We use it for text cleaning, tokenizing and word frequency count but also to get useful data like the Reuters corpus.</li>
+  <li><a href="https://networkx.github.io/">NetworkX</a>: an awesome python library for network analysis.</li>
+  <li><a href="http://perso.crans.org/aynaud/communities/">A python Louvain-algorithm implementation</a>: the Louvain-algorithm is an algorithm for community detection (detection of "groups" of nodes). It finds an optimal partition of the network with reagrd to the modularity.</li>
+  <li><a href="http://flask.pocoo.org/">Flask</a>: a microframework for Python based on Werkzeug and Jinja 2. It enables us to build this application easily and manage the different webpages</li>
+  <li>Hosts:
+  <ul>
+    <li><a href="https://www.heroku.com/">Heroku</a>: the platform where is hosted this application</li>
+    <li><a href="https://mongolab.com/">Mongolab</a>: the platform which hosts our database</li>
+  </ul>
+  </li>
+
+
+  <h2>Front-End</h2>
+
+  <p>The front-end represents all the work you see, here, on this app. Its includes the webpages and the graphs</p>
+
+  <li><a href="http://getbootstrap.com/">Bootstrap</a>: a popular framework for developing responsive, mobile first projects on the web.</li>
+  <li><a href="http://d3js.org/">d3</a>: an amazing JavaScript library for data vizualisation: all graphs have been made thanks to this library</li>
+
+
+  
+</div>  
+
+
 
 
 <div class="bloc sec1 container-fluid">

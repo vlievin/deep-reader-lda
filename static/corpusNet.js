@@ -3,6 +3,8 @@
 
 json = []
 
+var rawDisplay = true;
+
 colours = []
 // colours.push( "#7f8c8d")
 colours.push( "#e74c3c")
@@ -10,13 +12,19 @@ colours.push( "#3498db")
 colours.push( "#f1c40f")
 colours.push( "#9b59b6")
 colours.push( "#1abc9c")
-colours.push( "#34495e")
 colours.push( "#e67e22")
 colours.push("#ff66ff")
+colours.push("#2ecc71")
+colours.push( "#34495e")
+colours.push("#8e44ad")
+colours.push("#d35400")
 
-console.log(colours)
+
+
 
 var dat = d3.json("/network", function(error, json) {
+
+  console.log(json)
 
   var vis = d3.select("body").append("svg")
     .attr("width", w_graph)
@@ -132,33 +140,57 @@ var dat = d3.json("/network", function(error, json) {
           .attr("stroke", function(d) { return d.color })
           .on("mouseover", function(d) {  
 
-            if (current_node)
+            if (current_node  && !current_node)
             {
+
+              console.log('size');
+              console.log(d.size)
               current_node
               .transition()        
               .duration(300) 
-              .attr("r" , function(d) { return d.size;  })
-              .attr("fill", function(d) { return d.color; });
+              .attr("r" , function(d) { return d.size;  });
 
             }
+
+            if (rawDisplay && current_node)
+              {
+
+                  current_node
+                  .transition()        
+                  .duration(300) 
+                  .attr("fill", function(d) { return d.color; })
+                  .attr("r" , function(d) { return d.size;  });
+
+              }
+
+
+
             current_node = d3.select(this);
 
             mouseOverFunction(d) ;
 
-            d3.select(this)
-            //.style("fill", "#1abc9c")
-            .transition()        
+            tmp_node = d3.select(this).transition() ;    
+
+            tmp_node  
                 .duration(450) 
                 .ease('elastic')
-                .attr("r" , function(d) { return d.size * 2  })
-                // .attr("fill", "#E48681");
-                .attr("fill", function(d) {  return d.color; } )
+                .attr("r" , function(d) { return d.size * 2  });
+
+            if (rawDisplay)
+            {
+                tmp_node.attr("fill", "#E48681");
+
+            }
+                
+                // .attr("fill", function(d) {  return d.color; } )
 
             div.transition()        
                 .duration(300)      
                 .style("opacity", 1);      
 
-            div.html(d.name)  
+
+
+            div.html( (d.name).replace('___','<br>')  )  
                 .style("left", (d3.event.pageX) + "px")     
                 .style("top", (d3.event.pageY - 50) + "px");
 
@@ -213,7 +245,10 @@ var dat = d3.json("/network", function(error, json) {
                   div2.transition()        
                   .duration(300)      
                   .style("opacity", 1);
-                  div2 .html( dd.text) ;
+
+                  title  = dd.text
+                  title = title.replace('___','<br>')
+                  div2 .html(  title );
               })
 
             /*dat.append('foreignObject')
@@ -348,7 +383,7 @@ var dat = d3.json("/network", function(error, json) {
 
 function swipeToCommunity()
 {
-
+rawDisplay = false;
 var node = layer2.selectAll(".node").select('circle').transition();
 
 node
@@ -365,7 +400,7 @@ node
 
 function swipeToRaw()
 {
-
+rawDisplay = true;
 var node = layer2.selectAll(".node").select('circle').transition();
 
 node
