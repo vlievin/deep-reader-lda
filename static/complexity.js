@@ -72,6 +72,14 @@ d3.json("/complexity/" + FILE_TITLE, function(error, full_data) {
           .call(xAxis);
 
 
+    group.append("text")      // text label for the x axis
+        .attr("transform", "rotate(-90)")
+        .attr("x", -100)
+        .attr("y", -40 )
+        .style("text-anchor", "middle")
+        .text("difficulty (0: easy - 100: hard)");
+
+
     // create left yAxis
     var yAxisLeft = d3.svg.axis().scale(y).ticks(4).orient("left");
     // Add the y-axis to the left
@@ -79,5 +87,12 @@ d3.json("/complexity/" + FILE_TITLE, function(error, full_data) {
           .attr("class", "y axis")
           .attr("transform", "translate(" + 0 + "," + ( 0 ) + ")")
           .call(yAxisLeft);
+
+    group.append("text")      // text label for the x axis
+        .attr("x", w/2 )
+        .attr("y", h + 50)
+        .style("text-anchor", "middle")
+        .text("words count");
+
 
 });

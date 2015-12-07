@@ -107,6 +107,13 @@ d3.json("/topics/" + FILE_TITLE, function(error, data_topics) {
           .attr("transform", "translate("+  0 +   "," + (h) +")")
           .call(xAxis);
 
+    group.append("text")      // text label for the x axis
+        .attr("transform", "rotate(-90)")
+        .attr("x", -100)
+        .attr("y", -40 )
+        .style("text-anchor", "middle")
+        .text("proportion");
+
 
     // create left yAxis
     var yAxisLeft = d3.svg.axis().scale(sy).ticks(4).orient("left");
@@ -115,6 +122,12 @@ d3.json("/topics/" + FILE_TITLE, function(error, data_topics) {
           .attr("class", "y axis")
           .attr("transform", "translate(" + 0 + "," + ( 0 ) + ")")
           .call(yAxisLeft);
+
+    group.append("text")      // text label for the x axis
+        .attr("x", w/2 )
+        .attr("y", h + 50)
+        .style("text-anchor", "middle")
+        .text("words count");
 
 
 
