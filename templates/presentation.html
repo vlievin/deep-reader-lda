@@ -180,7 +180,7 @@ body {
 
   .bloc{padding:50px; color:white;}
 
-  a{color: gray;}
+  a{color: lightgrey;}
 
 
 
@@ -270,6 +270,9 @@ body {
         <div class="col-md-8" >
           <h2>Corpus vizualisation</h2>
           <p>The page <a href="/corpusnet">Network</a> shows a network composed of nodes. Nodes represent texts, and links represent the similarity between texts. The more a link is thick the more the texts are close. The graph provides a nice way to vizualise a corpus. </p>
+          <p><strong>Play with the network</strong>, try to understand what the texts are about, explore the relationships between texts.</p>
+
+
           <p>You can see different types of nodes:
           <li>the lightest and largest represent topics built with the LDA</li>
           <li>the smallest and darker nodes represent texts</li></p>
@@ -278,9 +281,9 @@ body {
         <div class="col-md-8" >
           <h2>Single text analysis</h2>
 
-          <p>The page <a href="/d3">Text Analysis</a> shows the analysis of a single text. this page analysis a random text in the corpus. However, you access to the analysis of any text in the corpus from the network (button in the left panel).</p>
+          <p>The page <a href="/d3">Text Analysis</a> shows the analysis of a single text. this page analysis a random text in the corpus. However, you can access to the analysis of any text in the corpus from the network (button in the left panel).</p>
           <p>This page shows the distribution of topics along the text, the complexity based on the <a href="https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests">Flesch reading ease</a>, and the most important words for each topic presented with a wordcloud and a graph.</p>
-          <p>The graph about 
+          <p>Keep in mind that the main goal is to provide a tool which help a manager to understand a text and have an idea of the difficulty and the most difficult words in the text. However, the analysis page provides also tools which help us to understand the content of a text: the force directed graph for example provides a nice overview of the text because it gives directly examples of significant (and complex) words.</p>
         </div>
       </div>
 
@@ -292,7 +295,7 @@ body {
 
 
       <div id="topics" class="col-md-4 text-center">
-            <img class="box-shadow--8dp" src="{{ url_for('static', filename='communities.gif') }}" alt="how it works" style="width: 100%;"><br>
+            <img class="box-shadow--8dp" src="{{ url_for('static', filename='communities2.gif') }}" alt="how it works" style="width: 100%;"><br>
         </div>
 
 
@@ -312,7 +315,7 @@ body {
 </div>
 
 <div class="bloc sec1 container-fluid text-center" style="background-color: #555555">
-<p>Play with the network, try to understand what the texts are about, explore the relationships between texts.</p>
+
   <a href="/corpusnet"><button type="button" class="btn btn-warning box-shadow--8dp btn-lg">Try this amazing app</button></a>
 
 </div>
@@ -324,7 +327,7 @@ body {
   <p>Texts come from different sources.
   <li> The <a href="http://www.anc.org/data/masc/">MASC corpus</a> which provides a great variety of texts. However, some texts and categories have been removed in order to obtain a better repartition of texts.</li>
   <li>The <a href="https://www.gutenberg.org/">Gutemberg project</a> which provides a huge quantity of texts from different topics. Texts have been chosen according to their topics.
-  <li>Some random texts like the iPhone user guide or the Apache Licenses.</li>
+  <li>Some random texts like the iPhone user guide or the Apache License.</li>
 </div>
 
 
@@ -332,11 +335,11 @@ body {
 <div class="bloc sec5 container-fluid">
   <h1>How topics are made?</h1>
 
-  <p>Topics have been made thanks to the <a href="https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation">LDA</a> (Latent Dirichlet Allocation). We used <a href="https://radimrehurek.com/gensim/n">Gensim</a>, an open source libray in python for natural language processing on the 5,025,150 articles from the English Wikipedia (one day of computation). The LDA is a model which enable from a corpus of texts to extract a given ammount of topics. Topics are groups of words with a probability given for each word.</p>
+  <p>Topics have been made thanks to the <a href="https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation">LDA</a> (Latent Dirichlet Allocation). We used <a href="https://radimrehurek.com/gensim/n">Gensim</a>, an open source libray in python for natural language processing on the 5,025,150 articles from the English Wikipedia (one day of computation). The LDA is a model which enable from a corpus of texts to extract a given ammount of topics. Topics are groups of words with a semantic realtion. Topics are composed of a list of weighted words.</p>
 
   <p>Topics are made accoridng to a mathematical model and are based on statisitcs. Thus, a word taken alone within a topic often doesn't make sens: topics give a probability for each word to belong to a topics (and can be present in several topics) because words are used in different contexts.</p>
 
-  <p>In order to provide an overview of the texts without seeing the whole analysis, we gave a name for the most used topics. Keep in mind that these words are set manually. Therefore, some topic names are just an overall description of the topics. For example the topic "web-IT" is related to the vocabluray related to the web technologies. However, a text about </p>
+  <p>In order to provide an overview of the texts without seeing the whole content of a topic, we named manually the most used topics. Therefore, some topic names are just an overall description of the topics. For example the topic "everyday vocabulary" corresponds to a lot of adjectives or vocabulary related to dialogues. Thus, this vocabulary can be used in a lot of differents contexts: text about marketing for example are characterized by an high proportion of this topic because this kind of text use a lot of positive adjectives.We can make the same observation for movie scripts or fictions which are also characterized by this topic whereas it can be a movie or fiction about war or fantasy.</p>
 
 </div>  
 
@@ -354,9 +357,9 @@ body {
 
         <div class="col-md-8" >
           <h2>Cosine similarity</h2>
-          <p>The distance between texts is based on the cosine similarity in the topic space. Each topic represents a dimension. The cosine similarity is basically the cosine of the angle between two vectors in the topic space. The diagram on the left shows how it works with three topics: the cosine similarity corresponds to the cosine of the angle Θ between the two vector. The same principle is applicable with 100 dimensions.</p>
+          <p>The distance between texts is based on the cosine similarity in the topic space. Each topic represents a dimension (on the example, the dimensions are the topics "economy", "mathematis" and "food"). The cosine similarity is basically the cosine of the angle between two vectors in the topic space. The diagram on the left shows how it works with three topics: the cosine similarity corresponds to the cosine of the angle Θ between the two vector. The same principle is applicable with 100 dimensions.</p>
 
-          <p>In order to obtain a graph that makes sense, we applies a threshold to the similarities: only the similarities higher than 80% are kept.</p>
+          <p>In order to obtain a graph that makes sense, we applies a threshold to the similarities: only the similarities higher than 85% are kept.</p>
 
         </div>
 
@@ -375,17 +378,27 @@ body {
 
   <h2>Topics distribution</h2>
 
-  <p>Thanks to the LDA, we extract the topics from small chuncks in the text. It gives a probability for each part to belong to a specific topic.</p>
+  <p>Thanks to the LDA, we extract the topics from small chuncks in the text. It gives a probability for each part to belong to a specific topic. Texts need to be tokenized for the LDA.</p>
+  <p>The LDA topics are mathematically made and are based on assumptions which aren't always verified on the wikipedia corpus and in the texts we analyze. Moreover, the LDA is a model, a simplification of the world. Thus, the LDA cannot handle every nuances of the language. This is why some results need an interpretation. However, the results are quite good and give a nice overview of a text without reading it.</p>
 
   <h2>Complexity</h2>
 
-  <p>We use the <a href="https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests">Flesch reading ease</a> forumla to give an estimation of the complexity along the text. This formula is based on the length of the words, the number of syllabus and the length of the words.<p>
+  <p>We introduced the complexity because of our motivations for this project. Indeed, the goal is to provide a tool for managers in a translation company to allocate a text to the right translator without reading the text. Thus, evaluate the complexity of the text can help the manager to choose the right translator. Moreover, the complexity will also be used for dynamic pricing: a complex text requires more ressources to be translated. Then, the translation cost should be higher than for a less complex text.</p>
+
+  <p>We use the <a href="https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests">Flesch reading ease</a> forumla to give an estimation of the complexity along the text. This formula is based on the length of the words, the number of syllabus and the length of the words. Basically, a text is hard to read if the sentences and the words are long. This forumla gives an estimation of the complexity on a scale from 0 to 100 (we inversed the original scale). Scores can be interpreted with the following table:<p>
+  <li>0-10: easily understood by an average 11-year-old student</li>
+  <li>30-40: easily understood by 13- to 15-year-old students</li>
+  <li>70-100: best understood by university graduates</li>
 
   <h2>Meaningful words</h2>
 
-  <p>Usual scoring-functions like the TF-IDF was not working very well and it was very time-consuming. We developped our own scoring-function to sort words with regard to their importance in the text. </p>
+  <p>In order to help a manager in its choices, we need to provide the most important words in a text to help him to spot if the text is about a special topic (like a text with difficult law or medecine vocabulary).</p>
 
-  <p>This function is quite simple and is basically the length of the words divided by the frequency of the word in english. The frequency of the words is defined thanks to the Reuter corpus from NLTK. The choice of the length of the words as a characteristic parameter is motivated by the fact than, in English, the more a word is long, the more the word carry meaning. The <a href="https://www.youtube.com/watch?v=fCn8zs912OE">video</a>  from the youtuber VSauce explains it very well. </p>
+  <p>Usual scoring-functions like the TF-IDF was not working very well and it was very time-consuming. We developped our own scoring-function to sort words with regard to their difficulty and importance in the text. </p>
+
+  <p>This function is quite simple and is basically the length of the words divided by the frequency of the word in english. It can seem to be a strange and very basic but sometimes, less is more, we obtain very good results compared to the traditional TF-IDF.</p>
+
+  <p>The frequencies of the words are defined on to the Reuter corpus from NLTK. The choice of the length of the words as a characteristic parameter is motivated by the fact than, in English, the more a word is long, the more the word carry meaning and the more the word is likely to be difficult. we use the frequencies of the words in english to filter the common words.</p>
 </div>  
 
 <div class="bloc sec4 container-fluid">
@@ -421,8 +434,9 @@ body {
 
 <div class="bloc sec5 container-fluid">
   <h1>Corpus Analysis</h1>
-
-  <p> things about network and corpus analysis, technical stuff............WIP</p>
+  <p>The network is composed from 222 nodes including the 100 topics.</p>
+  <p>
+  <!-- <p> things about network and corpus analysis, technical stuff............WIP</p> -->
 </div>  
 
 
