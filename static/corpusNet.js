@@ -116,6 +116,7 @@ var dat = d3.json("/network", function(error, json) {
       function dragstart(d, i) {
           drag_on = true;
           force.stop() // stops the force auto positioning before you start dragging
+
       }
 
       function dragmove(d, i) {
@@ -149,9 +150,11 @@ var dat = d3.json("/network", function(error, json) {
           .style("stroke", "white")
           .style("fill-opacity", 1)
           .attr("stroke", function(d) { return d.color })
-          .on("mouseover", function(d) {  
+          .on("click", function(d) { 
 
-            if (current_node  && !rawDisplay)
+              fillLeftPanel(d);
+
+          if (current_node  && !rawDisplay)
             {
 
               console.log('size');
@@ -178,7 +181,7 @@ var dat = d3.json("/network", function(error, json) {
 
             current_node = d3.select(this);
 
-            mouseOverFunction(d) ;
+           
 
             tmp_node = d3.select(this).transition() ;    
 
@@ -192,6 +195,17 @@ var dat = d3.json("/network", function(error, json) {
                 tmp_node.attr("fill", "#E48681");
 
             }
+
+
+
+          })
+          .on("mouseover", function(d) {  
+
+            
+
+             mouseOverFunction(d) ;
+
+
                 
                 // .attr("fill", function(d) {  return d.color; } )
 
@@ -206,9 +220,35 @@ var dat = d3.json("/network", function(error, json) {
                 .style("top", (d3.event.pageY - 50) + "px");
 
 
-            //retrieve topics from db
+           
+
+            })                  
+          .on("mouseout", function(d) {    
+
+            if (!drag_on)
+            {
+              mouseOutFunction(d);
+
+                div.transition()        
+                    .duration(333)      
+                    .style("opacity", 0);
+
+                /*div2.transition()        
+                    .duration(333)      
+                    .style("opacity", 0);*/
+                dat.transition()        
+                    .duration(33)      
+                    .style("opacity", 0);
+              }
+          });
+
+
+      function fillLeftPanel(d)
+      {
+
+         //retrieve topics from db
             d3.json("/getTopics/"+d.name , function(e, dd_topics) {
-		
+    
             //chart
             var path = g_topics.selectAll('path')
             .data(pie(dd_topics['topics']));
@@ -262,46 +302,9 @@ var dat = d3.json("/network", function(error, json) {
                   div2 .html(  title );
               })
 
-            /*dat.append('foreignObject')
-              .html( 'kdjvsjdqffqf'
-
-                d3.json("/getTopics/"+d.name , function(error, dd) {
-                  console.log(dd);
-                return dd;
-              })
-                +
-                " <br> <br>"
-                +
-                d3.json("/getText/"+d.name , function(error, dd) {
-                return dd
-              })
-
-                )
-              .select('div2')
-              .transition()        
-              .duration(300)      
-              .style("opacity", .9);*/
 
 
-            })                  
-          .on("mouseout", function(d) {    
-
-            if (!drag_on)
-            {
-              mouseOutFunction(d);
-
-                div.transition()        
-                    .duration(333)      
-                    .style("opacity", 0);
-
-                /*div2.transition()        
-                    .duration(333)      
-                    .style("opacity", 0);*/
-                dat.transition()        
-                    .duration(33)      
-                    .style("opacity", 0);
-              }
-          });
+      }
 
 
 
