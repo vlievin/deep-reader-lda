@@ -18,6 +18,17 @@ colours.push("#2ecc71")
 colours.push( "#34495e")
 colours.push("#8e44ad")
 colours.push("#d35400")
+colours.push( "#e74c3c")
+colours.push( "#3498db")
+colours.push( "#f1c40f")
+colours.push( "#9b59b6")
+colours.push( "#1abc9c")
+colours.push( "#e67e22")
+colours.push("#ff66ff")
+colours.push("#2ecc71")
+colours.push( "#34495e")
+colours.push("#8e44ad")
+colours.push("#d35400")
 
 
 
