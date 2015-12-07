@@ -85,6 +85,7 @@ form {
 	font-family: Gotham;  
 	text-shadow: 1px 1px 2px white;  
 	text-align: left; }
+  /*
 label { 
 	display: block; 
 	width: 120px; 
@@ -93,7 +94,7 @@ label {
 	position: relative; 
 	top: 3px;  }
 
-
+*/
 #fic { 
 	position:relative;  
 	top: 23px; 
