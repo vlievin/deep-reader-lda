@@ -152,49 +152,60 @@ var dat = d3.json("/network", function(error, json) {
           .attr("stroke", function(d) { return d.color })
           .on("click", function(d) { 
 
-              fillLeftPanel(d);
+            //fill 
+            fillLeftPanel(d);
 
-          if (current_node  && !rawDisplay)
+            if (!current_node)
+
             {
 
-              console.log('size');
-              console.log(d.size)
-              current_node
-              .transition()        
-              .duration(300) 
-              .attr("r" , function(d) { return d.size;  });
+              var e1 = document.getElementById("text");
+              e1.style.visibility = 'visible';  
+
 
             }
 
-            if (rawDisplay && current_node)
+            if (current_node  && !rawDisplay)
               {
 
-                  current_node
-                  .transition()        
-                  .duration(300) 
-                  .attr("fill", function(d) { return d.color; })
-                  .attr("r" , function(d) { return d.size;  });
+                console.log('size');
+                console.log(d.size)
+                current_node
+                .transition()        
+                .duration(300) 
+                .attr("r" , function(d) { return d.size;  });
 
               }
 
+              if (rawDisplay && current_node)
+                {
+
+                    current_node
+                    .transition()        
+                    .duration(300) 
+                    .attr("fill", function(d) { return d.color; })
+                    .attr("r" , function(d) { return d.size;  });
+
+                }
 
 
-            current_node = d3.select(this);
 
-           
+              current_node = d3.select(this);
 
-            tmp_node = d3.select(this).transition() ;    
+             
 
-            tmp_node  
-                .duration(450) 
-                .ease('elastic')
-                .attr("r" , function(d) { return d.size * 2  });
+              tmp_node = d3.select(this).transition() ;    
 
-            if (rawDisplay)
-            {
-                tmp_node.attr("fill", "#E48681");
+              tmp_node  
+                  .duration(450) 
+                  .ease('elastic')
+                  .attr("r" , function(d) { return d.size * 2  });
 
-            }
+              if (rawDisplay)
+              {
+                  tmp_node.attr("fill", "#E48681");
+
+              }
 
 
 
@@ -245,6 +256,12 @@ var dat = d3.json("/network", function(error, json) {
 
       function fillLeftPanel(d)
       {
+        // // remove elements in div
+        //     elmt = document.getElementById("text");
+        //     while (elmt.hasChildNodes()) {
+        //         elmt.removeChild(elmt.lastChild);
+        //     }
+
 
          //retrieve topics from db
             d3.json("/getTopics/"+d.name , function(e, dd_topics) {
@@ -297,9 +314,9 @@ var dat = d3.json("/network", function(error, json) {
                   .duration(300)      
                   .style("opacity", 1);
 
-                  title  = dd.text
-                  title = title.replace('___','<br>')
-                  div2 .html(  title );
+                  title  = d.name
+                  title = title.split('___')
+                  div2 .html(  '<i>' + (title[0]).split('_').join(' ').replace('0','').replace('z','') + '</i>' + '<br><strong> ' +  (title[1]).split('_').join(' ') + '</strong><br><br>' + dd.text );
               })
 
 
