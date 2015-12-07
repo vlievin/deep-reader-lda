@@ -285,6 +285,26 @@ body {
           <p>This page shows the distribution of topics along the text, the complexity based on the <a href="https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests">Flesch reading ease</a>, and the most important words for each topic presented with a wordcloud and a graph. (the way we find the most important words is descriebed in the following sections)
         </div>
       </div>
+
+
+      <div class="row top-buffer ">
+
+
+      <div id="topics" class="col-md-4 text-center">
+            <img class="box-shadow--8dp" src="{{ url_for('static', filename='communities.gif') }}" alt="how it works" style="width: 100%;"><br>
+        </div>
+
+
+        <div class="col-md-8" >
+          <h2>Communities</h2>
+          <p>The page <a href="/corpusnet">Network</a> shows a network composed of nodes. Nodes represent texts, and links represent the similarity between texts. The more a link is thick the more the texts are close. The graph provides a nice way to vizualise a corpus. </p>
+          <p>You can see different types of nodes:
+          <li>the lightest and largest represent directly a topic built with the LDA</li>
+          <li>the smallest and darker nodes represent texts</li>
+        </div>
+
+
+
     </div>
 
   
