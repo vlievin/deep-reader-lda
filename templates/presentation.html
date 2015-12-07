@@ -205,6 +205,18 @@ body {
   }
 
 
+.fade {
+   opacity: 1;
+   transition: opacity .25s ease-in-out;
+   -moz-transition: opacity .25s ease-in-out;
+   -webkit-transition: opacity .25s ease-in-out;
+   }
+
+   .fade:hover {
+      opacity: 0.5;
+      }
+
+
 
 
     </style>
@@ -487,6 +499,15 @@ body {
         </div>
             <h2>Valentin Liévin</h2>
             <p>Student in MSc Digital Media Engineering at DTU (Denmark) and in MSc General Engineering at École Centrale de Nantes (France)</p>
+
+            <hr>
+            
+            <a href="https://fr.linkedin.com/in/valentinlievin">
+            <img class = "fade"style = "margin: 15px;" src="{{ url_for('static', filename='linkedin.png') }}" alt="" />
+            </a>
+            <a href="https://github.com/vlievin">
+            <img class = "fade" style = "margin: 15px;" src="{{ url_for('static', filename='github.png') }}" alt="" />
+            </a>
         </div>
 
         <div class="col-md-2 box-shadow--4dp text-center" style="text-align: center;min-height: 600px;  width: 300px;margin-left: 50px; margin-right: 50px;">
@@ -498,6 +519,15 @@ body {
 
           <h2>Yannis Flet-Berliac</h2>
           <p>Student in MSc Digital Media Engineering at DTU (Denmark) and in MSc General Engineering at École Centrale de Nantes (France)</p>
+          
+          <hr>
+          <a href="https://dk.linkedin.com/in/yfletberliac">
+            <img class = "fade"style = "margin: 15px;" src="{{ url_for('static', filename='linkedin.png') }}" alt="" />
+          </a>
+          <a href="https://github.com/yfletberliac">
+          <img class = "fade" style = "margin: 15px;"src="{{ url_for('static', filename='github.png') }}" alt="" />
+          </a>
+
         </div>
       </div>
     </div>
@@ -509,66 +539,3 @@ body {
     
 </body>
 </html>
-
-<!--
-d3.json("/data", function(error, data) {
-
-});
-
-
-
-
-
-        canvas.selectAll("rect")
-        .data(loaded_data)
-        .enter()
-          .append("rect")
-          .attr("width", function(d) {return wScale(d.y)})
-          .attr("y", function(d,i){return i * 50})
-          .attr("height", 40)
-          .attr("fill", '#1abc9c');
-
-
-
-
-
-
-          d3.json("/data", function(error,loaded_data) {
-
-
-        var width = 600;
-        var height = 300;
-
-        var wScale = d3.scale.linear()
-        .domain([0, 100]).range( [0, width] );
-
-        var canvas = d3.select("body").append("svg")
-        .attr("width", height)
-        .attr("height", width);
-
-        var group = canvas.append("g")
-        .attr( "transform", "translate(0, 0)");
-
-
-        var line = d3.svg.line()
-        .x(function(d) {return d.x; })
-        .y(function(d) {return d.y;});
-
-        group.selectAll("path")
-        .data(loaded_data)
-        .enter()
-        .append("path")
-        .attr("d", line)
-        .attr("fill", "none")
-        .attr("stroke", 'black')
-        .attr('stroke-width', 10)
-
-
-
-
-
-
-      });
-
-
-      -->
