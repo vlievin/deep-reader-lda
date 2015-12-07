@@ -41,8 +41,9 @@ var dat = d3.json("/network", function(error, json) {
     .attr("width", w_graph)
     .attr("height", h_graph);
 
-  var div = d3.select("body").append("div")   
-    .attr("class", "tooltip")               
+  var div = d3.select("body").append("div")  
+    .attr("class", "tooltip") 
+    // .attr("class", "box-shadow--4dp")               
     .style("opacity", 0);
 
 
@@ -82,8 +83,8 @@ var dat = d3.json("/network", function(error, json) {
   var force = self.force = d3.layout.force()
           .nodes(json["nodes"])
           .links(json["links"] )
-          .gravity(.035)
-          .friction(0.1)
+          .gravity(.025)
+          .friction(0.05)
           .distance(80)
           .charge(-300)
           .size([w_graph, h_graph])
@@ -188,11 +189,7 @@ var dat = d3.json("/network", function(error, json) {
 
                 }
 
-
-
               current_node = d3.select(this);
-
-             
 
               tmp_node = d3.select(this).transition() ;    
 
@@ -212,23 +209,18 @@ var dat = d3.json("/network", function(error, json) {
           })
           .on("mouseover", function(d) {  
 
-            
-
              mouseOverFunction(d) ;
-
-
-                
-                // .attr("fill", function(d) {  return d.color; } )
 
             div.transition()        
                 .duration(300)      
                 .style("opacity", 1);      
 
 
-
-            div.html( (d.name).replace('___','<br>')  )  
+            title  = d.name
+            title = title.split('___')
+            div.html( '<i>' + (title[0]).split('_').join(' ').replace('0','').replace('z','') + '</i>' + '<br><strong> ' +  (title[1]).split('_').join(' ') + '</strong>' )  
                 .style("left", (d3.event.pageX) + "px")     
-                .style("top", (d3.event.pageY - 50) + "px");
+                .style("top", (d3.event.pageY - 55) + "px");
 
 
            
