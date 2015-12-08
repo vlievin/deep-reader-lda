@@ -83,10 +83,12 @@ var dat = d3.json("/network", function(error, json) {
   var force = self.force = d3.layout.force()
           .nodes(json["nodes"])
           .links(json["links"] )
-          .gravity(.025)
-          .friction(0.05)
-          .distance(80)
-          .charge(-300)
+          .gravity(.09)
+          .friction(0.5)
+          .distance(100)
+          .charge(-250)
+          .theta(0.6)
+          // .alpha(0.1)
           .size([w_graph, h_graph])
           .start();
 
@@ -101,11 +103,6 @@ var dat = d3.json("/network", function(error, json) {
           .attr("y1", function(d) { return d.source.y; })
           .attr("x2", function(d) { return d.target.x; })
           .attr("y2", function(d) { return d.target.y; });
-
-      force.linkStrength(function(link) {
-       return 0.2 + 0.8 * ( 1 - link.value );
-    });
-
 
       var drag_on = false;
       var node_drag = d3.behavior.drag()
