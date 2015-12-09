@@ -309,7 +309,7 @@ p,li,a {font-family: Montserrat;}
 
         <div class="col-md-8" >
           <h2>Corpus visualization</h2>
-          <p>The <a href="/corpusnet">Network</a> page shows a network composed of nodes. Nodes represent texts, and links represent the similarity between texts. The more a link is thick the more the texts are close to each other. The graph provides a nice way to vizualise a corpus. </p>
+          <p>The <a href="/corpusnet">Network</a> page shows a network composed of nodes. Nodes represent texts, and links represent the similarity between texts. The more a link is thick the more the texts are close to each other. The graph provides a nice way to visualize a corpus. </p>
           <p><strong>Play with the network</strong>, try to understand what the texts are about, explore the relationships between texts.</p>
 
 
@@ -343,7 +343,7 @@ p,li,a {font-family: Montserrat;}
           <h2>Communities</h2>
           <p>We use a Python implementation of the Louvain-algorithm in order to partition the communities which are groups of nodes where documents are highly similar.</p>
           <p>The modularity giving an insight on the quality of partition is around 0.62 which indicates it is fairly good (modularity varies from -0.5 to 1, a modularity of 1 indicates the groups are well delimited).</p>
-          <p>We also colored seperated components with more than 2 documents. We wanted to display a nice visualization of the groups within the corpus. The analysis of the communities show that groups defined thanks to the Louvain-algorithm really make sense. For instance the texts in the purple community are referred to philosophy.</p>
+          <p>We also colored separated components with more than 2 documents. We wanted to display a nice visualization of the groups within the corpus. The analysis of the communities show that groups defined thanks to the Louvain-algorithm really make sense. For instance the texts in the purple community are referred to philosophy.</p>
         </div>
 
 
@@ -419,23 +419,23 @@ p,li,a {font-family: Montserrat;}
 
   <h2>Topics distribution</h2>
 
-  <p>Thanks to the LDA, we extract the topics from small chuncks in the text. It provides a probability for each part along the text to belong to a specific topic. Texts need to be tokenized for the LDA.</p>
+  <p>Thanks to the LDA, we extract the topics from small chuncks in the text. It provides a probability for each part along the text to belong to a specific topic. The texts need to be tokenized for the LDA.</p>
   <p>The LDA topics are mathematically made and are based on assumptions which aren't always verified on the Wikipedia corpus and in the texts we analyze. Moreover, the LDA is a model, a simplification of the world. Thus, the LDA cannot handle every nuances of the language. This is why some results need an interpretation. But hopefully the results are quite good and give a nice overview of a text without reading it.</p>
 
   <h2>Complexity</h2>
 
   <p>We introduced the complexity because of our motivations for this project. Indeed, the goal is to provide a tool for managers in a translation company to allocate a text to the best qualified translator without reading the text. Thus, evaluating the complexity of the text can help the manager to choose the right translator. Moreover, the complexity will also be used for dynamic pricing : a complex text requires more ressources to be translated well. Then, the translation cost should be higher than for a less complex text and vice versa.</p>
 
-  <p>We use the <a href="https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests">Flesch reading ease</a> formula to give an estimation of the complexity along the text. This formula is based on the length of the words, the number of syllabus and the length of the words. Basically, a text is hard to read if the sentences and the words are long. This gives an estimation of the complexity on a scale from 0 to 100 (we inversed the original scale). Scores can be interpreted with the following table:<p>
+  <p>We use the <a href="https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests">Flesch reading ease</a> formula to give an estimation of the complexity along the text. This formula is based on the length of the words, the number of syllabus and the length of the words. Basically, a text is hard to read if the sentences and the words are long. This gives an estimation of the complexity on a scale from 0 to 100 (we inverted the original scale). Scores can be interpreted with the following table:<p>
   <li>0-10 : easily understood by an average 11-year-old student</li>
   <li>30-40 : easily understood by 13- to 15-year-old students</li>
   <li>70-100 : best understood by university graduates</li>
 
   <h2>Meaningful words</h2>
 
-  <p>In order to help a manager in its choices, we need to provide the most important words in a text to help him to spot from which topic the text is about (for instance a text with difficult law referencies or medecine vocabulary).</p>
+  <p>In order to help a manager in its choices, we need to provide the most important words in a text to help him to spot from which topic the text is about (for instance a text with difficult law references or medecine vocabulary).</p>
 
-  <p>Usual scoring-functions like the TF-IDF was not working very well and it was very time-consuming. We developped our own scoring-function to sort words with regard to their difficulty and importance in the text. </p>
+  <p>Usual scoring-functions like the TF-IDF was not working very well and it was very time-consuming. We developed our own scoring-function to sort words with regard to their difficulty and importance in the text. </p>
 
   <p>This function is quite simple and is basically the length of the words divided by the frequency of the word in the English vocabulary. It can seem to be a strange and very basic but sometimes, less is more ! We obtain really good results compared to the traditional TF-IDF.</p>
 
@@ -447,9 +447,9 @@ p,li,a {font-family: Montserrat;}
   <h2>Back-End</h2>
   <p>The back-end gathers all the work behind the scene. Due to technical limitations, all the analysis have been computed one time and the results have been stored in a data base. Indeed, free hosts like Heroku doesn't provide enough computation power to load and run the LDA based on the whole English Wikipedia.</p>
   <p>However, we also built a prototype which analysis texts on-the-go : the user uploads a text and gets the results instantly.<p>
-  <p>All the analyses are made with Python. Here are all the libraries we used in the project :<p>
+  <p>All the analysis are made with Python. Here are all the libraries we used in the project :<p>
   <li><a href="https://radimrehurek.com/gensim/n">Gensim</a> : a powerful language processing Python library with an implementation of the LDA model</li>
-  <li><a href="http://www.nltk.org/">NLTK</a> : our favorite language processing platform for Python. It contains over 50 corpora and lexical ressources and provides also tools for classification, tokenization, stemming, tagging, parsing, and semantic reasoning. We use it for text cleaning, tokenizing and word frequency count but also to get useful data like the Reuters corpus</li>
+  <li><a href="http://www.nltk.org/">NLTK</a> : our favorite language processing platform for Python. It contains over 50 corpora and lexical resources and provides also tools for classification, tokenization, stemming, tagging, parsing, and semantic reasoning. We use it for text cleaning, tokenizing and word frequency count but also to get useful data like the Reuters corpus</li>
   <li><a href="https://networkx.github.io/">NetworkX</a> : an awesome Python library for network analysis</li>
   <li><a href="http://perso.crans.org/aynaud/communities/">A python Louvain-algorithm implementation</a> : the Louvain-algorithm is an algorithm for community detection (detection of "groups" of nodes). It finds an optimal partition of the network with regard to the modularity</li>
   <li><a href="http://flask.pocoo.org/">Flask</a> : a microframework for Python based on Werkzeug and Jinja 2. It enables us to build this application easily and manage the different webpages</li>
@@ -466,7 +466,7 @@ p,li,a {font-family: Montserrat;}
   <p>The front-end represents all the work you see, here, on this app. It includes the webpages and the graphs :</p>
 
   <li><a href="http://getbootstrap.com/">Bootstrap</a> : a popular framework for developing responsive, mobile first projects on the web</li>
-  <li><a href="http://d3js.org/">d3</a> : an amazing JavaScript library for data vizualisation : all the graphs have been made thanks to this library</li>
+  <li><a href="http://d3js.org/">d3</a> : an amazing JavaScript library for data visualization : all the graphs have been made thanks to this library</li>
 
 
   
@@ -477,24 +477,14 @@ p,li,a {font-family: Montserrat;}
   <h1>Corpus Analysis</h1>
   <p>The network is composed of 222 nodes including the 100 topics.</p>
   <p>One thing we can first say about this network is its particularity to have a Glocalization shape. It is nor composed of little boxes, nor characterized by lack of connectivity. As we said previously, the modularity of the network is quite high (0.62). Thus we have some quite dense connections between the texts within modules but sparse connections between nodes in different modules.</p>
-  <p>One other thing we can rely on to analysis the network is the centrality. We focused on the <strong>betweenness centrality</strong> because the eigenvector centrality seemed, thanks to the work we did in the Social Graphs and Interaction course, to make sense mainly in analysis taking into account social, professional or inspiration/influencial triggers. for instance the links between article publications of any kind. Here we our purpose was not to analysis the influence over the texts as they are, in the first place, independant from each other. But we can say that the eigenvector centrality shows that the texts in the fiction/movie script community are the ones with the best scores (around 0.21).
-  <p>Thus, we focused on the betweenness centrality which is according to Wikipedia "an indicator of a node's centrality in a network. [...] A node with high betweenness centrality has a large influence on <strong>the transfer of items</strong> through the network, under the assumption that item transfer follows the shortest paths." We obtained pretty good results and it went out that the texts with highest scores are the one between and linked to the communities or cliques (around 0.05). This is very usefull : if we want to find "hybrid" translators who can successfully translate one of those texts, it can be accurately done that way. Moreover, it will be possible for the translation of new texts to be upgraded to the next level thanks to the targetting of similar patterns found in this kind of hybrid texts.</p>
+  <p>One other thing we can rely on to analysis the network is the centrality. We focused on the <strong>betweenness centrality</strong> because the eigenvector centrality seemed, thanks to the work we did in the Social Graphs and Interaction course, to make sense mainly in analysis taking into account social, professional or inspiration/influential triggers. for instance the links between article publications of any kind. Here we our purpose was not to analysis the influence over the texts as they are, in the first place, independent from each other. But we can say that the eigenvector centrality shows that the texts in the fiction/movie script community are the ones with the best scores (around 0.21).
+  <p>Thus, we focused on the betweenness centrality which is according to Wikipedia "an indicator of a node's centrality in a network. [...] A node with high betweenness centrality has a large influence on <strong>the transfer of items</strong> through the network, under the assumption that item transfer follows the shortest paths." We obtained pretty good results and it went out that the texts with highest scores are the one between and linked to the communities or cliques (around 0.05). This is very useful : if we want to find "hybrid" translators who can successfully translate one of those texts, it can be accurately done that way. Moreover, it will be possible for the translation of new texts to be upgraded to the next level thanks to the targeting of similar patterns found in this kind of hybrid texts.</p>
 
 
   <!-- <p> things about network and corpus analysis, technical stuff............WIP</p> -->
 </div>  
 
 
-
-
-
-<div class="bloc sec1 container-fluid">
-  <h1>Limitations</h1>
-
-    <p>The topics are modelised on the whole English Wikipedia and only 100 categories are represented. Thus, the possibilities are limited, we can differentiate a user guide and a movie script but we cannot differentiate an horror movie script and a romantic movie script because the language used for both documents is very close (they are dialogue type related).
-
-
-</div>  
 
 
 <div class="bloc  container-fluid"style = "color: #cccccc;">
