@@ -5,6 +5,7 @@
     <title>DeepReader</title>
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merienda One">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Port Lligat Slab">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='up.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='menu.css') }}">
     <link href="//getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -220,7 +221,7 @@ body {
       opacity: 0.5;
       }
 
-p,li,a {font-family: Georgia;}
+p,li,a {font-family: Montserrat;}
 
 
 
@@ -283,19 +284,19 @@ p,li,a {font-family: Georgia;}
 
 <div  class="bloc sec1 container-fluid">
   <h1>Work in progress</h1>
-  <p>This project is currently under development</p>
+  <p>This project is currently under development.</p>
 </div>
 <div  class="bloc sec2 container-fluid">
-  <h1>What is it?</h1>
-  <p>This is project of <strong>natural language processing and network science </strong>developped in the context of the Msc Digital Media Engineering at DTU in partnership with <a href="http://www.easytranslate.com/">EasyTranslate</a></p>
-  <p>The goal is to provide tools to understand a text without reading it and to explore a corpus and the relations between texts</p>
-  <p>EasyTranslate is a translation company. The company is supported with specialized translators. Today, when a client uploads a text, a manager reads it quickly and routes it to the right translators. We propose tools to bypass the reading-through process by analysing the text with natural language processing tools. Moreover, we propose also an overview of all the documents: the corpus network. This corpus gives a representation of the texts and provides a notion of distance between texts. Thus, thanks to these semantic distances between texts, we can find the right translator automatically: the translator who has translated the closest text.</p>
-  <p>We provide an analysis on two levels</p>
+  <h1>What is it about ?</h1>
+  <p>This project involves <strong>natural language processing and network science</strong>.</p><p>Its development is part of our Msc Digital Media Engineering at DTU and is through collaboration with <a href="http://www.easytranslate.com/">EasyTranslate</a>.</p>
+  <p>The main goal here is to provide all the tools to understand a text without having to read it. We make it possible to explore a corpus of texts and display the relations between them.</p>
+  <p>EasyTranslate is a translation company. The company is supported with specialized translators. Today, when a client uploads a text, a manager reads it quickly and routes it to the right translators. We provide tools to bypass the reading-through process by analysing the text with natural language processing. Moreover, we also made it possible to have an overview of all the documents : <strong>the corpus network</strong>. This network gives a nice visualization of the texts and provides the notion of distance between texts. Thus, thanks to those (semantic) distances between texts, it is possible to find the right translator automatically : the translator who has translated the closest text.</p>
+  <p>We provide an analysis on two levels :</p>
     <li>Relations with other texts using the cosine similarity</li>
     <li>Topic distribution, complexity and most important words within a text</li>
 </div>
 <div class="bloc sec4 container-fluid">
-  <h1>How to use it?</h1>
+  <h1>How to use it ?</h1>
 
   <div class="container-fluid">
       <div class="row top-buffer ">
@@ -307,22 +308,22 @@ p,li,a {font-family: Georgia;}
 
 
         <div class="col-md-8" >
-          <h2>Corpus vizualisation</h2>
-          <p>The page <a href="/corpusnet">Network</a> shows a network composed of nodes. Nodes represent texts, and links represent the similarity between texts. The more a link is thick the more the texts are close. The graph provides a nice way to vizualise a corpus. </p>
+          <h2>Corpus visualization</h2>
+          <p>The <a href="/corpusnet">Network</a> page shows a network composed of nodes. Nodes represent texts, and links represent the similarity between texts. The more a link is thick the more the texts are close to each other. The graph provides a nice way to vizualise a corpus. </p>
           <p><strong>Play with the network</strong>, try to understand what the texts are about, explore the relationships between texts.</p>
 
 
-          <p>You can see different types of nodes:
-          <li>the lightest and largest represent topics built with the LDA</li>
-          <li>the smallest and darker nodes represent texts</li></p>
+          <p>You can see different types of nodes :
+          <li>The lightest and largest represent topics built through the LDA</li>
+          <li>The smallest and darker nodes represent the texts</li></p>
         </div>
 
         <div class="col-md-8" >
           <h2>Single text analysis</h2>
 
-          <p>The page <a href="/d3">Text Analysis</a> shows the analysis of a single text. this page analysis a random text in the corpus. However, you can access to the analysis of any text in the corpus from the network (button in the left panel).</p>
-          <p>This page shows the distribution of topics along the text, the complexity based on the <a href="https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests">Flesch reading ease</a>, and the most important words for each topic presented with a wordcloud and a graph.</p>
-          <p>Keep in mind that the main goal is to provide a tool which help a manager to understand a text and have an idea of the difficulty and the most difficult words in the text. However, the analysis page provides also tools which help us to understand the content of a text: the force directed graph for example provides a nice overview of the text because it gives directly examples of significant (and complex) words.</p>
+          <p>The <a href="/d3">Text Analysis</a> page shows the analysis of a single text. It analysis a random text in the corpus. And you can naturally access to the analysis of any text of your choice in the corpus from the network (button is in the left panel).</p>
+          <p>This page shows the distribution of topics along the text, the complexity based on the <a href="https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests">Flesch reading ease</a>, and the most important words for each topic displayed with both a wordcloud and a graph.</p>
+          <p>Keep in mind that the main goal is to provide a tool which helps a manager to understand a text and provide an idea of the difficulty and the most challenging words in the text. However, the analysis page provides also tools helping to understand the content of a text : the force directed graph for instance provides a nice overview of the text because it gives visually examples of most significant (and complex) words.</p>
         </div>
       </div>
 
@@ -340,9 +341,9 @@ p,li,a {font-family: Georgia;}
 
         <div class="col-md-8" >
           <h2>Communities</h2>
-          <p>We use a python implementation of the Louvain-algroithm in order make a partition of communities. Communities are groups of nodes where documents are highly similar.</p>
-          <p>The modularity, which indicates the quality of the partition is around 0.62 which indicates the partition is quite good (modularity varies from -0.5 to 1, a modularity of 1 indicates the groups are well delimited)</p>
-          <p>We also colored seperated components with more than 2 documents. Thus, it gives a nice visualisation of the groups within the corpus. The analysis of the communities shows that groups defined thanks to the Louvain-algorithm make sense. For example, the purple community corresponds to the texts about philosophy.</p>
+          <p>We use a Python implementation of the Louvain-algorithm in order to partition the communities which are groups of nodes where documents are highly similar.</p>
+          <p>The modularity giving an insight on the quality of partition is around 0.62 which indicates it is fairly good (modularity varies from -0.5 to 1, a modularity of 1 indicates the groups are well delimited).</p>
+          <p>We also colored seperated components with more than 2 documents. We wanted to display a nice visualization of the groups within the corpus. The analysis of the communities show that groups defined thanks to the Louvain-algorithm really make sense. For instance the texts in the purple community are referred to philosophy.</p>
         </div>
 
 
@@ -353,38 +354,38 @@ p,li,a {font-family: Georgia;}
   </div>
 </div>
 
-<div class="bloc sec1 container-fluid text-center" style="background-color: #555555">
+<div class="bloc sec1 container-fluid text-center" style="background-color: white">
 
-  <a href="/corpusnet"><button type="button" class="btn btn-warning box-shadow--8dp btn-lg">Try this amazing app</button></a>
+  <a href="/corpusnet"><button type="button" class="btn btn-primary box-shadow--8dp btn-lg">Try this amazing app</button></a>
 
 </div>
 
 
 
 <div class="bloc sec3 container-fluid">
-  <h1>Where the data come from?</h1>
-  <p>Texts come from different sources.
-  <li> The <a href="http://www.anc.org/data/masc/">MASC corpus</a> which provides a great variety of texts. However, some texts and categories have been removed in order to obtain a better repartition of texts.</li>
-  <li>The <a href="https://www.gutenberg.org/">Gutemberg project</a> which provides a huge quantity of texts from different topics. Texts have been chosen according to their topics.
-  <li>Some random texts like the iPhone user guide or the Apache License.</li>
+  <h1>What is our data ?</h1>
+  <p>We extracted texts from several sources :
+  <li> The <a href="http://www.anc.org/data/masc/">MASC corpus</a> provides a great variety of texts. However, some texts and categories have been removed in order to obtain a broader repartition of texts.</li>
+  <li>The <a href="https://www.gutenberg.org/">Gutemberg project</a> provides a huge quantity of texts from different topics. The texts have been chosen according to their topics.
+  <li>And some other random texts such as the iPhone user guide or the Apache License.</li>
 </div>
 
 
 
 <div class="bloc sec5 container-fluid">
-  <h1>How topics are made?</h1>
+  <h1>What about the topics ?</h1>
 
-  <p>Topics have been made thanks to the <a href="https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation">LDA</a> (Latent Dirichlet Allocation). We used <a href="https://radimrehurek.com/gensim/n">Gensim</a>, an open source libray in python for natural language processing on the 5,025,150 articles from the English Wikipedia (one day of computation). The LDA is a model which enable from a corpus of texts to extract a given ammount of topics. Topics are groups of words with a semantic realtion. Topics are composed of a list of weighted words.</p>
+  <p>The topics have been made thanks to the <a href="https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation">LDA</a> (Latent Dirichlet Allocation). We used <a href="https://radimrehurek.com/gensim/n">Gensim</a>, an open source library in python for natural language processing on the <strong>5,025,150 articles from the English Wikipedia</strong> (one day of computation). The LDA is a model which, from a corpus of texts, enabled us to extract a given amount of topics. Topics are groups of words with a semantic relation. They are composed of a list of weighted words.</p>
 
-  <p>Topics are made accoridng to a mathematical model and are based on statisitcs. Thus, a word taken alone within a topic often doesn't make sens: topics give a probability for each word to belong to a topics (and can be present in several topics) because words are used in different contexts.</p>
+  <p>The topics are made according to a mathematical model and are based on statisitcs. Thus, a word taken alone within a topic often doesn't make any sense : when the topics are retrieved they give a probability for each word to belong to a topic They can basically be seen in several topics because words are often used in different contexts.</p>
 
-  <p>In order to provide an overview of the texts without seeing the whole content of a topic, we named manually the most used topics. Therefore, some topic names are just an overall description of the topics. For example the topic "everyday vocabulary" corresponds to a lot of adjectives or vocabulary related to dialogues. Thus, this vocabulary can be used in a lot of differents contexts: text about marketing for example are characterized by an high proportion of this topic because this kind of text use a lot of positive adjectives.We can make the same observation for movie scripts or fictions which are also characterized by this topic whereas it can be a movie or fiction about war or fantasy.</p>
+  <p>In order to provide an overview of the texts without seeing the whole content of a topic, we named manually the most used topics. Therefore, some topic names are just an overall description and allow us to distinguish each of them. For instance the topic "everyday vocabulary" corresponds to a lot of adjectives or vocabulary related to dialogues. As a matter of fact this vocabulary can be used in a lot of different contexts : texts about marketing for example are characterized by an high proportion of that topic because this kind of texts use a lot of positive adjectives. We can make the same observation for movie scripts or fictions, which are also highly characterized by this topic both for movies or fictions about war or fantasy.</p>
 
-</div>  
+</div>
 
 
 <div class="bloc sec5 container-fluid">
-  <h1>What are the relations bewteen texts?</h1>
+  <h1>What really means "relation bewteen texts" ?</h1>
 
  <div class="container-fluid">
       <div class="row top-buffer ">
@@ -396,9 +397,9 @@ p,li,a {font-family: Georgia;}
 
         <div class="col-md-8" >
           <h2>Cosine similarity</h2>
-          <p>The distance between texts is based on the cosine similarity in the topic space. Each topic represents a dimension (on the example, the dimensions are the topics "economy", "mathematis" and "food"). The cosine similarity is basically the cosine of the angle between two vectors in the topic space. The diagram on the left shows how it works with three topics: the cosine similarity corresponds to the cosine of the angle Θ between the two vector. The same principle is applicable with 100 dimensions.</p>
+          <p>The distance between texts is based on the cosine similarity in the topic space. Each topic represents a dimension (on the example, the dimensions are the topics "economy", "mathematis" and "food"). The cosine similarity is basically the cosine of the angle between two vectors in the topic space. The diagram on the left shows how it works with three topics : the cosine similarity corresponds to the cosine of the angle Θ between the two vectors. The same principle is applicable for a space of 100 dimensions.</p>
 
-          <p>In order to obtain a graph that makes sense, we applies a threshold to the similarities: only the similarities higher than 85% are kept.</p>
+          <p>In order to obtain a graph that makes sense, we apply a threshold to the similarities : only the similarities higher than 85% are displayed.</p>
 
         </div>
 
@@ -413,58 +414,58 @@ p,li,a {font-family: Georgia;}
 
 
 <div class="bloc sec5 container-fluid">
-  <h1>How are the texts analysed?</h1>
+  <h1>How are the texts analysed ?</h1>
 
   <h2>Topics distribution</h2>
 
-  <p>Thanks to the LDA, we extract the topics from small chuncks in the text. It gives a probability for each part to belong to a specific topic. Texts need to be tokenized for the LDA.</p>
-  <p>The LDA topics are mathematically made and are based on assumptions which aren't always verified on the wikipedia corpus and in the texts we analyze. Moreover, the LDA is a model, a simplification of the world. Thus, the LDA cannot handle every nuances of the language. This is why some results need an interpretation. However, the results are quite good and give a nice overview of a text without reading it.</p>
+  <p>Thanks to the LDA, we extract the topics from small chuncks in the text. It provides a probability for each part along the text to belong to a specific topic. Texts need to be tokenized for the LDA.</p>
+  <p>The LDA topics are mathematically made and are based on assumptions which aren't always verified on the Wikipedia corpus and in the texts we analyze. Moreover, the LDA is a model, a simplification of the world. Thus, the LDA cannot handle every nuances of the language. This is why some results need an interpretation. But hopefully the results are quite good and give a nice overview of a text without reading it.</p>
 
   <h2>Complexity</h2>
 
-  <p>We introduced the complexity because of our motivations for this project. Indeed, the goal is to provide a tool for managers in a translation company to allocate a text to the right translator without reading the text. Thus, evaluate the complexity of the text can help the manager to choose the right translator. Moreover, the complexity will also be used for dynamic pricing: a complex text requires more ressources to be translated. Then, the translation cost should be higher than for a less complex text.</p>
+  <p>We introduced the complexity because of our motivations for this project. Indeed, the goal is to provide a tool for managers in a translation company to allocate a text to the best qualified translator without reading the text. Thus, evaluating the complexity of the text can help the manager to choose the right translator. Moreover, the complexity will also be used for dynamic pricing : a complex text requires more ressources to be translated well. Then, the translation cost should be higher than for a less complex text and vice versa.</p>
 
-  <p>We use the <a href="https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests">Flesch reading ease</a> forumla to give an estimation of the complexity along the text. This formula is based on the length of the words, the number of syllabus and the length of the words. Basically, a text is hard to read if the sentences and the words are long. This forumla gives an estimation of the complexity on a scale from 0 to 100 (we inversed the original scale). Scores can be interpreted with the following table:<p>
-  <li>0-10: easily understood by an average 11-year-old student</li>
-  <li>30-40: easily understood by 13- to 15-year-old students</li>
-  <li>70-100: best understood by university graduates</li>
+  <p>We use the <a href="https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests">Flesch reading ease</a> formula to give an estimation of the complexity along the text. This formula is based on the length of the words, the number of syllabus and the length of the words. Basically, a text is hard to read if the sentences and the words are long. This gives an estimation of the complexity on a scale from 0 to 100 (we inversed the original scale). Scores can be interpreted with the following table:<p>
+  <li>0-10 : easily understood by an average 11-year-old student</li>
+  <li>30-40 : easily understood by 13- to 15-year-old students</li>
+  <li>70-100 : best understood by university graduates</li>
 
   <h2>Meaningful words</h2>
 
-  <p>In order to help a manager in its choices, we need to provide the most important words in a text to help him to spot if the text is about a special topic (like a text with difficult law or medecine vocabulary).</p>
+  <p>In order to help a manager in its choices, we need to provide the most important words in a text to help him to spot from which topic the text is about (for instance a text with difficult law referencies or medecine vocabulary).</p>
 
   <p>Usual scoring-functions like the TF-IDF was not working very well and it was very time-consuming. We developped our own scoring-function to sort words with regard to their difficulty and importance in the text. </p>
 
-  <p>This function is quite simple and is basically the length of the words divided by the frequency of the word in english. It can seem to be a strange and very basic but sometimes, less is more, we obtain very good results compared to the traditional TF-IDF.</p>
+  <p>This function is quite simple and is basically the length of the words divided by the frequency of the word in the English vocabulary. It can seem to be a strange and very basic but sometimes, less is more ! We obtain really good results compared to the traditional TF-IDF.</p>
 
-  <p>The frequencies of the words are defined on to the Reuter corpus from NLTK. The choice of the length of the words as a characteristic parameter is motivated by the fact than, in English, the more a word is long, the more the word carry meaning and the more the word is likely to be difficult. we use the frequencies of the words in english to filter the common words.</p>
+  <p>The frequencies of the words are defined with the Reuters corpus from NLTK. The choice of the length of the words as a characteristic parameter is motivated by the fact that in English, the more a word is long, the more the word carry meaning and the more the word is likely to be complex. We use the frequencies of the words in English to filter the common words.</p>
 </div>  
 
 <div class="bloc sec4 container-fluid">
-  <h1>Which technologies are used?</h1>
+  <h1>Which technologies are used ?</h1>
   <h2>Back-End</h2>
-  <p>The back-end groups all the work behind the scene. Due to technical limitations, all the analysis have been made computed one time and the results have been stored in a data base. Indeed, free hosts like heroku doesn't provide enough computation power to load and run the LDA based on the whole wikipedia.</p>
-  <p>However, we also built a prototype which analysises texts on-the-go: the user uploads a text a get the results instantly.<p>
-  <p>All the analyses are made with python. Here is a list of all the libraries used in the project<p>
-  <li><a href="https://radimrehurek.com/gensim/n">Gensim</a>: a powerful language processing python library with an implementation of the LDA model</li>
-  <li><a href="http://www.nltk.org/">NLTK</a>: our favorite language processing platform for python. It contains over 50 corpora and lexical ressources and provides also tools for classification, tokenization, stemming, tagging, parsing, and semantic reasoning. We use it for text cleaning, tokenizing and word frequency count but also to get useful data like the Reuters corpus.</li>
-  <li><a href="https://networkx.github.io/">NetworkX</a>: an awesome python library for network analysis.</li>
-  <li><a href="http://perso.crans.org/aynaud/communities/">A python Louvain-algorithm implementation</a>: the Louvain-algorithm is an algorithm for community detection (detection of "groups" of nodes). It finds an optimal partition of the network with reagrd to the modularity.</li>
-  <li><a href="http://flask.pocoo.org/">Flask</a>: a microframework for Python based on Werkzeug and Jinja 2. It enables us to build this application easily and manage the different webpages</li>
-  <li>Hosts:
+  <p>The back-end gather all the work behind the scene. Due to technical limitations, all the analysis have been computed one time and the results have been stored in a data base. Indeed, free hosts like Heroku doesn't provide enough computation power to load and run the LDA based on the whole English Wikipedia.</p>
+  <p>However, we also built a prototype which analysis texts on-the-go : the user uploads a text and gets the results instantly.<p>
+  <p>All the analyses are made with Python. Here are all the libraries we used in the project :<p>
+  <li><a href="https://radimrehurek.com/gensim/n">Gensim</a> : a powerful language processing Python library with an implementation of the LDA model</li>
+  <li><a href="http://www.nltk.org/">NLTK</a> : our favorite language processing platform for Python. It contains over 50 corpora and lexical ressources and provides also tools for classification, tokenization, stemming, tagging, parsing, and semantic reasoning. We use it for text cleaning, tokenizing and word frequency count but also to get useful data like the Reuters corpus</li>
+  <li><a href="https://networkx.github.io/">NetworkX</a> : an awesome Python library for network analysis</li>
+  <li><a href="http://perso.crans.org/aynaud/communities/">A python Louvain-algorithm implementation</a> : the Louvain-algorithm is an algorithm for community detection (detection of "groups" of nodes). It finds an optimal partition of the network with regard to the modularity</li>
+  <li><a href="http://flask.pocoo.org/">Flask</a> : a microframework for Python based on Werkzeug and Jinja 2. It enables us to build this application easily and manage the different webpages</li>
+  <li>Hosts :
   <ul>
-    <li><a href="https://www.heroku.com/">Heroku</a>: the platform where is hosted this application</li>
-    <li><a href="https://mongolab.com/">Mongolab</a>: the platform which hosts the database</li>
+    <li><a href="https://www.heroku.com/">Heroku</a> : the platform where is hosted this application</li>
+    <li><a href="https://mongolab.com/">Mongolab</a> : the platform where is hosted the database</li>
   </ul>
   </li>
 
 
   <h2>Front-End</h2>
 
-  <p>The front-end represents all the work you see, here, on this app. Its includes the webpages and the graphs</p>
+  <p>The front-end represents all the work you see, here, on this app. It includes the webpages and the graphs :</p>
 
-  <li><a href="http://getbootstrap.com/">Bootstrap</a>: a popular framework for developing responsive, mobile first projects on the web.</li>
-  <li><a href="http://d3js.org/">d3</a>: an amazing JavaScript library for data vizualisation: all graphs have been made thanks to this library</li>
+  <li><a href="http://getbootstrap.com/">Bootstrap</a> : a popular framework for developing responsive, mobile first projects on the web</li>
+  <li><a href="http://d3js.org/">d3</a> : an amazing JavaScript library for data vizualisation : all the graphs have been made thanks to this library</li>
 
 
   
@@ -485,7 +486,7 @@ p,li,a {font-family: Georgia;}
 <div class="bloc sec1 container-fluid">
   <h1>Limitations</h1>
 
-    <p>Topics are modelised on the whole english wikipedia and only 100 categories are represented. Thus, the possibilities are limited, we can differentiate a user guide and a movie script but we cannot differentiate a horror movie script and a romantic movie script because the language used for both documents is very close (dialogues). 
+    <p>The topics are modelised on the whole English Wikipedia and only 100 categories are represented. Thus, the possibilities are limited, we can differentiate a user guide and a movie script but we cannot differentiate an horror movie script and a romantic movie script because the language used for both documents is very close (they are dialogue type related).
 
 
 </div>  
