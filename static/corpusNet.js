@@ -451,7 +451,7 @@ node
 
 $('#communities').on('change', function() {
   console.log('com')
-  document.getElementById('clusters').checked =false;
+  // document.getElementById('clusters').checked =false;
     if ($(this).is(':checked')) {
          swipeToCommunity();  
     } else {
@@ -459,15 +459,15 @@ $('#communities').on('change', function() {
     }
 });
 
-$('#clusters').on('change', function() {
-  console.log('clusters')
-  document.getElementById('communities').checked =false;
-    if ($(this).is(':checked')) {
-         swipeToClusters();  
-    } else {
-         swipeToRaw(); 
-    }
-});
+// $('#clusters').on('change', function() {
+//   console.log('clusters')
+//   document.getElementById('communities').checked =false;
+//     if ($(this).is(':checked')) {
+//          swipeToClusters();  
+//     } else {
+//          swipeToRaw(); 
+//     }
+// });
 
 
 
