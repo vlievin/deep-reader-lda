@@ -178,8 +178,6 @@ a.btn.btn-red {
 }
 .cmn-toggle + label {
 	position: fixed;
-	bottom: 20px;
-	right: 20px; 
 	display: block;
 	cursor: pointer;
 	outline: none;
@@ -283,8 +281,15 @@ p,li,a {font-family: Montserrat;}
 
 <div class "container">
   <div class="switch ">
-    <input id="cmn-toggle-7" class="cmn-toggle cmn-toggle-yes-no" type="checkbox">
-    <label class= "bootstrap-switch-container" for="cmn-toggle-7" data-on="Communities" data-off="Communities"></label>
+    <input id="communities" class=" cmn-toggle-7 cmn-toggle cmn-toggle-yes-no" type="checkbox">
+    <label class= "bootstrap-switch-container" style = " bottom: 20px; right: 20px;" for="communities" data-on="Communities" data-off="Communities"></label>
+  </div>
+</div>
+
+<div class "container">
+  <div class="switch ">
+    <input id="clusters" class="cmn-toggle-7 cmn-toggle cmn-toggle-yes-no" type="checkbox">
+    <label class= "bootstrap-switch-container" style = " bottom: 100px; right: 20px; "for="clusters" data-on="Clusters" data-off="Clusters"></label>
   </div>
 </div>
 

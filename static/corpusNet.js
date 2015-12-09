@@ -418,6 +418,25 @@ node
   }) ;
 }
 
+function swipeToClusters()
+{
+rawDisplay = false;
+var node = layer2.selectAll(".node").select('circle').transition();
+
+node
+.duration(500)
+.attr("fill" , function(d) {  
+  if (d.cluster >= 0 ){
+    return colours[d.cluster];
+  } 
+  else{
+    return '#dddddd'; 
+  } 
+  }) ;
+}
+
+
+
 function swipeToRaw()
 {
 rawDisplay = true;
@@ -430,12 +449,9 @@ node
   }) ;
 }
 
-
-
-
-
-
-$('#cmn-toggle-7').on('change', function() {
+$('#communities').on('change', function() {
+  console.log('com')
+  document.getElementById('clusters').checked =false;
     if ($(this).is(':checked')) {
          swipeToCommunity();  
     } else {
@@ -443,6 +459,15 @@ $('#cmn-toggle-7').on('change', function() {
     }
 });
 
+$('#clusters').on('change', function() {
+  console.log('clusters')
+  document.getElementById('communities').checked =false;
+    if ($(this).is(':checked')) {
+         swipeToClusters();  
+    } else {
+         swipeToRaw(); 
+    }
+});
 
 
 
