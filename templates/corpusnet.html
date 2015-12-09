@@ -5,6 +5,7 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merienda One">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Port Lligat Slab">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='up.css') }}">
     <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='menu.css') }}"> -->
     <link href="//getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -225,7 +226,7 @@ input.cmn-toggle-yes-no:checked + label:before {
 input.cmn-toggle-yes-no:checked + label:after {
   transform: rotateY(0);
 }
-
+p,li,a {font-family: Montserrat;}
 
 
 
@@ -284,7 +285,7 @@ input.cmn-toggle-yes-no:checked + label:after {
 <div class "container">
   <div class="switch ">
     <input id="cmn-toggle-7" class="cmn-toggle cmn-toggle-yes-no" type="checkbox">
-    <label class= "box-shadow--8dp" for="cmn-toggle-7" data-on="Communities" data-off="Communities"></label>
+    <label class= "bootstrap-switch-container" for="cmn-toggle-7" data-on="Communities" data-off="Communities"></label>
   </div>
 </div>
 
