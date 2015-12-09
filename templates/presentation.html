@@ -287,7 +287,7 @@ p,li,a {font-family: Montserrat;}
   <p>This project is currently under development.</p>
 </div>
 <div  class="bloc sec2 container-fluid">
-  <h1>What is it about ?</h1>
+  <h1>What ?</h1>
   <p>This project involves <strong>natural language processing and network science</strong>.</p><p>Its development is part of our Msc Digital Media Engineering at DTU and is through collaboration with <a href="http://www.easytranslate.com/">EasyTranslate</a>.</p>
   <p>The main goal here is to provide all the tools to understand a text without having to read it. We make it possible to explore a corpus of texts and display the relations between them.</p>
   <p>EasyTranslate is a translation company. The company is supported with specialized translators. Today, when a client uploads a text, a manager reads it quickly and routes it to the right translators. We provide tools to bypass the reading-through process by analysing the text with natural language processing. Moreover, we also made it possible to have an overview of all the documents : <strong>the corpus network</strong>. This network gives a nice visualization of the texts and provides the notion of distance between texts. Thus, thanks to those (semantic) distances between texts, it is possible to find the right translator automatically : the translator who has translated the closest text.</p>
@@ -296,7 +296,7 @@ p,li,a {font-family: Montserrat;}
     <li>Topic distribution, complexity and most important words within a text</li>
 </div>
 <div class="bloc sec4 container-fluid">
-  <h1>How to use it ?</h1>
+  <h1>How I use it ?</h1>
 
   <div class="container-fluid">
       <div class="row top-buffer ">
@@ -363,7 +363,7 @@ p,li,a {font-family: Montserrat;}
 
 
 <div class="bloc sec3 container-fluid">
-  <h1>What is our data ?</h1>
+  <h1>What data ?</h1>
   <p>We extracted texts from several sources :
   <li> The <a href="http://www.anc.org/data/masc/">MASC corpus</a> provides a great variety of texts. However, some texts and categories have been removed in order to obtain a broader repartition of texts.</li>
   <li>The <a href="https://www.gutenberg.org/">Gutemberg project</a> provides a huge quantity of texts from different topics. The texts have been chosen according to their topics.
@@ -377,7 +377,7 @@ p,li,a {font-family: Montserrat;}
 
   <p>The topics have been made thanks to the <a href="https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation">LDA</a> (Latent Dirichlet Allocation). We used <a href="https://radimrehurek.com/gensim/n">Gensim</a>, an open source library in python for natural language processing on the <strong>5,025,150 articles from the English Wikipedia</strong> (one day of computation). The LDA is a model which, from a corpus of texts, enabled us to extract a given amount of topics. Topics are groups of words with a semantic relation. They are composed of a list of weighted words.</p>
 
-  <p>The topics are made according to a mathematical model and are based on statisitcs. Thus, a word taken alone within a topic often doesn't make any sense : when the topics are retrieved they give a probability for each word to belong to a topic They can basically be seen in several topics because words are often used in different contexts.</p>
+  <p>The topics are made according to a mathematical model and are based on statistics. Thus, a word taken alone within a topic often doesn't make any sense : when the topics are retrieved they give a probability for each word to belong to a topic They can basically be seen in several topics because words are often used in different contexts.</p>
 
   <p>In order to provide an overview of the texts without seeing the whole content of a topic, we named manually the most used topics. Therefore, some topic names are just an overall description and allow us to distinguish each of them. For instance the topic "everyday vocabulary" corresponds to a lot of adjectives or vocabulary related to dialogues. As a matter of fact this vocabulary can be used in a lot of different contexts : texts about marketing for example are characterized by an high proportion of that topic because this kind of texts use a lot of positive adjectives. We can make the same observation for movie scripts or fictions, which are also highly characterized by this topic both for movies or fictions about war or fantasy.</p>
 
@@ -385,7 +385,7 @@ p,li,a {font-family: Montserrat;}
 
 
 <div class="bloc sec5 container-fluid">
-  <h1>What really means "relation bewteen texts" ?</h1>
+  <h1>What does "relation bewteen texts" means ?</h1>
 
  <div class="container-fluid">
       <div class="row top-buffer ">
@@ -433,7 +433,7 @@ p,li,a {font-family: Montserrat;}
 
   <h2>Meaningful words</h2>
 
-  <p>In order to help a manager in its choices, we need to provide the most important words in a text to help him to spot from which topic the text is about (for instance a text with difficult law references or medecine vocabulary).</p>
+  <p>In order to help a manager in its choices, we need to provide the most important words in a text to help him to spot from which topic the text is about (for instance a text with difficult law references or medicine vocabulary).</p>
 
   <p>Usual scoring-functions like the TF-IDF was not working very well and it was very time-consuming. We developed our own scoring-function to sort words with regard to their difficulty and importance in the text. </p>
 
@@ -470,19 +470,7 @@ p,li,a {font-family: Montserrat;}
 
 
   
-</div>  
-
-
-<div class="bloc sec5 container-fluid">
-  <h1>Corpus Analysis</h1>
-  <p>The network is composed of 222 nodes including the 100 topics.</p>
-  <p>One thing we can first say about this network is its particularity to have a Glocalization shape. It is nor composed of little boxes, nor characterized by lack of connectivity. As we said previously, the modularity of the network is quite high (0.62). Thus we have some quite dense connections between the texts within modules but sparse connections between nodes in different modules.</p>
-  <p>One other thing we can rely on to analysis the network is the centrality. We focused on the <strong>betweenness centrality</strong> because the eigenvector centrality seemed, thanks to the work we did in the Social Graphs and Interaction course, to make sense mainly in analysis taking into account social, professional or inspiration/influential triggers. for instance the links between article publications of any kind. Here we our purpose was not to analysis the influence over the texts as they are, in the first place, independent from each other. But we can say that the eigenvector centrality shows that the texts in the fiction/movie script community are the ones with the best scores (around 0.21).
-  <p>Thus, we focused on the betweenness centrality which is according to Wikipedia "an indicator of a node's centrality in a network. [...] A node with high betweenness centrality has a large influence on <strong>the transfer of items</strong> through the network, under the assumption that item transfer follows the shortest paths." We obtained pretty good results and it went out that the texts with highest scores are the one between and linked to the communities or cliques (around 0.05). This is very useful : if we want to find "hybrid" translators who can successfully translate one of those texts, it can be accurately done that way. Moreover, it will be possible for the translation of new texts to be upgraded to the next level thanks to the targeting of similar patterns found in this kind of hybrid texts.</p>
-
-
-  <!-- <p> things about network and corpus analysis, technical stuff............WIP</p> -->
-</div>  
+</div>
 
 
 
