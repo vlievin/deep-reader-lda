@@ -1,22 +1,10 @@
 # DeepReader-FlaskApp
 
-Study project - analyse a text ( topic extraction, complexity, meaningful words)
+[Try the app!](http://deepreader.herokuapp.com)
+
+Study project in language processing
 
 Main dependencies:
 - Gensim
 - Flask
 - 3d.js
-
-## try it
-
-type in a command prompt:
-
-python up.py
-
-acces to:
-
-http://localhost:5000/
-
-uplaod a file
-
-click on the link or acces to http://localhost:5000/d3
