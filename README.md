@@ -15,6 +15,6 @@ Main dependencies:
 
 ## Community detection
 
-<img =alt="Community Detection" src="static/communities2.gif">
+<img alt="Community Detection" src="static/communities2.gif">
 
 
