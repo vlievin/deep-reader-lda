@@ -1,8 +1,8 @@
-# DeepReader-FlaskApp
+# DeepReader
 
 [Project page and live demo](http://deepreader.herokuapp.com)
 
-Study project in natural language processing to explain documents using unsupervised learning (LDA).
+A study project in natural language processing that aims to explain documents using unsupervised learning (LDA).
 
 Main dependencies:
 - Gensim
