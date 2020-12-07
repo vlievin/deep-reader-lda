@@ -9,11 +9,11 @@ import json
 import pickle
 
 # Use a database already created on mongolab 
-server = 'ds059694.mongolab.com'
-port = 59694
+server = 'deepreader.2rytb.mongodb.net'
+port = 27017
 db_name = 'deepreader'
-username = 'deepreaderuser'
-password = '1ecolequimonte45'
+username = 'public'
+password = 'public'
 
 from pymongo import MongoClient as Connection
 
